@@ -90,6 +90,10 @@ set number
 
 " Putty - Connection - Data - Terminal details : Terminal-type string : "xterm-256color"
 syntax enable
+
+if (has("termguicolors"))
+ set termguicolors
+endif
 " set background=dark
 " colorscheme solarized
 " colorscheme basic-dark
