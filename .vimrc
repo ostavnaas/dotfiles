@@ -33,6 +33,9 @@ Plugin 'rodjek/vim-puppet'
 "syntax highlighter
 Plugin 'vim-syntastic/syntastic'
 
+" Themes
+Plugin 'jacoborus/tender.vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -49,6 +52,17 @@ set autoread                         " automatically read changes from disk
 highlight BadWhitespace ctermbg=red guibg=red
 
 au BufNewFile,BufRead *.py
+  \ set tabstop=4 |
+  \ set softtabstop=4 |
+  \ set shiftwidth=4 |
+  \ set textwidth=79 |
+  \ set smarttab |
+  \ set expandtab |
+  \ set autoindent |
+  \ set fileformat=unix |
+  \ set colorcolumn=119 |
+
+au BufNewFile,BufRead *.go
   \ set tabstop=4 |
   \ set softtabstop=4 |
   \ set shiftwidth=4 |
@@ -92,12 +106,15 @@ set number
 syntax enable
 
 if (has("termguicolors"))
+ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
  set termguicolors
 endif
 " set background=dark
 " colorscheme solarized
 " colorscheme basic-dark
 " colorscheme afterglow
+colorscheme tender
 
 " Allow paste in terminal, use only when pasting
 " set paste
