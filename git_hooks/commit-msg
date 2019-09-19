@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# If branch name matches SA-121212 prefix commit msg with this
+BRANCH=$(git branch | grep '*' | perl -pe "s/.*(sa[_-]\d+).*/\1/i" |grep -v \*)
+if [ -z  $BRANCH ]; then
+  echo $1
+else
+  # If commit messnage already contains SA-121212, don't do anything
+  if git log -1 HEAD --pretty=format:%s | grep -P '(SA|sa)[_-]\d+';then
+    echo $1
+  else
+    echo "$BRANCH - $(cat $1)" > "$1"
+  fi
+fi

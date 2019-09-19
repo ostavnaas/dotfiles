@@ -20,19 +20,25 @@ Plugin 'avakhov/vim-yaml'
 Plugin 'Valloric/YouCompleteMe'
 " Plugin 'davidhalter/jedi-vim'
 " Colorschema
-Plugin 'jnurmine/Zenburn'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'zcodes/vim-colors-basic'
-Plugin 'ayu-theme/ayu-vim'
+"Plugin 'jnurmine/Zenburn'
+"Plugin 'altercation/vim-colors-solarized'
+"Plugin 'zcodes/vim-colors-basic'
+"Plugin 'ayu-theme/ayu-vim'
 Plugin 'danilo-augusto/vim-afterglow'
-" Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
+" So indent
+Plugin 'Yggdroot/indentLine'
 "
+" Go
+"
+Plugin 'fatih/vim-go'
+" 
 " Add Puppet lint
+"
 Plugin 'rodjek/vim-puppet'
 
 "syntax highlighter
 Plugin 'vim-syntastic/syntastic'
-
+"Plugin 'tpope/vim-pathogen'
 " Themes
 Plugin 'jacoborus/tender.vim'
 
@@ -63,15 +69,13 @@ au BufNewFile,BufRead *.py
   \ set colorcolumn=119 |
 
 au BufNewFile,BufRead *.go
-  \ set tabstop=4 |
-  \ set softtabstop=4 |
-  \ set shiftwidth=4 |
-  \ set textwidth=79 |
+  \ set tabstop=2 |
+  \ set softtabstop=2 |
+  \ set shiftwidth=2 |
   \ set smarttab |
   \ set expandtab |
   \ set autoindent |
   \ set fileformat=unix |
-  \ set colorcolumn=119 |
 
 au BufNewFile,BufRead *.yaml
     \ set tabstop=2 |
@@ -110,6 +114,8 @@ if (has("termguicolors"))
  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
  set termguicolors
 endif
+
+
 " set background=dark
 " colorscheme solarized
 " colorscheme basic-dark
@@ -126,12 +132,19 @@ colorscheme tender
 set laststatus=2
 " Filename
 set statusline+=%F
+set statusline+=\ col:\ %c
 
 " vim-syntastic/syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+" Bash like tab compleation
+set wildmode=longest,list
+
+
+" https://github.com/vim-syntastic/syntastic
+"execute pathogen#infect()
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -143,3 +156,8 @@ let g:syntastic_yaml_checkers = ['yamlxs']
 " let g:syntastic_puppet_checkers = ['puppetlint']
 let g:syntastic_puppet_checkers = ['puppet']
 let g:syntastic_go_checkers = ['gofmt']
+let g:go_fmt_autosave = 0
+
+
+" https://github.com/numirias/security/blob/master/doc/2019-06-04_ace-vim-neovim.md
+set nomodeline
