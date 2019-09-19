@@ -1,7 +1,6 @@
 
 # Time zsh
 # $ time  zsh -i -c exit
-export ZSH=/home/oves/.oh-my-zsh
 ZSH_THEME="agnoster"
 
 plugins=(
@@ -9,8 +8,12 @@ plugins=(
   z
 )
 
+export ZSH=~/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
-source ~/.zsh_workrc
+
+if [ -f ~/.zsh_workrc ];then
+  source ~/.zsh_workrc
+fi
 
 export PATH=$PATH:~/gitlab/scripts:/usr/local/go/bin:/home/oves/.bin/bin:/snap/bin
 
