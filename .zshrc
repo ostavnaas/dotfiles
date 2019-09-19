@@ -1,3 +1,6 @@
+
+# Time zsh
+# $ time  zsh -i -c exit
 export ZSH=/home/oves/.oh-my-zsh
 ZSH_THEME="agnoster"
 
