@@ -52,6 +52,8 @@ filetype plugin indent on    " required
 set foldmethod=indent
 set foldlevel=99
 
+
+set cursorline			     " Hightligh line
 set hlsearch                         " highlight matches
 set incsearch                        " ...as you type.
 set autoread                         " automatically read changes from disk
