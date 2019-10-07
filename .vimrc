@@ -99,6 +99,15 @@ au BufNewFile,BufRead *.pp
     \ set fileformat=unix |
     \ set filetype=puppet
 
+au BufNewFile,BufRead *.sh
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
+    \ set filetype=puppet
+
 set encoding=utf-8
 
 let python_highlight_all=1

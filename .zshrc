@@ -1,6 +1,7 @@
 
 # Time zsh
 # $ time  zsh -i -c exit
+export ZSH=~/.oh-my-zsh
 ZSH_THEME="agnoster"
 
 plugins=(
@@ -15,7 +16,7 @@ if [ -f ~/.zsh_workrc ];then
   source ~/.zsh_workrc
 fi
 
-export PATH=$PATH:~/gitlab/scripts:/usr/local/go/bin:/home/oves/.bin/bin:/snap/bin
+export PATH=$PATH:~/gitlab/scripts:/usr/local/go/bin:~/.bin/bin:/snap/bin
 
 # Add nodejs
 export PATH=$PATH:/usr/local/lib/nodejs/node-v10.16.3-linux-x64/bin/
@@ -23,10 +24,12 @@ export PATH=$PATH:/usr/local/lib/nodejs/node-v10.16.3-linux-x64/bin/
 # Go
 export GOROOT=/usr/local/go
 export GOPATH=~/golang
+export PATH=$PATH:~/golang/bin
 
 # History
-export HISTSIZE=100000
-export HISTFILESIZE=100000
+export HISTSIZE=10000000
+export SAVEHIST=10000000
+export HISTFILESIZE=1000000
 
 
 # Do not share history between windows
