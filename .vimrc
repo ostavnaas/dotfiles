@@ -27,6 +27,9 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'danilo-augusto/vim-afterglow'
 " So indent
 Plugin 'Yggdroot/indentLine'
+
+" Most Recently Used (MRU) plugin
+Plugin 'yegappan/mru'
 "
 " Go
 "
