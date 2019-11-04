@@ -28,17 +28,15 @@ Plugin 'danilo-augusto/vim-afterglow'
 " So indent
 Plugin 'Yggdroot/indentLine'
 
+" Autoclose (){}""
+Plugin 'Townk/vim-autoclose'
+
 " Most Recently Used (MRU) plugin
 Plugin 'yegappan/mru'
-"
 " Go
-"
 Plugin 'fatih/vim-go'
-" 
 " Add Puppet lint
-"
 Plugin 'rodjek/vim-puppet'
-
 "syntax highlighter
 Plugin 'vim-syntastic/syntastic'
 "Plugin 'tpope/vim-pathogen'
