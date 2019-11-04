@@ -43,6 +43,11 @@ Plugin 'vim-syntastic/syntastic'
 " Themes
 Plugin 'jacoborus/tender.vim'
 
+"git branch
+Plugin 'itchyny/vim-gitbranch'
+"Powerline
+Plugin 'itchyny/lightline.vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -173,3 +178,13 @@ let g:go_fmt_autosave = 0
 
 " https://github.com/numirias/security/blob/master/doc/2019-06-04_ace-vim-neovim.md
 set nomodeline
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'gitbranch#name'
+      \ },
+      \ }
