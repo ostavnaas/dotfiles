@@ -5,8 +5,6 @@ filetype on                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " Markdown support
 Plugin 'godlygeek/tabular'
@@ -163,10 +161,8 @@ set statusline+=%*
 " Bash like tab compleation
 set wildmode=longest,list
 
-" Eliminating delays on ESC in vim
+" Fix escape delay
 set timeoutlen=0 ttimeoutlen=0
-
-
 
 " https://github.com/vim-syntastic/syntastic
 "execute pathogen#infect()
