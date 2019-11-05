@@ -92,7 +92,8 @@ au BufNewFile,BufRead *.yaml
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix |
-    \ set nowrap
+    \ set nowrap |
+    \ let g:indentLine_enabled=1
 
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.pp match BadWhitespace /\s\+$/
 
@@ -118,6 +119,9 @@ set encoding=utf-8
 
 let python_highlight_all=1
 set number
+
+" Yggdroot/indentLine Disable indent line in default
+let g:indentLine_enabled = 0
 
 " vim-flake8 autodetect code fault
 " pip install flake8
