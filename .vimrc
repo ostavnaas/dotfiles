@@ -163,6 +163,10 @@ set statusline+=%*
 " Bash like tab compleation
 set wildmode=longest,list
 
+" Eliminating delays on ESC in vim
+set timeoutlen=0 ttimeoutlen=0
+
+
 
 " https://github.com/vim-syntastic/syntastic
 "execute pathogen#infect()
