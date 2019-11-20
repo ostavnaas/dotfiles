@@ -192,3 +192,6 @@ let g:lightline = {
       \   'gitbranch': 'gitbranch#name'
       \ },
       \ }
+" Townk/vim-autoclose
+" https://github.com/ycm-core/YouCompleteMe/issues/9
+let g:AutoClosePumvisible = {"ENTER": "", "ESC": ""}
