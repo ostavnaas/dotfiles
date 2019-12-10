@@ -27,10 +27,10 @@ Plugin 'danilo-augusto/vim-afterglow'
 Plugin 'Yggdroot/indentLine'
 
 " Autoclose (){}""
-Plugin 'Townk/vim-autoclose'
+"Plugin 'Townk/vim-autoclose'
 
 " Most Recently Used (MRU) plugin
-Plugin 'yegappan/mru'
+"Plugin 'yegappan/mru'
 " Go
 Plugin 'fatih/vim-go'
 " Add Puppet lint
