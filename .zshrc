@@ -46,7 +46,7 @@ alias xclip="ssh -X  laptop  'DISPLAY=:0 xsel' 2> /dev/null"
 
 # *Nix safe password
 pwgen() {
-  /usr/bin/pwgen -r "\"\'\$\,\[\]\*\?\{\}\~\#\%\\\<\>\|\^\;\`" -y $1
+  /usr/bin/pwgen -r "\"\'\$\,\[\]\*\?\{\}\~\#\%\\\<\>\|\^\;\`\/" -y $1
 }
 
 rebase-all() {
