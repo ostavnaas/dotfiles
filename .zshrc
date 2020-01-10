@@ -69,7 +69,9 @@ gbcalc() {
 
 
 # SSH-agent socket
-export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+if [ -z $SSH_AUTH_SOCK ]; then
+  export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+fi
 
 if [ -z $TMUX ]; then
   tmux a -t 0
