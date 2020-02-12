@@ -1,6 +1,5 @@
-
-# Time zsh
-# $ time  zsh -i -c exit
+# time zsh
+# zmodload zsh/zprof
 export ZSH=~/.oh-my-zsh
 ZSH_THEME="agnoster"
 
@@ -75,27 +74,15 @@ fi
 
 if [ -z $TMUX ]; then
   tmux a -t 0
- fi
+fi
 
 
-if [ $commands[aws] ]; then source /usr/local/bin/aws_zsh_completer.sh; fi
 
 # K8s
-if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
 alias k=kubectl
 alias kx=kubectx
 
 # kubectl Autocompletion
-if [ $commands[k] ]; then
-  autoload -U compinit && compinit
-  complete -F __start_kubectl k
-fi
-
-# Vault Autocompletion
-if [ $commands[vault] ];then
-  autoload -U +X bashcompinit && bashcompinit
-  complete -o nospace -C /usr/bin/vault vault
-fi
 
 
 # For eyaml to work
@@ -105,3 +92,15 @@ export GPG_TTY
 # Remove user@host from prompt
 DEFAULT_USER=""
 prompt_context(){}
+
+
+autoload -Uz compinit  && compinit
+
+# Autocomplete
+fpath=($HOME/.zsh_completions $fpath)
+complete -o nospace -C /usr/bin/vault vault
+source /usr/local/bin/aws_zsh_completer.sh
+complete -F __start_kubectl k
+source <(kubectl completion zsh)
+
+# zprof
