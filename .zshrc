@@ -39,7 +39,7 @@ alias less='less -S'
 
 # Make git branch use cat
 #export GIT_PAGER=cat
-alias rebase='git fetch; git rebase -i origin/production'
+#alias rebase='git fetch; git rebase -i origin/production'
 alias fetch'=git fetch origin production'
 alias xclip="ssh -X  laptop  'DISPLAY=:0 xsel' 2> /dev/null"
 
@@ -48,16 +48,25 @@ pwgen() {
   /usr/bin/pwgen -r "\"\'\$\,\[\]\*\?\{\}\~\#\%\\\<\>\|\^\;\`\/" -y $1
 }
 
+
+rebase() {
+  HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
+  git fetch origin $HEAD
+  git rebase -i origin/$HEAD
+}
+
+  
 rebase-all() {
-	git fetch origin production
-	for b in $(git branch); do
-		git checkout $b
-		git rebase origin/production > /dev/null 2>&1 || git rebase --abort
-	done
+  HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
+  git fetch origin $HEAD
+  for b in $(git branch); do
+    git checkout $b
+    git rebase origin/$HEAD > /dev/null 2>&1 || git rebase --abort
+  done
 }
 
 gbcalc() {
-	echo $1 | awk '{ sum=$1 ; hum[1024^3]="Gb";hum[1024^2]="Mb";hum[1024]="Kb"; for (x=1024^3; x>=1024; x/=1024){ if (sum>=x) { printf "%.2f %s\n",sum/x,hum[x];break } }}' 
+  echo $1 | awk '{ sum=$1 ; hum[1024^3]="Gb";hum[1024^2]="Mb";hum[1024]="Kb"; for (x=1024^3; x>=1024; x/=1024){ if (sum>=x) { printf "%.2f %s\n",sum/x,hum[x];break } }}' 
 }
 
 
@@ -94,13 +103,25 @@ DEFAULT_USER=""
 prompt_context(){}
 
 
-autoload -Uz compinit  && compinit
 
 # Autocomplete
+if [[ -d $HOME/.zsh_completions ]];  then
 fpath=($HOME/.zsh_completions $fpath)
+fi
+
+if (which vault >/dev/null 2>&1);then
 complete -o nospace -C /usr/bin/vault vault
-source /usr/local/bin/aws_zsh_completer.sh
-complete -F __start_kubectl k
-source <(kubectl completion zsh)
+fi
+
+if (which aws > /dev/null 2>&1 ); then
+  source /usr/local/bin/aws_zsh_completer.sh
+fi
+
+if (which kubectl > /dev/null 2>&1 ); then
+  source <(kubectl completion zsh)
+  complete -F __start_kubectl k
+fi
+
+autoload -Uz compinit && compinit
 
 # zprof
