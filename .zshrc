@@ -55,7 +55,7 @@ rebase() {
   git rebase -i origin/$HEAD
 }
 
-  
+
 rebase-all() {
   HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
   git fetch origin $HEAD
@@ -110,7 +110,7 @@ fpath=($HOME/.zsh_completions $fpath)
 fi
 
 if (which vault >/dev/null 2>&1);then
-complete -o nospace -C /usr/bin/vault vault
+  complete -o nospace -C $(which vault) vault
 fi
 
 if (which aws > /dev/null 2>&1 ); then
