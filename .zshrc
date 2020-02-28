@@ -22,7 +22,7 @@ export PATH=$PATH:/usr/local/lib/nodejs/node-v10.16.3-linux-x64/bin/
 
 # Go
 export GOROOT=/usr/local/go
-export GOPATH=~/golang
+export GOPATH=~/gitlab/golang
 export PATH=$PATH:~/golang/bin
 
 # History
@@ -49,6 +49,11 @@ pwgen() {
 }
 
 
+urb() {
+  HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
+  git fetch upstream $HEAD
+  git rebase -i upstream/$HEAD
+}
 rebase() {
   HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
   git fetch origin $HEAD
@@ -122,6 +127,7 @@ if (which kubectl > /dev/null 2>&1 ); then
   complete -F __start_kubectl k
 fi
 
-autoload -Uz compinit && compinit
+#autoload -Uz compinit
+#compinit
 
 # zprof

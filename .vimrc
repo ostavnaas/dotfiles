@@ -46,6 +46,9 @@ Plugin 'itchyny/vim-gitbranch'
 "Powerline
 Plugin 'itchyny/lightline.vim'
 
+" File manager
+Plugin 'ctrlpvim/ctrlp.vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -195,3 +198,6 @@ let g:lightline = {
 " Townk/vim-autoclose
 " https://github.com/ycm-core/YouCompleteMe/issues/9
 let g:AutoClosePumvisible = {"ENTER": "", "ESC": ""}
+
+" ctrlpvim/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
