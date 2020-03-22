@@ -50,6 +50,8 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 
 " All of your Plugins must be added before the following line
+"
+Plugin 'tpope/vim-fugitive'
 call vundle#end()            " required
 
 

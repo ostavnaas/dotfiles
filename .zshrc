@@ -15,15 +15,10 @@ if [ -f ~/.zsh_workrc ];then
   source ~/.zsh_workrc
 fi
 
-export PATH=$PATH:~/gitlab/scripts:/usr/local/go/bin:~/.bin/bin:/snap/bin
-
-# Add nodejs
-export PATH=$PATH:/usr/local/lib/nodejs/node-v10.16.3-linux-x64/bin/
 
 # Go
 export GOROOT=/usr/local/go
 export GOPATH=~/gitlab/golang
-export PATH=$PATH:~/golang/bin
 
 # History
 export HISTSIZE=10000000
@@ -36,6 +31,8 @@ setopt no_share_history
 unsetopt share_history
 
 alias less='less -S'
+
+alias yq='yq r -C'
 
 # Make git branch use cat
 #export GIT_PAGER=cat
@@ -71,7 +68,7 @@ rebase-all() {
 }
 
 gbcalc() {
-  echo $1 | awk '{ sum=$1 ; hum[1024^3]="Gb";hum[1024^2]="Mb";hum[1024]="Kb"; for (x=1024^3; x>=1024; x/=1024){ if (sum>=x) { printf "%.2f %s\n",sum/x,hum[x];break } }}' 
+  echo $1 | awk '{ sum=$1 ; hum[1024^3]="Gb";hum[1024^2]="Mb";hum[1024]="Kb"; for (x=1024^3; x>=1024; x/=1024){ if (sum>=x) { printf "%.2f %s\n",sum/x,hum[x];break } }}'
 }
 
 
