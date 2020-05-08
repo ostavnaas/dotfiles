@@ -88,7 +88,7 @@ au BufNewFile,BufRead *.go
   \ set autoindent |
   \ set fileformat=unix |
 
-au BufNewFile,BufRead *.yaml
+au BufNewFile,BufRead *.yaml,*.yml
     \ set tabstop=2 |
     \ set softtabstop=2 |
     \ set shiftwidth=2 |
