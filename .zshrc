@@ -32,7 +32,7 @@ unsetopt share_history
 
 alias less='less -S'
 
-alias yq='yq r -C'
+#alias yq='yq r -C'
 
 # Make git branch use cat
 #export GIT_PAGER=cat
@@ -83,9 +83,10 @@ if [ -z $SSH_AUTH_SOCK ]; then
   export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 fi
 
-if [ -z $TMUX ]; then
-  tmux a -t 0
-fi
+# Attatch tmux session if one exists
+#if [ -z $TMUX ]; then
+#  tmux a -t 0
+#fi
 
 
 
