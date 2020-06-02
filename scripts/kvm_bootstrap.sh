@@ -8,7 +8,7 @@ nic=$(basename $(find /sys/class/net -type l -not -lname '*virtual*'))
 
 
 apt-get update
-apt-get install openvswitch-switch qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils virtinst -y
+apt-get install openvswitch-switch qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst -y
 
 ovs-vsctl add-br ext
 ovs-vsctl add-port ext ${nic}
