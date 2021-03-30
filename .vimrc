@@ -53,15 +53,11 @@ Plugin 'ctrlpvim/ctrlp.vim'
 "
 Plugin 'tpope/vim-fugitive'
 call vundle#end()            " required
-
-
 filetype plugin indent on    " required
 
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
-
-
 set cursorline			     " Hightligh line
 set hlsearch                         " highlight matches
 set incsearch                        " ...as you type.
@@ -79,7 +75,7 @@ au BufNewFile,BufRead *.py
   \ set fileformat=unix |
   \ set colorcolumn=119 |
 
-au BufNewFile,BufRead *.go
+au BufNewFile,BufRead *.go,*.tmpl
   \ set tabstop=2 |
   \ set softtabstop=2 |
   \ set shiftwidth=2 |
@@ -115,8 +111,7 @@ au BufNewFile,BufRead *.sh
     \ set shiftwidth=2 |
     \ set expandtab |
     \ set autoindent |
-    \ set fileformat=unix |
-    \ set filetype=puppet
+    \ set fileformat=unix
 
 set encoding=utf-8
 
@@ -179,8 +174,8 @@ let g:syntastic_check_on_wq = 0
 " cd ~/.vim/bundle/YouCompleteMe ; ./install.py --clang-completer --go-completer
 " let g:syntastic_yaml_checkers = ['yamllint']
 let g:syntastic_yaml_checkers = ['yamlxs']
-" let g:syntastic_puppet_checkers = ['puppetlint']
-let g:syntastic_puppet_checkers = ['puppet']
+let g:syntastic_puppet_checkers = ['puppetlint']
+"let g:syntastic_puppet_checkers = ['puppet']
 let g:syntastic_go_checkers = ['gofmt']
 let g:go_fmt_autosave = 0
 
@@ -203,3 +198,16 @@ let g:AutoClosePumvisible = {"ENTER": "", "ESC": ""}
 
 " ctrlpvim/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
+
+
+" Go syntax
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+
+set history=1000
+
+" Don't loose undo history when change file :bn
+set hidden
