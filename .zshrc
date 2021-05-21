@@ -117,8 +117,8 @@ prompt_context(){}
 
 
 # Autocomplete
-if [[ -d $HOME/.zsh_completions ]];  then
-fpath=($HOME/.zsh_completions $fpath)
+if [[ -d $HOME/.zsh-completions ]];  then
+fpath=($HOME/.zsh-completions $fpath)
 fi
 
 if (which vault >/dev/null 2>&1);then

@@ -93,7 +93,7 @@ if [ ! -f "${KVM_PATH}/base/${RELEASE}.qcow2" ]; then
 fi
 
 mkdir ${KVM_PATH}/${VM_NAME}
-qemu-img create -f qcow2 -F qcow2 -o backing_file=${KVM_PATH}/base/${RELEASE}.qcow2 ${KVM_PATH}/${VM_NAME}/instance.qcow2
+qemu-img create -f qcow2 -F qcow2 -o backing_file=${KVM_PATH}/base/${RELEASE}.qcow2 ${KVM_PATH}/${VM_NAME}/instance.qcow2 10G
 sed "s/hostname/${VM_NAME}/g" ${KVM_PATH}/base/cloud-init.yml | tee ${KVM_PATH}/${VM_NAME}/cloud-init.yml
 
 
