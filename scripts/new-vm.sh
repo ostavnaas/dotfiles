@@ -10,7 +10,7 @@ RAM=${2:-512}
 USERNAME=$(logname)
 STORAGE="/home/${USERNAME}/libvirt/images"
 which virt-builder >/dev/null || apt-get install libguestfs-tools -y
-virt-builder debian-9 \
+virt-builder debian-10 \
 	--size=10G \
 	--format qcow2 -o ${STORAGE}/${NAME}.qcow2 \
 	--hostname ${NAME} \
@@ -25,5 +25,4 @@ virt-install --import --name ${NAME} \
 	--vcpu 2 \
 	--disk path=${STORAGE}/${NAME}.qcow2,format=qcow2 \
 	--os-variant debian9 \
-	--network=bridge:sandbox,source=sandbox,model=virtio,virtualport_type=openvswitch \
 	--noautoconsole \

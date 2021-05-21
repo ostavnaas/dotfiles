@@ -2,6 +2,7 @@
 # zmodload zsh/zprof
 export ZSH=~/.oh-my-zsh
 ZSH_THEME="agnoster"
+# fzf
 
 plugins=(
   git
@@ -27,8 +28,8 @@ export HISTFILESIZE=1000000
 
 
 # Do not share history between windows
-setopt no_share_history
-unsetopt share_history
+#setopt no_share_history
+#unsetopt share_history
 
 alias less='less -S'
 
@@ -57,6 +58,14 @@ rebase() {
   git rebase -i origin/$HEAD
 }
 
+ur-all() {
+  HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
+  git fetch upstream $HEAD
+  for b in $(git branch); do
+    git checkout $b
+    git rebase upstream/$HEAD > /dev/null 2>&1 || git rebase --abort
+  done
+}
 
 rebase-all() {
   HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
@@ -108,17 +117,18 @@ prompt_context(){}
 
 
 # Autocomplete
-if [[ -d $HOME/.zsh_completions ]];  then
-fpath=($HOME/.zsh_completions $fpath)
+if [[ -d $HOME/.zsh-completions ]];  then
+fpath=($HOME/.zsh-completions $fpath)
 fi
 
 if (which vault >/dev/null 2>&1);then
   complete -o nospace -C $(which vault) vault
 fi
 
-if (which aws > /dev/null 2>&1 ); then
-  source /usr/local/bin/aws_zsh_completer.sh
-fi
+#if (which aws > /dev/null 2>&1 ); then
+#  source /usr/local/bin/aws_zsh_completer.sh
+#fi
+complete -C '/usr/local/bin/aws_completer' aws
 
 if (which kubectl > /dev/null 2>&1 ); then
   source <(kubectl completion zsh)
