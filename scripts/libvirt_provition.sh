@@ -2,6 +2,7 @@
 set -e
 KVM_PATH="/home/$(logname)/libvirt/images"
 VM_NAME="${1}"
+RAM=${2:-1024}
 RELEASE_CODENAME="focal"
 
 FOCAL="https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
@@ -115,7 +116,7 @@ cloud-localds -v --network-config=${KVM_PATH}/base/${CLOUDINIT_NETWORKFILE} ${KV
 virt-install --debug \
              --import \
              --name ${VM_NAME} \
-             --memory 1024 \
+             --memory ${RAM} \
              --vcpu 2 \
              --os-type=linux \
              --os-variant=${RELEASE} \
