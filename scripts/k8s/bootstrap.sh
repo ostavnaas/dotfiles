@@ -4,9 +4,9 @@ set -eux -o pipefail
 # https://stackoverflow.com/questions/59895/how-can-i-get-the-source-directory-of-a-bash-script-from-within-the-script-itsel
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-for i in {2..3}; do
+for i in {1..1}; do
   bash ../libvirt_provition.sh k8s-master${i} 2048
-  until virsh domifaddr --source agent k8s-master${i} | grep "192.168.122" > /dev/null 2>&1
+  until virsh domifaddr --source agent k8s-master${i} 2>/dev/null | grep "192.168.122" > /dev/null 2>&1
   do
     sleep 1
   done
@@ -21,9 +21,9 @@ done
 
 
 
-for i in {3..3}; do
+for i in {1..2}; do
   bash ../libvirt_provition.sh k8s-worker${i} 2048
-  until virsh domifaddr --source agent k8s-worker${i} | grep "192.168.122" > /dev/null 2>&1
+  until virsh domifaddr --source agent k8s-worker${i} 2>/dev/null | grep "192.168.122" > /dev/null 2>&1
   do
     sleep 1
   done

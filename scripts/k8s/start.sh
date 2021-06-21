@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eux -o pipefail
+set -euxf -o pipefail
 
 if [ "$1" = "start" ]; then
   for node in $(virsh list --state-shutoff --name | grep -E "(k8s-master|k8s-worker)"); do
@@ -20,5 +20,19 @@ if [ "$1" = "start" ]; then
 elif [ "$1" = "shutdown" ]; then
   for node in $(virsh list --state-running --name | grep -E "(k8s-master|k8s-worker)"); do
     virsh shutdown $node
+  done
+elif [ "$1" = "clean" ]; then
+  for node in $(virsh list --state-running --name | grep -E "(k8s-master|k8s-worker)"); do
+    virsh shutdown $node
+  done
+  while virsh list --state-running --name | grep -E "(k8s-master|k8s-worker)" >/dev/null 2>&1
+    do
+      sleep 2
+    done
+  for node in $(virsh list --state-shutoff --name | grep -E "(k8s-master|k8s-worker)"); do
+    virsh undefine $node
+    if [ -d "/home/$(logname)/libvirt/images/${node}" ];then
+      rm -r "/home/$(logname)/libvirt/images/${node}"
+    fi
   done
 fi

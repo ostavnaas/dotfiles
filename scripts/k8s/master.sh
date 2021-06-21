@@ -1,6 +1,6 @@
 
 # kubectl -n kube-system get cm kubeadm-config -o yaml
-kubeadm init --pod-network-cidr=172.16.0.0/12 --control-plane-endpoint=k8s-cluster.io
+kubeadm init --pod-network-cidr=172.16.0.0/12 --control-plane-endpoint=k8s-cluster.io --skip-phases=addon/kube-proxy
 curl -LO https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz
 tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin
 mkdir -p $HOME/.kube
