@@ -1,0 +1,11 @@
+# End the session that is running on thread 99
+CALL mysql.rds_kill(99);
+
+# Specify the number of hours for Amazon RDS to retain binary logs on a DB instance
+CALL mysql.rds_set_configuration('binlog retention hours', 24);
+
+# Show the number of hours that binary logs are retained.
+CALL mysql.rds_show_configuration;
+
+# Returns a list of the available DB engines.
+aws rds describe-db-engine-versions --default-only --engine mysql --engine-version 5.7 --region us-east-1

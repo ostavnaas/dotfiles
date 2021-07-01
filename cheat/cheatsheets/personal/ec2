@@ -1,0 +1,30 @@
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-network-interfaces.html
+
+# Network interface
+# Filter by ID of a security group associated with the network interface
+aws ec2 describe-network-interfaces --filters Name=group-id,Values=sg-062bb3dabef22df28 --region eu-central-1
+
+# Useful filters
+addresses.private-ip-address
+addresses.association.public-ip
+
+
+# EC2 Instance
+# Filter EC2 instances by public ip address
+aws ec2 describe-instances --filters Name=network-interface.addresses.association.public-ip,Value=10.0.0.32 --region eu-central-1
+
+# Useful filters
+availability-zone
+network-interface.addresses.private-ip-address
+network-interface.addresses.association.public-ip
+network-interface.association.public-ip
+
+# Filter by tag key KubernetesCluster and value cluster.io
+aws ec2 describe-instances --filters 'Name=tag:KubernetesCluster,Values=cluster.io
+
+
+# Returns a list of all instance types offered
+aws ec2 describe-instance-type-offerings
+
+# Describes the details of the instance types that are offered in a location
+aws ec2 describe-instance-types --instance-types t3a.medium
