@@ -1,0 +1,2 @@
+# run-pod with nodeSelector
+kubectl run -it --rm --restart=Never --generator=run-pod/v1 --overrides='{"spec": {"nodeSelector": {"failure-domain.beta.kubernetes.io/zone": "eu-central-1a" }}}' -n ns pod-name --image=image  -- bash
