@@ -1,0 +1,36 @@
+
+
+
+# Update Records
+UPDATE table_name SET column1 = value1, column2 = value2,... WHERE condition;
+
+# Delete
+DELETE FROM table_name WHERE condition;
+
+# Select
+SELECT column1, column2, ... FROM table_name;
+SELECT column_name(s) FROM table_name WHERE column_name IN (value1, value2, ...);
+
+
+# Insert
+INSERT INTO table2 (column1, column2, column3, ...) SELECT column1, column2, column3, ... FROM table1 WHERE condition;
+
+
+
+
+# Others examples
+# select rows older then x Days
+SELECT column_name(s) FROM schema.table_name WHERE column_name < ( now() - INTERVAL 1 DAY);
+
+
+
+# Conditions
+= 	Equal
+> 	Greater than
+< 	Less than
+>= 	Greater than or equal
+<= 	Less than or equal
+<> 	Not equal. Note: In some versions of SQL this operator may be written as !=
+BETWEEN 	Between a certain range
+LIKE 	Search for a pattern
+IN 	To specify multiple possible values for a column
