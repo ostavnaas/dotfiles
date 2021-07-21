@@ -1,0 +1,19 @@
+
+# List metrics
+aws cloudwatch list-metrics --namespace "AWS/RDS"
+
+# Available metrics
+# https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/aws-services-cloudwatch-metrics.html
+
+# Top10
+
+AWS/EC2
+AWS/ELB
+AWS/ElastiCache
+AWS/ES
+AWS/GlobalAccelerator
+AWS/Kafka
+AWS/Lambda
+AWS/NetworkELB
+AWS/RDS
+AWS/S3
