@@ -19,3 +19,17 @@ SET GLOBAL innodb_flush_log_at_trx_commit=2;
 innodb_flush_method=O_DIRECT
 innodb_flush_log_at_trx_commit=2
 expire_logs_days=1
+
+CHANGE MASTER TO option [, option] ... [ channel_option ]
+option: {
+  MASTER_HOST = 'host_name'
+  MASTER_USER = 'user_name'
+  MASTER_PASSWORD = 'password'
+  MASTER_PORT = port_num
+  MASTER_LOG_FILE = 'source_log_name'
+  MASTER_LOG_POS = source_log_pos
+  ...
+}
+
+
+
