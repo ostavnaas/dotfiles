@@ -1,0 +1,13 @@
+
+# Capture all traffic going to and from 10.0.2.1 on eth0
+tcpdump -i eth0 host 10.0.2.1
+
+# Capture traffic with src or dst
+tcpdump src 10.0.2.1
+tcpdump dst 10.0.2.1
+
+# Write to pcap file
+tcpdump -i eth0 -s0 -w test.pcap
+
+# Protocol and port
+tcpdump udp and port 53
