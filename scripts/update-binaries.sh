@@ -35,3 +35,14 @@ else
   fi
 fi
 
+
+KUBECTL_LATEST_VERSION=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+KUBECTL_LATEST_VERSION="v1.20.10"
+KUBECTL_BIN_PREFIX="kubectl-"
+if [ -f "${KUBECTL_BIN_PREFIX}${KUBECTL_LATEST_VERSION}" ]; then
+  echo ${KUBECTL_LATEST_VERSION} already downloaded
+else
+  curl -L "https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_LATEST_VERSION}/bin/linux/amd64/kubectl" -o ${KUBECTL_BIN_PREFIX}${KUBECTL_LATEST_VERSION} 2>/dev/null
+  chmod +x ${KUBECTL_BIN_PREFIX}${KUBECTL_LATEST_VERSION}
+  ln -fs  ${KUBECTL_BIN_PREFIX}${KUBECTL_LATEST_VERSION} kubectl
+fi
