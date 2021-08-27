@@ -1,0 +1,5 @@
+
+
+# Interactive dist-upgrade
+DEBIAN_FRONTEND=noninteractive
+
