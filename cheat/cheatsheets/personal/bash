@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+for i in {1..3}; do
+  echo ${i}
+done
+
+
+while true; do
+  sleep 1
+done
+
+
+VARIABLE="see"
+echo 'Variable is expanded '${VARIABLE}''
+
+if [ -z $VARIABLE ]; do
+  echo "True if the length of STRING is zero"
+fi
