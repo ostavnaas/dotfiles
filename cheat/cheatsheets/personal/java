@@ -1,0 +1,20 @@
+
+
+docker run -m 1GB openjdk:10 java \
+          -XX:MaxRAMPercentage=75 \
+          -XshowSettings:vm \
+          -version
+
+VM settings:
+    Max. Heap Size (Estimated): 742.44M
+    Using VM: OpenJDK 64-Bit Server VM
+
+
+
+docker run openjdk:10 java -X
+...
+-Xmn<size>        sets the initial and maximum size (in bytes) of the heap
+                  for the young generation (nursery)
+-Xms<size>        set initial Java heap size
+-Xmx<size>        set maximum Java heap size
+...

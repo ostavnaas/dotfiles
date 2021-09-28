@@ -35,4 +35,11 @@ option: {
 }
 
 
+Mysql 5.6
+Username max length 16 characters long
+
+Mysql 5.7
+Username max length 32 characters long
+
+
 
