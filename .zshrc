@@ -130,7 +130,7 @@ fi
 #if (which aws > /dev/null 2>&1 ); then
 #  source /usr/local/bin/aws_zsh_completer.sh
 #fi
-complete -C '/usr/local/bin/aws_completer' aws
+complete -C '/home/oves/.local/bin/aws_completer' aws
 
 if (which kubectl > /dev/null 2>&1 ); then
   source <(kubectl completion zsh)
@@ -138,7 +138,7 @@ if (which kubectl > /dev/null 2>&1 ); then
 fi
 
 #autoload -Uz compinit
-#compinit
+compinit -u
 
 # zprof
 
