@@ -35,6 +35,12 @@ option: {
 }
 
 
+Relay_Master_Log_File
+- The name of the source binary log file containing the most recent event executed by the SQL thread.
+Exec_Master_Log_Pos
+- The position in the current source binary log file to which the SQL thread has read and executed, marking the start of the next transaction or event to be processed
+
+
 Mysql 5.6
 Username max length 16 characters long
 
@@ -42,4 +48,5 @@ Mysql 5.7
 Username max length 32 characters long
 
 
-
+# Decode binlogs
+mysqlbinlog -vvvv --base64-output=decode-rows bin.11111
