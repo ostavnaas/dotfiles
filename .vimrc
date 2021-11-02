@@ -211,3 +211,10 @@ set history=1000
 
 " Don't loose undo history when change file :bn
 set hidden
+
+
+
+
+" Show nbsp as $
+set list
+set listchars=nbsp:§

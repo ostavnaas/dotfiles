@@ -1,0 +1,15 @@
+## Monitor network traffic
+
+# Get cilium pod
+k8s-get-cilium-pod.sh <pod> <namespace>
+
+# Get service IP <CLUSTER-IP>
+kubectl get service
+
+# Find cilium ID for that service
+cilium service list | grep <CLUSTER-IP>
+
+# Monitor network
+kubectl exec -it -n kube-system cilium-dt69g cilium monitor --related-to <ID>
+
+
