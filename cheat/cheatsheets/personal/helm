@@ -1,0 +1,4 @@
+# https://github.com/helm/helm/issues/4680
+
+# Save output to file
+helm template --dry-run foo ./foo | awk -vout=out -F": " '$0~/^# Source: /{file=out"/"$2; print "Creating "file; system ("mkdir -p $(dirname "file"); echo -n "" > "file)} $0!~/^#/ && $0!="---"{print $0 >> file}'

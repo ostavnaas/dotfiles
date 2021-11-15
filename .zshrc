@@ -51,9 +51,24 @@ pwgen() {
 
 urb() {
   HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
+  REMOTE="origin"
+  if git remote -v |grep upstream >/dev/null 2>&1; then
+	  REMOTE="upstream"
+	fi
   git fetch upstream $HEAD
   git rebase -i upstream/$HEAD
 }
+
+ur() {
+  HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
+  REMOTE="origin"
+  if git remote -v |grep upstream >/dev/null 2>&1; then
+	  REMOTE="upstream"
+	fi
+  git fetch $REMOTE $HEAD
+  git rebase $REMOTE/$HEAD
+}
+
 rebase() {
   HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
   git fetch origin $HEAD
