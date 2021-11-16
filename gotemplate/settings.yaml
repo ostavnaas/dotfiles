@@ -2,3 +2,5 @@ my_array:
   - one
   - two
   - three
+boolean_true: true
+boolean_false: false

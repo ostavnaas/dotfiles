@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
-gomplate -dsettings=./settings.yaml -f template.tmpl
-
+gomplate -c ctx=settings.yaml -f template.tmpl -t _helpers.tpl

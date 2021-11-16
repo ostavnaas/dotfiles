@@ -1,5 +1,8 @@
-{{- with (ds "settings") }}
-{{- if has .my_array "one" }}
-Yes, it do have one
-{{- end }}
-{{- end }}
+#1
+{{- tmpl.Exec "foo.has_key" (dict "ds" .ctx.my_array "key" "one") }}
+#2
+{{- tmpl.Exec "foo.hello_world" }}
+#3
+{{- tmpl.Exec "foo.is_true" .ctx.boolean_true }}
+#4
+{{- tmpl.Exec "foo.is_true" .ctx.boolean_false }}
