@@ -75,3 +75,19 @@ HELMFILE_BIN_PREFIX="helmfile_"
    ln -fs ${HELMFILE_BIN_PREFIX}${HELMFILE_LATEST_VERSION} helmfile
   fi
 fi
+
+
+
+if [[ ${PACKAGE} == "sops" ]]; then
+# helmfile
+SOPS_LATEST_VERSION=$(curl https://api.github.com/repos/mozilla/sops/releases/latest  2>/dev/null|  jq  -r 'select(.prerelease==false) | .tag_name')
+SOPS_BIN_PREFIX="sops-"
+
+  if [ -f "${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION}" ]; then
+    echo ${SOPS_LATEST_VERSION} already downloaded
+  else
+   curl -L https://github.com/mozilla/sops/releases/download/${SOPS_LATEST_VERSION}/${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION}.linux -o ${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION} 2>/dev/null
+   chmod +x ${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION}
+   ln -fs ${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION} sops
+  fi
+fi
