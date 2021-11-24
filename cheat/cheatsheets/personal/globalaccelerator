@@ -1,0 +1,3 @@
+
+# healthcheck endpoints from AWS
+curl https://ip-ranges.amazonaws.com/ip-ranges.json | jq '.prefixes[] | select(.service=="ROUTE53_HEALTHCHECKS") | .ip_prefix' -r
