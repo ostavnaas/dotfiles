@@ -9,3 +9,7 @@ CALL mysql.rds_show_configuration;
 
 # Returns a list of the available DB engines.
 aws rds describe-db-engine-versions --default-only --engine mysql --engine-version 5.7 --region us-east-1
+
+# - Baseline I/O performance for General Purpose SSD storage is 3 IOPS for each GiB, with a minimum of 100 IOPS
+# - Maximum baseline performance for a gp2 volume (5.34 TiB and greater) is 16,000 IOPS.
+# - Volumes below 1 TiB in size also have ability to burst to 3,000 IOPS
