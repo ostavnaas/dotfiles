@@ -4,3 +4,9 @@ my_array:
   - three
 boolean_true: true
 boolean_false: false
+
+my_dict:
+  dict_one:
+    foo: bar
+  dict_two:
+    foo: fobar

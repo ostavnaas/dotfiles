@@ -6,3 +6,10 @@
 {{- tmpl.Exec "foo.is_true" .ctx.boolean_true }}
 #4
 {{- tmpl.Exec "foo.is_true" .ctx.boolean_false }}
+# 5
+{{- tmpl.Exec "list_to_comma" .ctx.my_array }}
+# 6
+{{- tmpl.Exec "get_keys" .ctx.my_dict }}
+# 6
+{{- tmpl.Exec "join_array" .ctx }}
+

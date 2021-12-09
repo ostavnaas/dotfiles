@@ -30,8 +30,8 @@ export CHEAT_CONFIG_PATH="~/github.com/ostavnas/dotfiles/cheat/conf.yml"
 
 
 # Do not share history between windows
-#setopt no_share_history
-#unsetopt share_history
+setopt no_share_history
+unsetopt share_history
 
 alias less='less -S'
 

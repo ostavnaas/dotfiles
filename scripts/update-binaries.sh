@@ -65,6 +65,7 @@ fi
 if [[ ${PACKAGE} == "helmfile" ]]; then
 # helmfile
 HELMFILE_LATEST_VERSION=$(curl https://api.github.com/repos/roboll/helmfile/releases/latest  2>/dev/null|  jq  -r 'select(.prerelease==false) | .tag_name')
+HELMFILE_LATEST_VERSION='v0.141.0'
 HELMFILE_BIN_PREFIX="helmfile_"
 
   if [ -f "${HELMFILE_BIN_PREFIX}${HELMFILE_LATEST_VERSION}" ]; then
@@ -91,3 +92,6 @@ SOPS_BIN_PREFIX="sops-"
    ln -fs ${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION} sops
   fi
 fi
+
+
+# todo https://gitlab.com/orobardet/gitlab-ci-linter/-/releases gitlab-ci-linter
