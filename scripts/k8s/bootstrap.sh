@@ -14,9 +14,10 @@ for i in {1..1}; do
   CLUSTER_IP=$(virsh domifaddr k8s-master1 --source agent| grep ipv4 |grep -v lo| awk '{ print $4 }' | cut -d / -f 1)
 
 
-  scp ${SCRIPT_DIR}/pre-k8s.sh ${SCRIPT_DIR}/master.sh ${MASTER_IP}:/home/ubuntu/
+
+  scp ${SCRIPT_DIR}/libs/pre-k8s.sh ${SCRIPT_DIR}/libs/master.sh ${MASTER_IP}:/home/ubuntu/
   ssh ${MASTER_IP} sudo bash /home/ubuntu/pre-k8s.sh
-  ssh ${MASTER_IP} "echo "${CLUSTER_IP}  k8s-cluster.io"  | sudo tee -a /etc/hosts"
+
 done
 
 
@@ -31,7 +32,9 @@ for i in {1..2}; do
   CLUSTER_IP=$(virsh domifaddr k8s-master1 --source agent| grep ipv4 |grep -v lo| awk '{ print $4 }' | cut -d / -f 1)
 
 
-  scp ${SCRIPT_DIR}/pre-k8s.sh ${SCRIPT_DIR}/master.sh ${WORKER_IP}:/home/ubuntu/
+  scp ${SCRIPT_DIR}/libs/pre-k8s.sh ${SCRIPT_DIR}/master.sh ${WORKER_IP}:/home/ubuntu/
   ssh ${WORKER_IP} sudo bash /home/ubuntu/pre-k8s.sh
-  ssh ${WORKER_IP} "echo "${CLUSTER_IP}  k8s-cluster.io"  | sudo tee -a /etc/hosts"
 done
+
+
+ssh ${CLUSTER_IP} sudo bash /home/ubuntu/master.sh

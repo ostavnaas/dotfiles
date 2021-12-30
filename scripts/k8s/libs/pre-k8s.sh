@@ -42,5 +42,5 @@ curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main"  | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 apt-get update
-apt-get install -y kubelet=1.18.18-00 kubeadm=1.18.18-00 kubectl
+apt-get install -y kubelet=1.19.15-00 kubeadm=1.19.15-00 kubectl
 apt-mark hold kubelet kubeadm kubectl
