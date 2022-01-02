@@ -1,0 +1,20 @@
+
+# https://learnxinyminutes.com/docs/yaml/
+key: value
+boolean: true
+null_value: null
+literal_block: |
+  block of text
+  with line breks preserved
+folded_style: >
+  block of text
+  all single line
+
+
+base: &base
+  script:
+    - echo "test"
+
+my:
+  <<: *base
+  stage: deploy

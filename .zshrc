@@ -26,7 +26,7 @@ export HISTSIZE=10000000
 export SAVEHIST=10000000
 export HISTFILESIZE=1000000
 
-export CHEAT_CONFIG_PATH="~/github.com/ostavnas/dotfiles/cheat/conf.yml"
+export CHEAT_CONFIG_PATH="~/github.com/ostavnaas/dotfiles/cheat/conf.yml"
 
 
 # Do not share history between windows
