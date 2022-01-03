@@ -1,6 +1,13 @@
 # https://www.balbix.com/insights/base-cvss-scores/
 Base CVSS Score 	6.6 (AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:H/A:H)
 
+CVSS Score Qualitative Rating
+0.0        None
+0.1 – 3.9  Low
+4.0 – 6.9  Medium
+7.0 – 8.9  High
+9.0 – 10.0 Critical
+
 AV (Attack Vector):
   - Network (N)
   - Adjacent (A)
