@@ -95,3 +95,4 @@ fi
 
 
 # todo https://gitlab.com/orobardet/gitlab-ci-linter/-/releases gitlab-ci-linter
+# todo https://github.com/aquasecurity/trivy/releases
