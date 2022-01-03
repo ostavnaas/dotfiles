@@ -1,0 +1,34 @@
+# https://www.balbix.com/insights/base-cvss-scores/
+Base CVSS Score 	6.6 (AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:H/A:H)
+
+AV (Attack Vector):
+  - Network (N)
+  - Adjacent (A)
+  - Local (L)
+  - Physical (P)
+AC (Attack Complexity):
+  - Low (L)
+  - High (H)
+PR (Privileges Required):
+  - None (N)
+  - Low (L)
+  - High (H)
+UI (User Interaction):
+  - None (N)
+  - Required (R)
+S (Scope):
+  - Changed (C)
+  - Unchanged (U)
+C (Confidentiality):
+  - High (H)
+  - Low (L)
+  - None (N)
+I (Integrity):
+  - High (H)
+  - Low (L)
+  - None (N)
+A (Availability):
+  - High (H)
+  - Low (L)
+  - None (N)
+
