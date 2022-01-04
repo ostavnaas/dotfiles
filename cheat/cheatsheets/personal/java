@@ -24,3 +24,5 @@ docker run openjdk:10 java -X
 zip -d /usr/share/elasticsearch/lib/log4j-core-2.11.1.jar org/apache/logging/log4j/core/lookup/JndiLookup.class
 # list java classes
 unzip -l /usr/share/elasticsearch/lib/log4j-core-2.11.1.jar
+# unzip a specific file
+unzip -p log4j-core-2.11.1.jar META-INF/maven/org.apache.logging.log4j/log4j-core/pom.xml

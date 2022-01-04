@@ -2,3 +2,7 @@
 
 # Save output to file
 helm template --dry-run foo ./foo | awk -vout=out -F": " '$0~/^# Source: /{file=out"/"$2; print "Creating "file; system ("mkdir -p $(dirname "file"); echo -n "" > "file)} $0!~/^#/ && $0!="---"{print $0 >> file}'
+
+
+# diff values files between revisons
+diff <(helm show values prometheus-community/kube-prometheus-stack --version 9.4.10) <(helm show values prometheus-community/kube-prometheus-stack --version 11.1.7)
