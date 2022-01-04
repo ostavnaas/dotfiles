@@ -218,3 +218,6 @@ set hidden
 " Show nbsp as $
 set list
 set listchars=nbsp:§
+
+" https://vim.fandom.com/wiki/Easier_buffer_switching#Switching_by_number
+nnoremap <F5> :buffers<CR>:buffer<Space>
