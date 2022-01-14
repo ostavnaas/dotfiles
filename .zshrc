@@ -171,3 +171,6 @@ function git_main_branch() {
   done
   echo master
 }
+
+# Needed for kops to work with aws sso login
+export AWS_SDK_LOAD_CONFIG=1

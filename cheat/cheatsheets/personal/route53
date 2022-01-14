@@ -1,0 +1,6 @@
+
+# List A records
+aws route53 list-resource-record-sets --hosted-zone-id <ID> --query "ResourceRecordSets[?Type == 'A']"
+
+# Filter on record name
+aws route53 list-resource-record-sets --hosted-zone-id <ID> --query "ResourceRecordSets[?Name == '*.example.domain.']"

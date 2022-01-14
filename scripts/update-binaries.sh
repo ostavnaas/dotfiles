@@ -3,7 +3,6 @@ set -euxo pipefail
 
 PACKAGE=${1:-default}
 
-
 if [[ ${PACKAGE} == "default" ]]; then
   echo "default"
   exit

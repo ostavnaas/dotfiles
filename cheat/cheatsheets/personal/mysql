@@ -50,3 +50,6 @@ Username max length 32 characters long
 
 # Decode binlogs
 mysqlbinlog -vvvv --base64-output=decode-rows bin.11111
+
+# Trucate slowlog
+truncate mysql.slow_log;

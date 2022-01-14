@@ -1,0 +1,20 @@
+# Online resize
+export OS_VOLUME_API_VERSION=3.50
+cinder extend <VOLUME_UUID> <NEW_SIZE>
+
+# Increase disk to 700GiB
+cinder extend cb171fd3-52c8-41dd-9878-2661fb2004c5 700
+
+# Find instance name OS-EXT-SRV-ATTR:instance_name and OS-EXT-SRV-ATTR:hypervisor_hostname
+virsh domblklist instance-0000001a
+
+# On hypervisor (Important suffix size with G)
+virsh blockresize <instance-xxxxxxxx> --path <vdx> --size <NEW_SIZE>G
+
+virsh blockresize instance-0000001a --path vdb --size 700G
+
+
+
+# Evacuate compute node
+export OS_COMPUTE_API_VERSION=2.56
+nova evacuate <VM>/<UUID>

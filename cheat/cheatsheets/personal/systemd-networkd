@@ -1,0 +1,9 @@
+
+
+# Fix heartbeat systemd restart bug
+# Add network override
+PRIMARY_LINK=$(ip -j route show 0/0  | jq -r '.[0].dev')
+cat << EOF >/etc/systemd/network/10-netplan-${PRIMARY_LINK}.network.d/override.conf
+
+[Network]
+KeepConfiguration=static
