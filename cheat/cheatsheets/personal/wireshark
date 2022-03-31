@@ -1,0 +1,3 @@
+
+# Filter on recipient
+smtp.req.command == "RCPT" && smtp.req.parameter contains "gmail.com"

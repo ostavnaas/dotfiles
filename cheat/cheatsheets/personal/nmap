@@ -1,3 +1,10 @@
 
 check available ssl-protocols and ciphers
-nmap -sV --script ssl-enum-ciphers -p 443 <HOST>
+nmap -sV --script ssl-enum-ciphers -p <PORT> <HOST>
+
+# Weak ephemeral Diffie-Hellman parameter detection
+nmap --script ssl-dh-params -p <PORT> <HOST>
+
+# Discover dhcp-server
+nmap --script broadcast-dhcp-discover
+

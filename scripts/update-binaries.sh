@@ -29,6 +29,7 @@ if [[ ${PACKAGE} == "kops" ]]; then
 
   KOPS_LATEST_VERSION=$(curl https://api.github.com/repos/kubernetes/kops/releases/latest  2>/dev/null|  jq  -r 'select(.prerelease==false) | .tag_name')
   KOPS_BIN_PREFIX="kops-"
+  KOPS_LATEST_VERSION="v1.22.4"
 
   if [ -f "${KOPS_BIN_PREFIX}${KOPS_LATEST_VERSION}" ]; then
     echo ${KOPS_LATEST_VERSION} already downloaded
@@ -64,7 +65,7 @@ fi
 if [[ ${PACKAGE} == "helmfile" ]]; then
 # helmfile
 HELMFILE_LATEST_VERSION=$(curl https://api.github.com/repos/roboll/helmfile/releases/latest  2>/dev/null|  jq  -r 'select(.prerelease==false) | .tag_name')
-HELMFILE_LATEST_VERSION='v0.141.0'
+HELMFILE_LATEST_VERSION='v0.142.0'
 HELMFILE_BIN_PREFIX="helmfile_"
 
   if [ -f "${HELMFILE_BIN_PREFIX}${HELMFILE_LATEST_VERSION}" ]; then
@@ -89,6 +90,21 @@ SOPS_BIN_PREFIX="sops-"
    curl -L https://github.com/mozilla/sops/releases/download/${SOPS_LATEST_VERSION}/${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION}.linux -o ${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION} 2>/dev/null
    chmod +x ${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION}
    ln -fs ${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION} sops
+  fi
+fi
+
+
+if [[ ${PACKAGE} == "terragrunt" ]]; then
+# helmfile
+TERRAGRUNT_LATEST_VERSION=$(curl https://api.github.com/repos/gruntwork-io/terragrunt/releases/latest  2>/dev/null|  jq  -r 'select(.prerelease==false) | .tag_name')
+TERRAGRUNT_BIN_PREFIX="terragrunt_"
+
+  if [ -f "${TERRAGRUNT_BIN_PREFIX}${TERRAGRUNT_LATEST_VERSION}" ]; then
+    echo ${TERRAGRUNT_LATEST_VERSION} already downloaded
+  else
+   curl -L https://github.com/gruntwork-io/terragrunt/releases/download/${TERRAGRUNT_LATEST_VERSION}/${TERRAGRUNT_BIN_PREFIX}linux_amd64  -o ${TERRAGRUNT_BIN_PREFIX}${TERRAGRUNT_LATEST_VERSION} 2>/dev/null
+   chmod +x ${TERRAGRUNT_BIN_PREFIX}${TERRAGRUNT_LATEST_VERSION}
+   ln -fs ${TERRAGRUNT_BIN_PREFIX}${TERRAGRUNT_LATEST_VERSION} terragrunt
   fi
 fi
 

@@ -12,6 +12,7 @@ FROM
         ORDER BY 2 DESC;
 
 
+SHOW FULL PROCESSLIST;
 SHOW GLOBAL variables LIKE 'innodb_flush_log_at_trx_commit';
 SET GLOBAL innodb_flush_log_at_trx_commit=2;
 
@@ -53,3 +54,20 @@ mysqlbinlog -vvvv --base64-output=decode-rows bin.11111
 
 # Trucate slowlog
 truncate mysql.slow_log;
+
+
+# Identify uncommitted transactions
+# https://aws.amazon.com/premiumsupport/knowledge-center/blocked-mysql-query/
+# https://dev.mysql.com/doc/refman/5.7/en/innodb-information-schema-examples.html
+SELECT
+  r.trx_id waiting_trx_id,
+  r.trx_mysql_thread_id waiting_thread,
+  r.trx_query waiting_query,
+  b.trx_id blocking_trx_id,
+  b.trx_mysql_thread_id blocking_thread,
+  b.trx_query blocking_query
+FROM       information_schema.innodb_lock_waits w
+INNER JOIN information_schema.innodb_trx b
+  ON b.trx_id = w.blocking_trx_id
+INNER JOIN information_schema.innodb_trx r
+  ON r.trx_id = w.requesting_trx_id;

@@ -11,3 +11,12 @@ tcpdump -i eth0 -s0 -w test.pcap
 
 # Protocol and port
 tcpdump udp and port 53
+
+# Merge muliple pcap files
+mergecap -a file_1.pcap file_1.pcap file_1.cap -w output_file.pcap
+
+# Write 1M before move to next and loop trough 5 files
+tcpdump -C 1 -Z root -W 5 -w output.pcap
+
+# TLS version
+https://www.netmeister.org/blog/tcpdump-ssl-and-tls.html

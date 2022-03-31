@@ -1,0 +1,14 @@
+
+# list instances
+kops get instances
+
+# Delete instance
+kops delete instance --yes i-0645c72a6505d000f
+
+# Update cluster config
+kops replace --filename clusters/"$cluster.yaml" --force
+kops update cluster "$cluster" --create-kube-config=false --yes
+
+
+# Roll master nodes
+kops rolling-update cluster <cluster>  --instance-group-roles master --yes

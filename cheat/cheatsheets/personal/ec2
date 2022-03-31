@@ -3,6 +3,8 @@
 # Network interface
 # Filter by ID of a security group associated with the network interface
 aws ec2 describe-network-interfaces --filters Name=group-id,Values=sg-062bb3dabef22df28 --region eu-central-1
+# FIlter by public-ips
+aws ec2 describe-network-interfaces --filters Name=addresses.association.public-ip,Values=3.3.3.3 --region eu-central-1
 
 # Useful filters
 addresses.private-ip-address
@@ -28,3 +30,7 @@ aws ec2 describe-instance-type-offerings
 
 # Describes the details of the instance types that are offered in a location
 aws ec2 describe-instance-types --instance-types t3a.medium
+
+
+# Network
+# https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-network-performance-ena.html

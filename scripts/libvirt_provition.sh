@@ -50,9 +50,9 @@ if [ ! -d "${KVM_PATH}/base" ];then
 fi
 
 if [ ! -f "${KVM_PATH}/base/cloud-init.yml" ];then
-	cat << EOF > ${KVM_PATH}/base/cloud-init.yml
+cat << EOF > ${KVM_PATH}/base/cloud-init.yml
 #cloud-config
-package_upgrade: true
+package_upgrade: false
 packages:
   - tmux
   - nmap
