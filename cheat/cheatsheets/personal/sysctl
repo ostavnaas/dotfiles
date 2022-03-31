@@ -1,0 +1,8 @@
+# https://www.kernel.org/doc/Documentation/sysctl/
+
+# https://www.kernel.org/doc/Documentation/sysctl/net.txt
+# https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt
+
+net.core.somaxconn = 4096
+net.ipv4.ip_local_port_range = 1024 65535
+net.ipv4.tcp_fin_timeout = 20

@@ -1,0 +1,14 @@
+
+pactl list short sources
+
+pactl set-default-sink <'output_device_name'>
+
+or
+
+# Set defaults
+/etc/pulse/default.pa
+### Make some devices default
+set-default-sink 3
+set-default-source 3
+
+rm -r ~/.config/pulse
