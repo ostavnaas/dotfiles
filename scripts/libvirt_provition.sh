@@ -55,15 +55,15 @@ cat << EOF > ${KVM_PATH}/${VM_NAME}/cloud-init.yml
 #cloud-config
 package_upgrade: false
 package_update: true
-packages:
-  - tmux
-  - nmap
-  - curl
-  - wget
-  - vim
-  - qemu-guest-agent
+#packages:
+#  - tmux
+#  - nmap
+#  - curl
+#  - wget
+#  - vim
+#  - qemu-guest-agent
 manage_etc_hosts: true
-hostname: hostname
+hostname: ${VM_NAME}
 fqdn: ${VM_NAME}.loop.io
 users:
   - name: ubuntu
@@ -73,12 +73,14 @@ users:
     ssh-authorized-keys:
       - SSHPUBLICKEY
 runcmd:
+  - apt-get install -y qemu-guest-agent
   - systemctl enable qemu-guest-agent.service
   - systemctl start qemu-guest-agent.service
   - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
   - sed -i 's|[#]*PasswordAuthentication yes|PasswordAuthentication no|g' /etc/ssh/sshd_config
   - systemctl restart sshd.service
   - apt-get dist-upgrade -y
+  - apt-get install -y tmux nmap curl wget vim
 final_message: "The system is finally up, after $UPTIME seconds"
 EOF
 
