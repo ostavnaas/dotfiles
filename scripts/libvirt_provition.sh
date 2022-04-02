@@ -49,10 +49,12 @@ if [ ! -d "${KVM_PATH}/base" ];then
   mkdir "${KVM_PATH}/base"
 fi
 
-if [ ! -f "${KVM_PATH}/base/cloud-init.yml" ];then
-cat << EOF > ${KVM_PATH}/base/cloud-init.yml
+mkdir ${KVM_PATH}/${VM_NAME}
+
+cat << EOF > ${KVM_PATH}/${VM_NAME}/cloud-init.yml
 #cloud-config
 package_upgrade: false
+package_update: true
 packages:
   - tmux
   - nmap
@@ -62,7 +64,7 @@ packages:
   - qemu-guest-agent
 manage_etc_hosts: true
 hostname: hostname
-fqdn: hostname.loop.io
+fqdn: ${VM_NAME}.loop.io
 users:
   - name: ubuntu
     groups: sudo
@@ -76,18 +78,16 @@ runcmd:
   - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
   - sed -i 's|[#]*PasswordAuthentication yes|PasswordAuthentication no|g' /etc/ssh/sshd_config
   - systemctl restart sshd.service
+  - apt-get dist-upgrade -y
 final_message: "The system is finally up, after $UPTIME seconds"
 EOF
-fi
 
-if [ ! -f "${KVM_PATH}/base/network_config_static.cfg" ]; then
-  cat << EOF > ${KVM_PATH}/base/network_config_static.cfg
+cat << EOF > ${KVM_PATH}/${VM_NAME}/network_config_static.cfg
 version: 2
 ethernets:
   enp1s0:
     dhcp4: true
 EOF
-fi
 
 
 if [ ! -f "${KVM_PATH}/base/${RELEASE}.qcow2" ]; then
@@ -97,9 +97,7 @@ if [ ! -f "${KVM_PATH}/base/${RELEASE}.qcow2" ]; then
   fi
 fi
 
-mkdir ${KVM_PATH}/${VM_NAME}
 qemu-img create -f qcow2 -F qcow2 -o backing_file=${KVM_PATH}/base/${RELEASE}.qcow2 ${KVM_PATH}/${VM_NAME}/instance.qcow2 10G
-sed "s/hostname/${VM_NAME}/g" ${KVM_PATH}/base/cloud-init.yml | tee ${KVM_PATH}/${VM_NAME}/cloud-init.yml
 
 
 if [ -f "/home/$(logname)/.ssh/id_ed25519.pub" ]; then
