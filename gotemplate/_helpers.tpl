@@ -44,6 +44,8 @@ False
 
 
 {{- define "join_array" }}
+join
 {{ join .my_array "," }}
-{{  }}
+range
+{{ range $i, $v := .my_array }}{{- if $i }},{{ end }}{{ $v }}{{ end }}
 {{- end }}
