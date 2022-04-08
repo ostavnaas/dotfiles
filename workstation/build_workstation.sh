@@ -23,3 +23,7 @@ ln -fs ~/github/ostavnaas/dotfiles/.tmux.conf ~/.tmux.conf
 
 # Gnome terminal
 dconf load /org/gnome/terminal/legacy/profiles:/ < $(dirname "$0")/files/gnome-terminal
+
+
+# Disable non-breaking space
+dconf write /org/gnome/desktop/input-sources/xkb-options "['nbsp:none']"
