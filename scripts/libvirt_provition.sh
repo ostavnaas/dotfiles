@@ -46,7 +46,7 @@ if virsh list --all  | tail +3 | awk '{ print $2 }' | grep ^${VM_NAME}$; then
 fi
 
 if [ ! -d "${KVM_PATH}/base" ];then
-  mkdir "${KVM_PATH}/base"
+  mkdir -p "${KVM_PATH}/base"
 fi
 
 mkdir ${KVM_PATH}/${VM_NAME}

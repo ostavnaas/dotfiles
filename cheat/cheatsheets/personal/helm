@@ -10,5 +10,12 @@ helm template --dry-run foo ./foo | awk -vout=out -F": " '$0~/^# Source: /{file=
 diff <(helm show values prometheus-community/kube-prometheus-stack --version 9.4.10) <(helm show values prometheus-community/kube-prometheus-stack --version 11.1.7)
 
 
+# List deployed helm charts
+helm list
+
+# List previously deployed versions
+helm history <name>
+
 # Rollback a release
 helm rollback <name>
+helm rollback <name> <revision>
