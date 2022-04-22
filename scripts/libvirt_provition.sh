@@ -22,7 +22,7 @@ fi
 CLOUDINIT_NETWORKFILE="network_config_static.cfg"
 
 if [ $RELEASE_CODENAME == "jammy" ];then
-  UBUNTU_URL=$FOCAL
+  UBUNTU_URL=$JAMMY
   RELEASE="ubuntu22.04"
 elif [ $RELEASE_CODENAME == "focal" ];then
   UBUNTU_URL=$FOCAL
