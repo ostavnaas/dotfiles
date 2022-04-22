@@ -1,10 +1,13 @@
 #/usr/bin/env bash
+# git clone https://gitlab.com/libosinfo/osinfo-db && cd osinfo-db && make
+# cp missing.xml /usr/share/osinfo/os/<vendor>/
 set -e
 KVM_PATH="/home/$(logname)/libvirt/images"
 VM_NAME="${1}"
 RAM=${2:-1024}
-RELEASE_CODENAME="focal"
+RELEASE_CODENAME="jammy"
 
+JAMMY="https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
 FOCAL="https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
 BIONIC="https://cloud-images.ubuntu.com/releases/bionic/release/ubuntu-18.04-server-cloudimg-amd64.img"
 STRETCH="https://cloud.debian.org/images/cloud/stretch/daily/20200210-166/debian-9-nocloud-amd64-daily-20200210-166.qcow2"
@@ -18,7 +21,10 @@ fi
 
 CLOUDINIT_NETWORKFILE="network_config_static.cfg"
 
-if [ $RELEASE_CODENAME == "focal" ];then
+if [ $RELEASE_CODENAME == "jammy" ];then
+  UBUNTU_URL=$FOCAL
+  RELEASE="ubuntu22.04"
+elif [ $RELEASE_CODENAME == "focal" ];then
   UBUNTU_URL=$FOCAL
   RELEASE="ubuntu20.04"
 elif [ $RELEASE_CODENAME == "bionic" ];then

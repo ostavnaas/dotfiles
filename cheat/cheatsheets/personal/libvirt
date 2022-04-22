@@ -1,0 +1,4 @@
+
+# Host bios info in VM
+virt-xml --edit --sysinfo host <vm>
+
