@@ -20,6 +20,7 @@ fi
 # Go
 export GOROOT=/usr/local/go
 export GOPATH=~/gitlab/golang
+export GO111MODULE=on
 
 # History
 export HISTSIZE=10000000

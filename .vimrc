@@ -76,13 +76,7 @@ au BufNewFile,BufRead *.py
   \ set colorcolumn=119 |
 
 au BufNewFile,BufRead *.go,*.tmpl
-  \ set tabstop=2 |
-  \ set softtabstop=2 |
-  \ set shiftwidth=2 |
   \ set smarttab |
-  \ set expandtab |
-  \ set autoindent |
-  \ set fileformat=unix |
 
 au BufNewFile,BufRead *.yaml,*.yml
     \ set tabstop=2 |

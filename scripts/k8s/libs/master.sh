@@ -1,4 +1,4 @@
-CLUSTER_DOMAIN="k8s-cluster.no.wognild.no"
+CLUSTER_DOMAIN="k8s.no.wognild.no"
 
 # kubectl -n kube-system get cm kubeadm-config -o yaml
 kubeadm init --pod-network-cidr=172.16.0.0/12 --control-plane-endpoint=${CLUSTER_DOMAIN} --skip-phases=addon/kube-proxy
@@ -11,13 +11,21 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 #/usr/local/bin/cilium install
 
 
-
 # Install helm
 curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
-apt-get install apt-transport-https --yes
+while fuser /var/lib/dpkg/lock >/dev/null 2&>1; do
+  sleep 0.1; 
+done
+DEBIAN_FRONTEND=noninteractive apt-get install apt-transport-https jq python3-pip pkg-config --yes
 echo "deb https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list
+while fuser /var/lib/dpkg/lock >/dev/null 2&>1; do
+  sleep 0.1; 
+done
 apt-get update
-apt-get install helm
+while fuser /var/lib/dpkg/lock >/dev/null 2&>1; do
+  sleep 0.1; 
+done
+DEBIAN_FRONTEND=noninteractive apt-get install helm
 
 
 
@@ -35,7 +43,6 @@ export PATH=~/.kubectx:\$PATH
 FOE
 
 
-apt-get install jq python3-pip -y
 pip3 install yq
 
 
@@ -49,10 +56,10 @@ K8S_TOKEN=$(kubeadm token list | tail -n1 | awk '{ print $1 }')
 echo "kubeadm join ${CLUSTER_DOMAIN}:6443 --token ${K8S_TOKEN} --discovery-token-ca-cert-hash sha256:${K8S_CA_SHA256}" | tee join-worker
 echo "kubeadm join ${CLUSTER_DOMAIN}:6443 --token ${K8S_TOKEN} --discovery-token-ca-cert-hash sha256:${K8S_CA_SHA256} --control-plane" | tee join-master
 
-echo """helm repo add cilium https://helm.cilium.io/
+helm repo add cilium https://helm.cilium.io/
 helm install cilium cilium/cilium --version 1.9.10 \
         --namespace kube-system \
         --set kubeProxyReplacement=strict \
         --set k8sServiceHost=$(ip -j route show default  | jq .[0].prefsrc -r) \
-        --set k8sServicePort=$(kubectl get service -n default kubernetes -oyaml | yq .spec.ports[0].targetPort -r)""" | tee bootstrap-cilium.sh
+        --set k8sServicePort=$(kubectl get service -n default kubernetes -oyaml | yq .spec.ports[0].targetPort -r)
 #kubeadm token create --print-join-command 2>/dev/null
