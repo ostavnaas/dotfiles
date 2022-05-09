@@ -156,7 +156,13 @@ set statusline+=%*
 set wildmode=longest,list
 
 " Fix escape delay
-set timeoutlen=0 ttimeoutlen=0
+set timeoutlen=300 ttimeoutlen=0
+
+
+nmap <leader>D <plug>(YCMHover)
+
+" Set , as leader 
+let mapleader = ","
 
 " https://github.com/vim-syntastic/syntastic
 "execute pathogen#infect()
