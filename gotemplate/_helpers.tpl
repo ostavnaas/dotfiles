@@ -49,3 +49,11 @@ join
 range
 {{ range $i, $v := .my_array }}{{- if $i }},{{ end }}{{ $v }}{{ end }}
 {{- end }}
+
+{{/* # 7 */}}
+{{- define "JoinList" }}
+{{- $lastIndex := math.Sub (len .my_array ) 1 -}}
+{{- range $i, $v := .my_array}}
+{{ $v }}{{- if ne $i $lastIndex }},{{- end }}
+{{- end }}
+{{- end }}

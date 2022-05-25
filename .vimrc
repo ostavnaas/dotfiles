@@ -178,6 +178,7 @@ let g:syntastic_puppet_checkers = ['puppetlint']
 "let g:syntastic_puppet_checkers = ['puppet']
 let g:syntastic_go_checkers = ['gofmt']
 let g:go_fmt_autosave = 0
+let g:syntastic_python_checkers = ['pylint']
 
 
 " https://github.com/numirias/security/blob/master/doc/2019-06-04_ace-vim-neovim.md
@@ -221,3 +222,9 @@ set listchars=nbsp:§
 
 " https://vim.fandom.com/wiki/Easier_buffer_switching#Switching_by_number
 nnoremap <F5> :buffers<CR>:buffer<Space>
+
+" Navigate in windows
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l

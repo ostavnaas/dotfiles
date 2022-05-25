@@ -1,0 +1,7 @@
+# ladvdc -L
+Capability Codes:
+        r - Repeater, B - Bridge, H - Host, R - Router, S - Switch,
+        W - WLAN Access Point, C - DOCSIS Device, T - Telephone, O - Other
+
+Device ID                      Local Intf    Proto   Hold-time    Capability    Port ID
+MikroTik                       enxe4b97a831d LLDP    117          BR            bridge/ether3

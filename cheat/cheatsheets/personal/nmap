@@ -8,3 +8,5 @@ nmap --script ssl-dh-params -p <PORT> <HOST>
 # Discover dhcp-server
 nmap --script broadcast-dhcp-discover
 
+
+docker run -it instrumentisto/nmap -Pn --script ssl-enum-ciphers -p <PORT> <HOST>
