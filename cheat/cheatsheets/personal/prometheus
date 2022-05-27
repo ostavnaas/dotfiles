@@ -1,0 +1,11 @@
+# https://prometheus.io/docs/prometheus/latest/querying/api
+# List all metrics for a specific job
+curl -XGET -G 'http://localhost:9090/api/v1/label/__name__/values' --data-urlencode 'match[]={__name__=~".+", job="kubelet"}'
+
+
+# Get labels for a specific metric
+curl -XGET -G 'http://localhost:9090/api/v1/labels' --data-urlencode 'match[]={__name__="kube_cronjob_annotations"}'
+
+
+# Get metadata for specific metrics (HELP)
+curl -XGET -G 'https://localhost:9090/api/v1/targets/metadata' --data-urlencode 'metric=alertmanager_alerts'
