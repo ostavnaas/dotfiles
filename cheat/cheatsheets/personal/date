@@ -3,3 +3,6 @@
 # Format date
 # 2021-09-01T05:26:54.000Z
 date --utc +"%Y-%m-%dT%H:%M:%S.000Z"
+
+# epoch (1653652256)
+date +%s

@@ -39,3 +39,9 @@ echo "pactl list short sources"
 echo "vim /etc/pulse/default.pa"
 echo "set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo"
 echo "set-default-source alsa_input.usb-046d_HD_Pro_Webcam_C920_F3E259AF-02.analog-stereo"
+
+
+# Poweroff when laptop lid is closed
+sudo sed -E 's/#HandleLidSwitch=(\w+)/HandleLidSwitch=poweroff/' -i /etc/systemd/logind.conf
+sudo systemctl restart systemd-logind.service
+

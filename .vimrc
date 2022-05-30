@@ -159,7 +159,6 @@ set wildmode=longest,list
 set timeoutlen=300 ttimeoutlen=0
 
 
-nmap <leader>D <plug>(YCMHover)
 
 " Set , as leader 
 let mapleader = ","
@@ -228,3 +227,10 @@ nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
+
+
+" YouCompleteMe
+nmap gc :YcmCompleter GoToCallers<cr>
+" https://github.com/ycm-core/YouCompleteMe#the-gycm_auto_hover-option
+let g:ycm_auto_hover=''
+nmap <leader>d <plug>(YCMHover)

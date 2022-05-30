@@ -35,6 +35,7 @@ setopt no_share_history
 unsetopt share_history
 
 alias less='less -S'
+alias df='df --exclude-type=squashfs'
 
 #alias yq='yq r -C'
 
