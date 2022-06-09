@@ -6,3 +6,6 @@ make install
 
 
 openssl s_client -no_tls1_3 -servername example.com 10.0.0.1:443
+
+# Fingerprint
+openssl x509 -noout -fingerprint -sha256
