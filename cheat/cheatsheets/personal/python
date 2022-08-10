@@ -1,0 +1,12 @@
+
+
+
+# Download and move to /opt/Python-{version}
+sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev pkg-config make -y
+./configure --enable-optimizations --enable-shared --with-ensurepip=install
+make
+sudo make altinstall
+sudo ldconfig /opt/Python3.8.{version}
+
+
+

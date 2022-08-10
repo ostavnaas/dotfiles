@@ -35,8 +35,10 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'fatih/vim-go'
 " Add Puppet lint
 Plugin 'rodjek/vim-puppet'
-"syntax highlighter
-Plugin 'vim-syntastic/syntastic'
+"syntax highlighter (deprecated)
+"Plugin 'vim-syntastic/syntastic'
+" ALE Replaces syntastic
+Plugin 'dense-analysis/ale'
 "Plugin 'tpope/vim-pathogen'
 " Themes
 Plugin 'jacoborus/tender.vim'
@@ -52,6 +54,12 @@ Plugin 'ctrlpvim/ctrlp.vim'
 " All of your Plugins must be added before the following line
 "
 Plugin 'tpope/vim-fugitive'
+
+" https://black.readthedocs.io/en/stable/integrations/editors.html
+Plugin 'psf/black'
+" https://github.com/fisadev/vim-isort
+Plugin 'fisadev/vim-isort'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -73,7 +81,7 @@ au BufNewFile,BufRead *.py
   \ set expandtab |
   \ set autoindent |
   \ set fileformat=unix |
-  \ set colorcolumn=119 |
+  \ set colorcolumn=99 |
 
 au BufNewFile,BufRead *.go,*.tmpl
   \ set smarttab |
@@ -163,22 +171,24 @@ set timeoutlen=300 ttimeoutlen=0
 " Set , as leader 
 let mapleader = ","
 
+
+""" REMOVE
 " https://github.com/vim-syntastic/syntastic
 "execute pathogen#infect()
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 " Require: apt-get install yamllint
 " cd ~/.vim/bundle/YouCompleteMe ; ./install.py --clang-completer --go-completer
 " let g:syntastic_yaml_checkers = ['yamllint']
-let g:syntastic_yaml_checkers = ['yamlxs']
-let g:syntastic_puppet_checkers = ['puppetlint']
+"let g:syntastic_yaml_checkers = ['yamlxs']
+"let g:syntastic_puppet_checkers = ['puppetlint']
 "let g:syntastic_puppet_checkers = ['puppet']
-let g:syntastic_go_checkers = ['gofmt']
-let g:go_fmt_autosave = 0
-
-let g:syntastic_python_checkers = ['pylint']
+"let g:syntastic_go_checkers = ['gofmt']
+"let g:go_fmt_autosave = 0
+"let g:syntastic_python_checkers = ['pylint']
+""" REMOVE END
 
 " Python youcomplateme
 let g:ycm_python_interpreter_path = ''
@@ -210,7 +220,7 @@ let g:AutoClosePumvisible = {"ENTER": "", "ESC": ""}
 let g:ctrlp_map = '<c-p>'
 
 
-" Go syntax
+" go syntax
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
@@ -240,7 +250,26 @@ nmap <C-l> <C-w>l
 
 
 " YouCompleteMe
-nmap gc :YcmCompleter GoToCallers<cr>
+nmap gr :YcmCompleter GoToReferences<cr>
+nmap gd :YcmCompleter GoToDefinition<cr>
 " https://github.com/ycm-core/YouCompleteMe#the-gycm_auto_hover-option
 let g:ycm_auto_hover=''
 nmap <leader>d <plug>(YCMHover)
+
+
+"augroup black_on_save
+"	autocmd!
+"	autocmd BufWritePre *.py Black Isort
+"augroup end
+"
+"" ALE
+let g:ale_linters={
+\ 'python': ['pylint', 'mypy'],
+\}
+
+
+let g:ale_fixers = {
+\		'*': ['remove_trailing_lines'],
+\    'python': ['black', 'isort'],
+\}
+let g:ale_fix_on_save = 1

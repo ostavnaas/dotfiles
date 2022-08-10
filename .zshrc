@@ -17,6 +17,7 @@ if [ -f ~/.zsh_workrc ];then
 fi
 
 
+export PATH=$PATH:$HOME/.local/bin/
 # Go
 export GOROOT=/usr/local/go
 export GOPATH=~/gitlab/golang

@@ -54,3 +54,5 @@ sudo systemctl restart systemd-logind.service
 
 sudo pip3 install httpcode
 sudo chsh $(whoami) --shell=/bin/zsh
+
+dconf write "/org/gnome/desktop/input-sources/xkb-options" "['caps:swapescape']"
