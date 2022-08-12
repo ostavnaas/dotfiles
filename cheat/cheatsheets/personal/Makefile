@@ -1,0 +1,2 @@
+target [target...] : [dependent ....]
+	[ command ...]

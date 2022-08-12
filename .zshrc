@@ -12,6 +12,9 @@ plugins=(
 export ZSH=~/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
+# pipenv
+export PIPENV_VENV_IN_PROJECT=1
+
 if [ -f ~/.zsh_workrc ];then
   source ~/.zsh_workrc
 fi
@@ -20,7 +23,7 @@ fi
 export PATH=$PATH:$HOME/.local/bin/
 # Go
 export GOROOT=/usr/local/go
-export GOPATH=~/gitlab/golang
+#export GOPATH=~/golang
 export GO111MODULE=on
 
 # History
@@ -39,6 +42,7 @@ alias less='less -S'
 alias df='df --exclude-type=squashfs'
 
 #alias yq='yq r -C'
+alias venv='source .venv/bin/activate'
 
 # Make git branch use cat
 #export GIT_PAGER=cat
