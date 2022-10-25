@@ -2,6 +2,7 @@
 set -euxo pipefail
 
 PACKAGE=${1:-default}
+BIN_PATH=$(dirname "$0")
 
 if [[ ${PACKAGE} == "default" ]]; then
   echo "default"
@@ -14,11 +15,11 @@ if [[ ${PACKAGE} == "helm" ]]; then
   if [ -f "helm-$HELM_LATEST_VERSION" ]; then
     echo ${HELM_LATEST_VERSION} already downloaded
   else
-    curl https://get.helm.sh/helm-${HELM_LATEST_VERSION}-linux-amd64.tar.gz -o helm-${HELM_LATEST_VERSION}-linux-amd64.tar.gz 2>/dev/null
-    tar zxf helm-${HELM_LATEST_VERSION}-linux-amd64.tar.gz
-    mv linux-amd64/helm helm-${HELM_LATEST_VERSION}
-    rm -r linux-amd64 helm-${HELM_LATEST_VERSION}-linux-amd64.tar.gz
-    ln -fs helm-${HELM_LATEST_VERSION} helm
+    curl https://get.helm.sh/helm-${HELM_LATEST_VERSION}-linux-amd64.tar.gz -o ${BIN_PATH}/helm-${HELM_LATEST_VERSION}-linux-amd64.tar.gz 2>/dev/null
+    tar zxf ${BIN_PATH}/helm-${HELM_LATEST_VERSION}-linux-amd64.tar.gz -C ${BIN_PATH}/
+    mv ${BIN_PATH}/linux-amd64/helm ${BIN_PATH}/helm-${HELM_LATEST_VERSION}
+    rm -r ${BIN_PATH}/linux-amd64 ${BIN_PATH}/helm-${HELM_LATEST_VERSION}-linux-amd64.tar.gz
+    ln -fs ${BIN_PATH}/helm-${HELM_LATEST_VERSION} ${BIN_PATH}/helm
   fi
 fi
 
@@ -71,9 +72,9 @@ HELMFILE_BIN_PREFIX="helmfile_"
   if [ -f "${HELMFILE_BIN_PREFIX}${HELMFILE_LATEST_VERSION}" ]; then
     echo ${HELMFILE_LATEST_VERSION} already downloaded
   else
-   curl -L https://github.com/roboll/helmfile/releases/download/${HELMFILE_LATEST_VERSION}/${HELMFILE_BIN_PREFIX}linux_amd64 -o ${HELMFILE_BIN_PREFIX}${HELMFILE_LATEST_VERSION} 2>/dev/null
-   chmod +x ${HELMFILE_BIN_PREFIX}${HELMFILE_LATEST_VERSION}
-   ln -fs ${HELMFILE_BIN_PREFIX}${HELMFILE_LATEST_VERSION} helmfile
+   curl -L https://github.com/roboll/helmfile/releases/download/${HELMFILE_LATEST_VERSION}/${HELMFILE_BIN_PREFIX}linux_amd64 -o ${BIN_PATH}/${HELMFILE_BIN_PREFIX}${HELMFILE_LATEST_VERSION} 2>/dev/null
+   chmod +x ${BIN_PATH}/${HELMFILE_BIN_PREFIX}${HELMFILE_LATEST_VERSION}
+   ln -fs ${BIN_PATH}/${HELMFILE_BIN_PREFIX}${HELMFILE_LATEST_VERSION} ${BIN_PATH}/helmfile
   fi
 fi
 
@@ -87,9 +88,9 @@ SOPS_BIN_PREFIX="sops-"
   if [ -f "${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION}" ]; then
     echo ${SOPS_LATEST_VERSION} already downloaded
   else
-   curl -L https://github.com/mozilla/sops/releases/download/${SOPS_LATEST_VERSION}/${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION}.linux -o ${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION} 2>/dev/null
-   chmod +x ${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION}
-   ln -fs ${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION} sops
+   curl -L https://github.com/mozilla/sops/releases/download/${SOPS_LATEST_VERSION}/${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION}.linux -o ${BIN_PATH}/${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION} 2>/dev/null
+   chmod +x ${BIN_PATH}/${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION}
+   ln -fs ${BIN_PATH}/${SOPS_BIN_PREFIX}${SOPS_LATEST_VERSION} ${BIN_PATH}/sops
   fi
 fi
 

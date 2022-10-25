@@ -1,0 +1,20 @@
+mkdir -p /etc/rancher/rke2/
+
+echo 'cni: calico' | tee /etc/rancher/rke2/config.yaml
+curl -sfL https://get.rke2.io | sh -
+systemctl enable rke2-server.service
+systemctl start rke2-server.service
+
+
+
+apt-get update
+apt-get install -y golang-go
+GO111MODULE=on go get github.com/ahmetb/kubectx/cmd/kubens@latest
+
+
+echo "export KUBECONFIG=/etc/rancher/rke2/rke2.yaml" | tee -a ~/.bashrc
+echo "export PATH=$PATH:~/go/bin/:/var/lib/rancher/rke2/bin" | tee -a ~/.bashrc
+echo "alias k='kubectl'" | tee -a ~/.bashrc
+
+# curl -sL https://raw.githubusercontent.com/Ealenn/Echo-Server/master/docs/examples/echo.kube.yaml | kubectl apply -f -
+# kubectl label node <node> node-role.kubernetes.io/worker=

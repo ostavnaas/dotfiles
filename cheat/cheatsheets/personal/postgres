@@ -3,3 +3,12 @@
 \dn - List schemas
 \dt - List tables inside public schemas
 \dt schema1. - List tables inside particular schemas. For eg: 'schema1'.
+
+
+SET search_path TO myschema;
+
+\d <table> - describe tables
+
+
+# Table view
+SELECT * FROM table\x\g\x

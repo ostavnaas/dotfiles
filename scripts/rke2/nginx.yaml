@@ -1,0 +1,19 @@
+/var/lib/rancher/rke2/server/manifests/rke2-ingress-nginx-config.yaml
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: rke2-ingress-nginx
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    controller:
+      hostPort:
+        ports:
+          http: 3080
+          https: 3443
+      config:
+        log-format-escape-json: "false"
+        log-format-upstream: '{"timestamp": "$time_iso8601", "requestID": "$req_id", "proxyUpstreamName": "$proxy_upstream_name", "proxyAlternativeUpstreamName": "$proxy_alternative_upstream_name","upstreamStatus": "$upstream_status", "upstreamAddr": "$upstream_addr","httpRequest":{"requestMethod": "$request_method", "requestUrl": "$host$request_uri", "status": $status,"requestSize": "$request_length", "responseSize": "$upstream_response_length", "userAgent": "$http_user_agent", "remoteIp": "$remote_addr", "referer": "$http_referer", "latency": "$upstream_response_time s", "protocol":"$server_protocol"}}'
+      nodeSelector:
+        node-role.kubernetes.io/worker: ""

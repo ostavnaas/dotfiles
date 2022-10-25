@@ -7,6 +7,8 @@ ZSH_THEME="agnoster"
 plugins=(
   git
   z
+  docker
+  docker-compose
 )
 
 export ZSH=~/.oh-my-zsh
@@ -20,7 +22,7 @@ if [ -f ~/.zsh_workrc ];then
 fi
 
 
-export PATH=$PATH:$HOME/.local/bin/
+export PATH=$PATH:$HOME/.local/bin/:$HOME/go/bin
 # Go
 export GOROOT=/usr/local/go
 #export GOPATH=~/golang
@@ -31,18 +33,27 @@ export HISTSIZE=10000000
 export SAVEHIST=10000000
 export HISTFILESIZE=1000000
 
-export CHEAT_CONFIG_PATH="~/github.com/ostavnaas/dotfiles/cheat/conf.yml"
+export CHEAT_CONFIG_PATH="~/github/ostavnaas/dotfiles/cheat/conf.yml"
+export LIBVIRT_DEFAULT_URI="qemu:///system"
+
 
 
 # Do not share history between windows
-setopt no_share_history
-unsetopt share_history
+#setopt no_share_history
+#unsetopt share_history
+unsetopt no_share_history
+setopt share_history
 
 alias less='less -S'
 alias df='df --exclude-type=squashfs'
 
 #alias yq='yq r -C'
-alias venv='source .venv/bin/activate'
+venv()
+	if [ -f .venv/bin/activate ];then
+		source .venv/bin/activate
+	else
+		source $(find ./venv_*/bin -name "activate")
+	fi
 
 # Make git branch use cat
 #export GIT_PAGER=cat
@@ -91,6 +102,10 @@ ur-all() {
   done
 }
 
+bastion() {
+	ssh -D 1080 -q -N $1 &
+}
+
 rebase-all() {
   HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
   git fetch origin $HEAD
@@ -115,6 +130,8 @@ gbcalc() {
 if [ -z $SSH_AUTH_SOCK ]; then
   export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 fi
+
+
 
 # Attatch tmux session if one exists
 #if [ -z $TMUX ]; then
@@ -141,9 +158,9 @@ prompt_context(){}
 
 
 # Autocomplete
-if [[ -d $HOME/.zsh-completions ]];  then
-fpath=($HOME/.zsh-completions $fpath)
-fi
+#if [[ -d $HOME/.zsh-completions ]];  then
+#  fpath=($fpath $HOME/.zsh-completions)
+#fi
 
 if (which vault >/dev/null 2>&1);then
   complete -o nospace -C $(which vault) vault
@@ -152,15 +169,21 @@ fi
 #if (which aws > /dev/null 2>&1 ); then
 #  source /usr/local/bin/aws_zsh_completer.sh
 #fi
-complete -C '/home/oves/.local/bin/aws_completer' aws
+#complete -C '/home/oves/.local/bin/aws_completer' aws
 
 if (which kubectl > /dev/null 2>&1 ); then
   source <(kubectl completion zsh)
   complete -F __start_kubectl k
 fi
 
+if (which az > /dev/null 2>&1); then
+  source ~/.zsh-completions/az.completion
+fi
+
 #autoload -Uz compinit
 compinit -u
+#autoload -Uz +X compinit && compinit
+#autoload -Uz +X bashcompinit && bashcompinit
 
 # zprof
 
@@ -181,3 +204,19 @@ function git_main_branch() {
 
 # Needed for kops to work with aws sso login
 export AWS_SDK_LOAD_CONFIG=1
+
+
+# Kodos https://dev.to/moniquelive/auto-activate-and-deactivate-python-venv-using-zsh-4dlm
+# Autoload Python venv
+python_venv() {
+  MYVENV=./.venv
+  # when you cd into a folder that contains $MYVENV
+  [[ -d $MYVENV ]] && source $MYVENV/bin/activate > /dev/null 2>&1
+  # when you cd into a folder that doesn't
+  [[ ! -d $MYVENV ]] && deactivate > /dev/null 2>&1
+}
+autoload -U add-zsh-hook
+add-zsh-hook chpwd python_venv
+
+python_venv
+# end

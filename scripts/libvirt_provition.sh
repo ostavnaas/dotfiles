@@ -1,11 +1,11 @@
 #/usr/bin/env bash
 # git clone https://gitlab.com/libosinfo/osinfo-db && cd osinfo-db && make
 # cp missing.xml /usr/share/osinfo/os/<vendor>/
-set -e
+set -eux
 KVM_PATH="/home/$(logname)/libvirt/images"
 VM_NAME="${1}"
 RAM=${2:-1024}
-RELEASE_CODENAME="jammy"
+RELEASE_CODENAME="focal"
 
 JAMMY="https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
 FOCAL="https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
@@ -18,6 +18,16 @@ if [ -z ${1} ]; then
   echo "First argument must be name of VM"
   exit 1
 fi
+
+
+# /etc/libvirt/qemu.config
+# Set User = $(whoami)
+# and Group = libvirt
+if ! grep ^uri_default /etc/libvirt/libvirt.conf; then
+  echo 'uri_default = "qemu:///system" -> /etc/libvirt/libvirt.conf'
+  exit 1
+fi
+
 
 CLOUDINIT_NETWORKFILE="network_config_static.cfg"
 
@@ -43,8 +53,10 @@ elif [ $RELEASE_CODENAME == "bullseye" ];then
 fi
 
 
-which cloud-localds >/dev/null || apt-get install cloud-image-utils -y
-which virt-builder >/dev/null || apt-get install libguestfs-tools -y
+which cloud-localds >/dev/null || sudo apt-get install cloud-image-utils -y
+which virt-builder >/dev/null || sudo apt-get install libguestfs-tools -y
+which virt-install >/dev/null || sudo apt-get install virtinst -y
+PAGER=cat dpkg-query -l libvirt-daemon-system >/dev/null 2>&1 || sudo apt-get install
 
 if virsh list --all  | tail +3 | awk '{ print $2 }' | grep ^${VM_NAME}$; then
   echo "VM already exists"
@@ -87,7 +99,7 @@ runcmd:
   - systemctl restart sshd.service
   - apt-get dist-upgrade -y
   - apt-get install -y tmux nmap curl wget vim
-final_message: "The system is finally up, after $UPTIME seconds"
+final_message: "The system is finally up, after UPTIME seconds"
 EOF
 
 cat << EOF > ${KVM_PATH}/${VM_NAME}/network_config_static.cfg
@@ -121,16 +133,16 @@ fi
 
 sed "s|SSHPUBLICKEY|${PUBKEY}|" -i ${KVM_PATH}/${VM_NAME}/cloud-init.yml
 
-cloud-localds -v --network-config=${KVM_PATH}/base/${CLOUDINIT_NETWORKFILE} ${KVM_PATH}/${VM_NAME}/cloud-init.img ${KVM_PATH}/${VM_NAME}/cloud-init.yml
+cloud-localds -v --network-config=${KVM_PATH}/${VM_NAME}/${CLOUDINIT_NETWORKFILE} ${KVM_PATH}/${VM_NAME}/cloud-init.img ${KVM_PATH}/${VM_NAME}/cloud-init.yml
 
 virt-install --debug \
              --import \
              --name ${VM_NAME} \
              --memory ${RAM} \
+             --network bridge=virbr0 \
              --vcpu 2 \
              --os-type=linux \
              --os-variant=${RELEASE} \
-             --network bridge=virbr0 \
              --graphics none \
              --noautoconsole \
              --disk ${KVM_PATH}/${VM_NAME}/instance.qcow2,size=10,bus=virtio,format=qcow2 \

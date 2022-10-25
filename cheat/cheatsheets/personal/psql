@@ -1,0 +1,3 @@
+
+# List schemas for database <name>
+psql --dbname <name> --no-align -P pager=off -c '\dn'

@@ -2,13 +2,35 @@
 
 set -eux
 
+sudo apt-get update
+sudo apt-get install certificates curl apt-transport-https lsb-release gnupg -y
+
+echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main"
+curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
+  gpg --dearmor | \
+  sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+
+curl -sL https://apt.releases.hashicorp.com/gpg | \
+      gpg --dearmor | \
+          sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+
+gpg --no-default-keyring \
+      --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+          --fingerprint
+
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+      https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+          sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+
+
 
 sudo apt-get update
-sudo apt-get install keepassx vim git tmux zsh curl \
+sudo apt-get install keepassx vim git tmux zsh \
                      iputils-arping net-tools tcptraceroute \
                      python3-venv python3-pip jq cmake ethtool \
                      xclip sipcalc fonts-powerline iptables-persistent \
-                     whois dnsutils -y
+                     whois dnsutils azure-cli terraform -y
 
 
 
@@ -56,3 +78,6 @@ sudo pip3 install httpcode
 sudo chsh $(whoami) --shell=/bin/zsh
 
 dconf write "/org/gnome/desktop/input-sources/xkb-options" "['caps:swapescape']"
+
+go install github.com/cheat/cheat/cmd/cheat@latest
+go install sigs.k8s.io/kind@latest
