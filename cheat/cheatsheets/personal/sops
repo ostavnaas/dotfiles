@@ -1,0 +1,7 @@
+export SOPS_PGP_FP=<comma separated fingerprints>
+
+sops <file>       # encrypt a file / edit encrypted file
+sops -d <file>    # decrypt file to STDOUT
+sops -e <file>    # edit encrypted file
+
+sops updatekeys -y <file>     # update fingerprints in encrypted file

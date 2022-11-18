@@ -66,7 +66,7 @@ fi
 if [[ ${PACKAGE} == "helmfile" ]]; then
 # helmfile
 HELMFILE_LATEST_VERSION=$(curl https://api.github.com/repos/roboll/helmfile/releases/latest  2>/dev/null|  jq  -r 'select(.prerelease==false) | .tag_name')
-HELMFILE_LATEST_VERSION='v0.142.0'
+#HELMFILE_LATEST_VERSION='v0.142.0'
 HELMFILE_BIN_PREFIX="helmfile_"
 
   if [ -f "${HELMFILE_BIN_PREFIX}${HELMFILE_LATEST_VERSION}" ]; then

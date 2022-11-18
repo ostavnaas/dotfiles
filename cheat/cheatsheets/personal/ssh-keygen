@@ -1,0 +1,4 @@
+
+
+# Convert public-key to PEM
+ssh-keygen  -f ~/.ssh/id_rsa -e -m pem

@@ -1,0 +1,1 @@
+curl -I -X <HTTP Verb> -H "x-ms-version: 2019-12-12" “https://storageAccountName.blob.core.windows.net/containerName?restype=container&comp=list&SASToken”

@@ -1,0 +1,17 @@
+from datetime import datetime
+import time
+
+# Unix Epoch
+time.time()
+
+# From Epoch to datetime
+datetime.fromtimestamp(time.time())
+
+# Format datetime string
+2022-09-11T06:53.1511
+datetime.utcnow().strftime("%Y-%d-%mT%H:%M.%S%m")
+
+
+# Return a string representing the date in ISO 8601 format, YYYY-MM-DDTHH:MM:SS.ffffff
+datetime.utcnow().isoformat()
+'2022-11-09T06:54:14.952262'

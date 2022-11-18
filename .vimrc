@@ -60,12 +60,15 @@ Plugin 'tpope/vim-fugitive'
 
 " https://black.readthedocs.io/en/stable/integrations/editors.html
 Plugin 'psf/black'
+"
 " https://github.com/fisadev/vim-isort
 Plugin 'fisadev/vim-isort'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 
 " https://github.com/neoclide/coc.nvim
+" Need install
+" Cocinstall coc-pyright coc-jedi
 Plugin 'neoclide/coc.nvim'
 " https://github.com/preservim/nerdcommenter
 Plugin 'preservim/nerdcommenter'
@@ -213,13 +216,13 @@ let mapleader = ","
 """ REMOVE END
 
 " Python youcomplateme
-let g:ycm_python_interpreter_path = ''
-let g:ycm_python_sys_path = []
-let g:ycm_extra_conf_vim_data = [
-  \  'g:ycm_python_interpreter_path',
-  \  'g:ycm_python_sys_path'
-  \]
-let g:ycm_global_ycm_extra_conf = '~/.global_extra_conf.py'
+" let g:ycm_python_interpreter_path = ''
+" let g:ycm_python_sys_path = []
+" let g:ycm_extra_conf_vim_data = [
+"   \  'g:ycm_python_interpreter_path',
+"   \  'g:ycm_python_sys_path'
+"   \]
+" let g:ycm_global_ycm_extra_conf = '~/.global_extra_conf.py'
 
 
 " https://github.com/numirias/security/blob/master/doc/2019-06-04_ace-vim-neovim.md
@@ -278,49 +281,6 @@ nmap <C-l> <C-w>l
 """ https://github.com/ycm-core/YouCompleteMe#the-gycm_auto_hover-option
 "let g:ycm_auto_hover=''
 "nmap <leader>d <plug>(YCMHover)
-"
-"coc.vim
-"" GoTo code navigation.
-"nmap <silent> gd <Plug>(coc-definition)
-"nmap <silent> gy <Plug>(coc-type-definition)
-"nmap <silent> gi <Plug>(coc-implementation)
-"nmap <silent> gr <Plug>(coc-references)
-"
-"
-"nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-"function! CheckBackspace() abort
-"	  let col = col('.') - 1
-"	    return !col || getline('.')[col - 1]  =~# '\s'
-"    endfunction
-"
-"inoremap <silent><expr> <TAB>
-"      \ coc#pum#visible() ? coc#pum#next(1) :
-"      \ CheckBackspace() ? "\<Tab>" :
-"      \ coc#refresh()
-"inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-"
-"
-"inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-"                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-"" Use <c-space> to trigger completion.
-"if has('nvim')
-"  inoremap <silent><expr> <c-space> coc#refresh()
-"else
-"  inoremap <silent><expr> <c-@> coc#refresh()
-"endif
-"" Use K to show documentation in preview window.
-"nnoremap <silent> K :call ShowDocumentation()<CR>
-"
-"
-"function! ShowDocumentation()
-"  if CocAction('hasProvider', 'hover')
-"    call CocActionAsync('doHover')
-"  else
-"    call feedkeys('K', 'in')
-"  endif
-"endfunction
-
-
 "nmap <leader>b :CtrlPBuffer<cr>
 "nmap <leader>m :CtrlPMRU<cr>
 nmap <leader>b :Buffers<cr>

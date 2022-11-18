@@ -53,8 +53,8 @@ ln -fs ~/github/ostavnaas/dotfiles/.tmux.conf ~/.tmux.conf
 dconf load /org/gnome/terminal/legacy/profiles:/ < ~/github.com/ostavnaas/dotfiles/workstation/files/gnome-terminal
 
 
-# Disable non-breaking space
-dconf write /org/gnome/desktop/input-sources/xkb-options "['nbsp:none']"
+# Disable non-breaking space and swap caps<->esc
+dconf write /org/gnome/desktop/input-sources/xkb-options "['nbsp:none', 'caps:swapescape']"
 
 # Pulseaudio defaults
 # https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/DefaultDevice/

@@ -47,6 +47,9 @@ setopt share_history
 alias less='less -S'
 alias df='df --exclude-type=squashfs'
 
+alias tmuxlogger='tmux pipe-pane -o "cat >>~/tmux_output"'
+alias notmuxlogger='tmux pipe-pane'
+
 #alias yq='yq r -C'
 venv()
 	if [ -f .venv/bin/activate ];then
