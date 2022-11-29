@@ -1,7 +1,0 @@
-# Revoke signing key
-
-az storage account keys renew  --resource-group <rg> --account-name <storage-account> --key <key>
-
-# Create SAS key from a policy
-az storage container generate-sas --account-name <storage-account> --name <container> --policy-name <policy> --auth-mode key \
-  --account-key $(az storage account keys list --resource-group <rg> --account-name <container> | jq '.[] | select(.keyName=="key1") | .value ' -r)

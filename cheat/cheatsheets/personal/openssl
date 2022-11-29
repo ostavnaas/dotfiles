@@ -9,3 +9,9 @@ openssl s_client -no_tls1_3 -servername example.com 10.0.0.1:443
 
 # Fingerprint
 openssl x509 -noout -fingerprint -sha256
+
+
+
+# Compare public and private key
+openssl rsa -in <private-key> -modulus -noout | openssl md5
+openssl rsa -pubin -in <public-key> -inform PEM  -noout -modulus | openssl md5
