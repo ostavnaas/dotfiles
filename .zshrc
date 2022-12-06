@@ -106,7 +106,7 @@ ur-all() {
 }
 
 bastion() {
-	ssh -D 1080 -q -N $1 &
+  ssh -D 1080 -q -N $1 &
 }
 
 rebase-all() {
@@ -122,6 +122,14 @@ gbcalc() {
   echo $1 | awk '{ sum=$1 ; hum[1024^3]="Gb";hum[1024^2]="Mb";hum[1024]="Kb"; for (x=1024^3; x>=1024; x/=1024){ if (sum>=x) { printf "%.2f %s\n",sum/x,hum[x];break } }}'
 }
 
+
+up() {
+  docker-compose up
+}
+
+down() {
+  docker-compose down
+}
 
 # Calc $ = 1+1 will output 2
 \=() {

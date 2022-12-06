@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - grafana-data:/var/lib/grafana
+volumes:
+  grafana-data:

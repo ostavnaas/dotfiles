@@ -1,0 +1,16 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: supersecret
+  flyway:
+    image: flyway/flyway
+    restart: on-failure
+    command: ["migrate", "info"]
+    volumes:
+      - ./flyway.conf:/flyway/conf/flyway.conf
+      - ./sql:/flyway/sql

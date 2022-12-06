@@ -96,7 +96,7 @@ au BufNewFile,BufRead *.py
   \ set expandtab |
   \ set autoindent |
   \ set fileformat=unix |
-  \ set colorcolumn=99 |
+  \ set colorcolumn=100 |
 
 au BufNewFile,BufRead *.go,*.tmpl
   \ set smarttab |
