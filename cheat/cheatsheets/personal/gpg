@@ -1,0 +1,15 @@
+
+# Generate new GPG key
+gpg --full-generate-key
+
+# Export public key
+gpg --output public.pgp --armor --export username@exapmle.com
+
+# Export Private key
+gpg --output private.pgp --armor --export-secret-key username@example.com
+
+# List private keys
+gpg --list-secret-keys --keyid-format=long
+
+# List public keys
+gpg --list-keys --keyid-format long
