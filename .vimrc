@@ -2,81 +2,80 @@ set nocompatible              " required
 filetype on                  " required
 " syntax enable
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
+call plug#begin()
 
 
 " Markdown support
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-Plugin 'bad-whitespace'
-" Plugin 'nvie/vim-flake8'
-Plugin 'avakhov/vim-yaml'
-Plugin 'Valloric/YouCompleteMe'
-" Plugin 'davidhalter/jedi-vim'
-"Plugin 'pappasam/coc-jedi'
+Plug 'gmarik/Vundle.vim'
+Plug 'bitc/vim-bad-whitespace'
+" Plug 'nvie/vim-flake8'
+Plug 'avakhov/vim-yaml'
+" Plug 'davidhalter/jedi-vim'
+"Plug 'pappasam/coc-jedi'
 " Colorschema
-"Plugin 'jnurmine/Zenburn'
-"Plugin 'altercation/vim-colors-solarized'
-"Plugin 'zcodes/vim-colors-basic'
-"Plugin 'ayu-theme/ayu-vim'
-Plugin 'danilo-augusto/vim-afterglow'
+"Plug 'jnurmine/Zenburn'
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'zcodes/vim-colors-basic'
+"Plug 'ayu-theme/ayu-vim'
+Plug 'danilo-augusto/vim-afterglow'
 " So indent
-Plugin 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 
 " Autoclose (){}""
-"Plugin 'Townk/vim-autoclose'
+"Plug 'Townk/vim-autoclose'
 
 " Most Recently Used (MRU) plugin
-"Plugin 'yegappan/mru'
+"Plug 'yegappan/mru'
 " Go
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 " Add Puppet lint
-Plugin 'rodjek/vim-puppet'
+Plug 'rodjek/vim-puppet'
 "syntax highlighter (deprecated)
-"Plugin 'vim-syntastic/syntastic'
+"Plug 'vim-syntastic/syntastic'
 " ALE Replaces syntastic
-Plugin 'dense-analysis/ale'
-"Plugin 'tpope/vim-pathogen'
+Plug 'dense-analysis/ale'
+"Plug 'tpope/vim-pathogen'
 " Themes
-Plugin 'jacoborus/tender.vim'
+Plug 'jacoborus/tender.vim'
 
 "git branch
-Plugin 'itchyny/vim-gitbranch'
+Plug 'itchyny/vim-gitbranch'
 "Powerline
-Plugin 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 
 " File manager
 " https://github.com/ctrlpvim/ctrlp.vim
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
-" All of your Plugins must be added before the following line
+" All of your Plugs must be added before the following line
 "
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " https://black.readthedocs.io/en/stable/integrations/editors.html
-Plugin 'psf/black'
+Plug 'psf/black'
 "
 " https://github.com/fisadev/vim-isort
-Plugin 'fisadev/vim-isort'
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
+Plug 'fisadev/vim-isort'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 " https://github.com/neoclide/coc.nvim
 " Need install
-" Cocinstall coc-pyright coc-jedi
-Plugin 'neoclide/coc.nvim'
+" CocInstall coc-pyright coc-jedi
+Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
 " https://github.com/preservim/nerdcommenter
-Plugin 'preservim/nerdcommenter'
+Plug 'preservim/nerdcommenter'
 
 " https://github.com/puremourning/vimspector
-" Plugin 'puremourning/vimspector'
+" Plug 'puremourning/vimspector'
 
-call vundle#end()            " required
+call plug#end()
 filetype plugin indent on    " required
 
 " Enable folding

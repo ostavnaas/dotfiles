@@ -1,0 +1,3 @@
+# Auto reload https://ipython.org/ipython-doc/3/config/extensions/autoreload.html
+%load_ext autoreload
+%autoreload 2
