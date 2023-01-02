@@ -1,0 +1,12 @@
+
+
+#
+kubectl config view --raw -o jsonpath='{.clusters[0].cluster.certificate-authority-data}' |base64
+
+
+
+# .clusters[].cluster."certificate-authority-data"
+openssl s_client api.k8s.local:38139 2>/dev/null| openssl x509 | base64 -w0
+
+# .users[].user.token
+kubectl create token foo-github-actions --duration 10m

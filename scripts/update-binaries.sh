@@ -73,6 +73,14 @@ case ${PACKAGE} in
     LATEST_VERSION=$(curl https://api.github.com/repos/${GIT_REPO}/releases/latest  2>/dev/null|  jq  -r 'select(.prerelease==false) | .tag_name')
     FILENAME="${BINARY}_${LATEST_VERSION:1}_${PLATTFORM}_${ARCHITECTURE}.tar.gz"
     ;;
+  "gh")
+    GIT_REPO="cli/cli"
+    BINARY=${PACKAGE}
+    PLATTFORM="linux"
+    ARCHITECTURE="amd64"
+    LATEST_VERSION=$(curl https://api.github.com/repos/${GIT_REPO}/releases/latest  2>/dev/null|  jq  -r 'select(.prerelease==false) | .tag_name')
+    FILENAME="${BINARY}_${LATEST_VERSION:1}_${PLATTFORM}_${ARCHITECTURE}.deb"
+    ;;
 
 esac
 
@@ -88,6 +96,9 @@ else
     rm ${DOWNLOAD_FILE}.tar.gz
     mv ${BIN_PATH}/${BINARY} ${BIN_PATH}/${DOWNLOAD_FILE}
     ln -fs ${DOWNLOAD_FILE} ${BIN_PATH}/${BINARY}
+  elif [[  "${DOWNLOAD_URL}" == *"deb"* ]]; then
+    curl -L ${DOWNLOAD_URL} -o ${FILENAME}
+    sudo dpkg -i ${FILENAME}
   else
     curl -L ${DOWNLOAD_URL} -o ${BIN_PATH}/${DOWNLOAD_FILE} 2>/dev/null
     chmod +x ${BIN_PATH}/${DOWNLOAD_FILE}

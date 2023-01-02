@@ -49,6 +49,8 @@ alias df='df --exclude-type=squashfs'
 
 alias tmuxlogger='tmux pipe-pane -o "cat >>~/tmux_output"'
 alias notmuxlogger='tmux pipe-pane'
+alias dotfiles='cd ~/github/ostavnaas/dotfiles'
+alias super='docker run -it super'
 
 #alias yq='yq r -C'
 venv()

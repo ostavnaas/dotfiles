@@ -1,0 +1,5 @@
+
+
+# Filter container on image
+# https://docs.docker.com/engine/reference/commandline/ps/#filtering
+docker container ls -a -q --filter ancestor=ubuntu:latest
