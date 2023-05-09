@@ -81,6 +81,22 @@ case ${PACKAGE} in
     LATEST_VERSION=$(curl https://api.github.com/repos/${GIT_REPO}/releases/latest  2>/dev/null|  jq  -r 'select(.prerelease==false) | .tag_name')
     FILENAME="${BINARY}_${LATEST_VERSION:1}_${PLATTFORM}_${ARCHITECTURE}.deb"
     ;;
+  "helm")
+    GIT_REPO="helm/helm"
+    BINARY=${PACKAGE}
+    PLATTFORM="linux"
+    ARCHITECTURE="amd64"
+    LATEST_VERSION=$(curl https://api.github.com/repos/${GIT_REPO}/releases/latest  2>/dev/null|  jq  -r 'select(.prerelease==false) | .tag_name')
+    FILENAME="${BINARY}-v${LATEST_VERSION:1}-${PLATTFORM}-${ARCHITECTURE}.tar.gz"
+    ;;
+  "nvim")
+    GIT_REPO="neovim/neovim"
+    BINARY=${PACKAGE}
+    PLATTFORM="linux"
+    ARCHITECTURE="64"
+    LATEST_VERSION=$(curl https://api.github.com/repos/${GIT_REPO}/releases/latest  2>/dev/null|  jq  -r 'select(.prerelease==false) | .tag_name')
+    FILENAME="${BINARY}-${PLATTFORM}${ARCHITECTURE}.tar.gz"
+    ;;
 
 esac
 

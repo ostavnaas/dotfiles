@@ -1,4 +1,34 @@
 
 
 # Convert public-key to PEM
-ssh-keygen  -f ~/.ssh/id_rsa -e -m pem
+ssh-keygen  -f ~/.ssh/id_rsa -e -m PEM
+
+# Convert Private-key to PEM format
+ssh-keygen -p -f ~/.ssh/id_rsa -m PEM
+
+# Verify private<->public key paris
+ssh-keygen -l -E md5 -f ~/.ssh/id_rsa(.pub)
+
+# Generate keys
+ssh-keygen -t rsa -b 4096
+ssh-keygen -t dsa
+ssh-keygen -t ecdsa -b 521
+ssh-keygen -t ed25519
+
+
+# Private key
+-m PKCS8
+-----BEGIN PRIVATE KEY-----
+or
+-----BEGIN ENCRYPTED PRIVATE KEY-----
+
+-m RFC4716
+-----BEGIN OPENSSH PRIVATE KEY-----
+
+# Public keys
+-m PKCS8
+-----BEGIN PUBLIC KEY-----
+-m PEM
+-----BEGIN RSA PUBLIC KEY-----
+-m RFC4716
+---- BEGIN SSH2 PUBLIC KEY ----

@@ -1,3 +1,11 @@
 pytest -n auto --dist=loadgroup
 
 pytest tests/internal/spesific_test_module.py  -k test_spesific_func
+
+
+
+# print() to stdout
+pytest -rP
+
+# Change log level
+--log-cli-level=DEBUG

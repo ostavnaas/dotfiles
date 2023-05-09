@@ -1,0 +1,13 @@
+
+# current traffic statistics
+stats
+
+# Slabs
+stats slabs
+
+# keys in use
+stats items
+
+
+# Dump
+stats cachedump <slab class> <number of items to dump>

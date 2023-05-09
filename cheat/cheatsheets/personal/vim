@@ -4,3 +4,18 @@ https://vim.fandom.com/wiki/Switching_case_of_characters
 Toggle case "HellO" to "hELLo" with g~ then a movement.
 Uppercase "HellO" to "HELLO" with gU then a movement.
 Lowercase "HellO" to "hello" with gu then a movement.
+
+
+# https://vim.fandom.com/wiki/Remove_unwanted_spaces
+# Remove trailing whitespace
+:%s/\s\+$//e
+
+# Record macros
+qd where d is registry
+...
+q stop recording
+@d execute macro
+
+
+# Undo split
+CTRL+w -> o

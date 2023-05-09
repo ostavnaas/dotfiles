@@ -1,0 +1,2 @@
+# Check if SKU is available in all AZs
+az vm list-skus --location norwayeast --size Standard_D1_v2 --all --output table

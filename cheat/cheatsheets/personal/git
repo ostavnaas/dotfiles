@@ -1,0 +1,6 @@
+
+# Files changes between HEAD~3 and HEAD
+git diff --name-only HEAD~3..HEAD folder
+
+# Show files
+git show --name-only

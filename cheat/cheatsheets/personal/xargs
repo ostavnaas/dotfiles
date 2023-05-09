@@ -1,0 +1,5 @@
+# Repeat command x times
+seq 3 | xargs -L 1 echo
+1
+2
+3

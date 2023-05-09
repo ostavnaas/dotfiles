@@ -22,3 +22,5 @@ echo 'Variable is expanded '${VARIABLE}''
 if [ -z $VARIABLE ]; do
   echo "True if the length of STRING is zero"
 fi
+
+FIRST_ARG="${1:-default}"

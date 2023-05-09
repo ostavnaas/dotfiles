@@ -10,6 +10,7 @@ plugins=(
   docker
   docker-compose
 )
+#zsh-vi-mode
 
 export ZSH=~/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -51,6 +52,7 @@ alias tmuxlogger='tmux pipe-pane -o "cat >>~/tmux_output"'
 alias notmuxlogger='tmux pipe-pane'
 alias dotfiles='cd ~/github/ostavnaas/dotfiles'
 alias super='docker run -it super'
+alias grafana='docker-compose --file ~/github/ostavnaas/dotfiles/docker/grafana/docker-compose.yml up'
 
 #alias yq='yq r -C'
 venv()
@@ -171,9 +173,9 @@ prompt_context(){}
 
 
 # Autocomplete
-#if [[ -d $HOME/.zsh-completions ]];  then
-#  fpath=($fpath $HOME/.zsh-completions)
-#fi
+if [[ -d $HOME/.zsh-completions ]];  then
+  fpath=($fpath $HOME/.zsh-completions)
+fi
 
 if (which vault >/dev/null 2>&1);then
   complete -o nospace -C $(which vault) vault
@@ -192,6 +194,10 @@ fi
 if (which az > /dev/null 2>&1); then
   source ~/.zsh-completions/az.completion
 fi
+
+
+# https://github.com/cheat/cheat
+source ~/github/cheat/scripts/cheat.zsh
 
 #autoload -Uz compinit
 compinit -u

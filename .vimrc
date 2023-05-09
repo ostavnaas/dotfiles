@@ -74,6 +74,9 @@ Plug 'preservim/nerdcommenter'
 
 " https://github.com/puremourning/vimspector
 " Plug 'puremourning/vimspector'
+"
+" :CocInstall coc-spell-checker
+Plug 'iamcco/coc-spell-checker'
 
 call plug#end()
 filetype plugin indent on    " required
@@ -81,7 +84,7 @@ filetype plugin indent on    " required
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
-set cursorline			     " Hightligh line
+set cursorline			     " Highlight line
 set hlsearch                         " highlight matches
 set incsearch                        " ...as you type.
 set autoread                         " automatically read changes from disk
@@ -284,6 +287,7 @@ nmap <C-l> <C-w>l
 "nmap <leader>m :CtrlPMRU<cr>
 nmap <leader>b :Buffers<cr>
 nmap <leader>m :GFiles<cr>
+nmap <leader>h :History<cr>
 
 
 "augroup black_on_save
@@ -340,6 +344,8 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+
 
 function! CheckBackspace() abort
   let col = col('.') - 1

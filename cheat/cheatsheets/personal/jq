@@ -1,0 +1,4 @@
+
+
+# Multiple fileds
+jq '.users[] | "\(.first) \(.last)"'

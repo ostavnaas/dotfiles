@@ -1,0 +1,28 @@
+{
+  "spec": {
+    "imagePullSecrets": [
+      {
+        "name": "registry"
+      }
+    ],
+    "containers": [
+      {
+        "name": "oneoff",
+        "command": [
+          "bash"
+        ],
+        "stdin": true,
+        "stdinOnce": true,
+        "tty": true,
+        "image": "ubuntu",
+        "envFrom": [
+          {
+            "secretRef": {
+              "name": "k8s-secret"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

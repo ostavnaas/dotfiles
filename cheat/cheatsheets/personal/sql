@@ -23,6 +23,9 @@ INSERT INTO table2 (column1, column2, column3, ...) SELECT column1, column2, col
 SELECT column_name(s) FROM schema.table_name WHERE column_name < ( now() - INTERVAL 1 DAY);
 
 
+# https://www.postgresql.org/docs/current/sql-altertable.html
+ALTER TABLE <table> ALTER COLUMN <column> SET NOT NULL;
+
 
 # Conditions
 = 	Equal

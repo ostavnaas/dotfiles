@@ -12,3 +12,17 @@ SET search_path TO myschema;
 
 # Table view
 SELECT * FROM table\x\g\x
+
+# Encode byte as text
+SELECT encode(bytea, 'escape')::text FROM table;
+
+
+# Environment variables
+# https://www.postgresql.org/docs/current/libpq-envars.html
+PGPASSWORD=secret
+
+# Connection string URIs
+# https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
+postgresql://[userspec@][hostspec][/dbname][?paramspec]
+
+port 5432

@@ -1,0 +1,3 @@
+
+# dig
+apk add --update bind-tools

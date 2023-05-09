@@ -13,3 +13,6 @@ gpg --list-secret-keys --keyid-format=long
 
 # List public keys
 gpg --list-keys --keyid-format long
+
+# show public key ID that it was encrypted with
+gpg --pinentry-mode cancel --list-packets file.gpg

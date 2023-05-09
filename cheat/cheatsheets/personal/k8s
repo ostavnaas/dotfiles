@@ -1,0 +1,7 @@
+
+
+# Mark node as unschedulable
+kubectl cordon <node>
+
+# Drain node in preparation for maintenance.
+kubectl drain <node>

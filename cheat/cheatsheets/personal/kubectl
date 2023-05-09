@@ -10,3 +10,20 @@ openssl s_client api.k8s.local:38139 2>/dev/null| openssl x509 | base64 -w0
 
 # .users[].user.token
 kubectl create token foo-github-actions --duration 10m
+
+
+# Only pod name
+kubectl get pods --no-headers -o custom-columns=":metadata.name"
+
+
+# ClusterRole with access to secrets
+kubectl get clusterrole -ojson  | jq -r  '.items[] |  select(.rules[]?.resources[]? == "secrets")  | .metadata.name' | uniq
+
+
+# Delete all failed pods
+kubectl delete pods --field-selector=status.phase=Failed
+
+
+
+# Pod with serviceAccount
+kubectl run python3 --rm -it  --image python:3.10-alpine --overrides='{ "spec": { "serviceAccount": "default" }  }'  -- sh

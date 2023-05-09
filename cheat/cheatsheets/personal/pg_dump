@@ -1,0 +1,4 @@
+
+
+# Dump with insert statemens
+pg_dump --column-inserts --data-only --table=<table> <database>
