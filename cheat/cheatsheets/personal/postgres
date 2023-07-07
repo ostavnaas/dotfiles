@@ -19,7 +19,10 @@ SELECT encode(bytea, 'escape')::text FROM table;
 
 # Environment variables
 # https://www.postgresql.org/docs/current/libpq-envars.html
+PGUSER=user
 PGPASSWORD=secret
+PGDATABASE=mydb
+PGHOST=db.fqdn
 
 # Connection string URIs
 # https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING

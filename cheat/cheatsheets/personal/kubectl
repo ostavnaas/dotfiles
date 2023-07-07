@@ -23,7 +23,9 @@ kubectl get clusterrole -ojson  | jq -r  '.items[] |  select(.rules[]?.resources
 # Delete all failed pods
 kubectl delete pods --field-selector=status.phase=Failed
 
-
-
 # Pod with serviceAccount
 kubectl run python3 --rm -it  --image python:3.10-alpine --overrides='{ "spec": { "serviceAccount": "default" }  }'  -- sh
+
+
+# Run script from local filesystem in pod
+kubectl exec -i <pod> -- bash -c 'python3 -' < main.py

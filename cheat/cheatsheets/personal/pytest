@@ -2,6 +2,8 @@ pytest -n auto --dist=loadgroup
 
 pytest tests/internal/spesific_test_module.py  -k test_spesific_func
 
+# PDB
+pytest --pdb
 
 
 # print() to stdout

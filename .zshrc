@@ -23,7 +23,9 @@ if [ -f ~/.zsh_workrc ];then
 fi
 
 
-export PATH=$PATH:$HOME/.local/bin/:$HOME/go/bin
+MY_PYTHON_VERISON="3.11.4"
+MY_PYTHON_PATH="/home/oves/.pyenv/versions/"$MY_PYTHON_VERISON"/bin"
+export PATH=$MY_PYTHON_PATH:$PATH:$HOME/.local/bin/:$HOME/go/bin
 # Go
 export GOROOT=/usr/local/go
 #export GOPATH=~/golang
@@ -52,7 +54,7 @@ alias tmuxlogger='tmux pipe-pane -o "cat >>~/tmux_output"'
 alias notmuxlogger='tmux pipe-pane'
 alias dotfiles='cd ~/github/ostavnaas/dotfiles'
 alias super='docker run -it super'
-alias grafana='docker-compose --file ~/github/ostavnaas/dotfiles/docker/grafana/docker-compose.yml up'
+alias grafana='docker compose --file ~/github/ostavnaas/dotfiles/docker/grafana/docker-compose.yml up'
 
 #alias yq='yq r -C'
 venv()
@@ -128,11 +130,11 @@ gbcalc() {
 
 
 up() {
-  docker-compose up
+  docker compose up
 }
 
 down() {
-  docker-compose down
+  docker compose down
 }
 
 # Calc $ = 1+1 will output 2

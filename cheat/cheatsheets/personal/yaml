@@ -14,7 +14,10 @@ folded_style: >
 base: &base
   script:
     - echo "test"
+extra: &extra
+  key: value
 
 my:
   <<: *base
+  <<: *extra
   stage: deploy

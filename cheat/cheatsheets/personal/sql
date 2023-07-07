@@ -37,3 +37,15 @@ ALTER TABLE <table> ALTER COLUMN <column> SET NOT NULL;
 BETWEEN 	Between a certain range
 LIKE 	Search for a pattern
 IN 	To specify multiple possible values for a column
+
+
+
+http://www.sisense.com/blog/sql-query-order-of-operations
+SQL query planners order:
+    FROM - Choose and join tables to get base data
+   WHERE - Filter the base data
+GROUP BY - Aggragate the base data
+  HAVING - Filter the Aggragated data
+  SELECT - Returns the final data
+ORDER BY - Sort the final data
+   LIMIT - Limits the returned data to a row count

@@ -288,6 +288,7 @@ nmap <C-l> <C-w>l
 nmap <leader>b :Buffers<cr>
 nmap <leader>m :GFiles<cr>
 nmap <leader>h :History<cr>
+nmap <leader>c :GFiles?<cr>
 
 
 "augroup black_on_save
@@ -297,7 +298,7 @@ nmap <leader>h :History<cr>
 "
 "" ALE
 let g:ale_linters={
-\ 'python': ['pylint', 'mypy'],
+\ 'python': ['ruff', 'mypy'],
 \}
 
 
