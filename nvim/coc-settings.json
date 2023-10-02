@@ -3,5 +3,6 @@
   "cSpell.userWords": [
     "jwks",
     "tbdlib"
-  ]
+  ],
+   "suggest.noselect": true 
 }
