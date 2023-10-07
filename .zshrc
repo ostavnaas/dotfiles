@@ -199,7 +199,9 @@ fi
 
 
 # https://github.com/cheat/cheat
-source ~/github/cheat/scripts/cheat.zsh
+if [ -e ~/github/cheat/scripts/cheat.zsh ]; then
+  source ~/github/cheat/scripts/cheat.zsh
+fi
 
 #autoload -Uz compinit
 compinit -u
