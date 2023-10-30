@@ -23,7 +23,7 @@ if [ -f ~/.zsh_workrc ];then
 fi
 
 
-MY_PYTHON_VERISON="3.11.4"
+MY_PYTHON_VERISON="3.11.6"
 MY_PYTHON_PATH="/home/oves/.pyenv/versions/"$MY_PYTHON_VERISON"/bin"
 export PATH=$MY_PYTHON_PATH:$PATH:$HOME/.local/bin/:$HOME/go/bin
 # Go
@@ -44,8 +44,8 @@ export LIBVIRT_DEFAULT_URI="qemu:///system"
 # Do not share history between windows
 #setopt no_share_history
 #unsetopt share_history
-unsetopt no_share_history
-setopt share_history
+unsetopt share_history
+setopt no_share_history
 
 alias less='less -S'
 alias df='df --exclude-type=squashfs'

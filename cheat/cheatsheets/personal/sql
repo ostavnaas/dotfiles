@@ -49,3 +49,7 @@ GROUP BY - Aggragate the base data
   SELECT - Returns the final data
 ORDER BY - Sort the final data
    LIMIT - Limits the returned data to a row count
+
+
+{"user_uuid": "e3893f69-9ed1-4784-9004-30e5a8cdaf12", "user_name": "test"}
+SELECT json from table WHERE json ->> 'user_uuid' = 'e3893f69-9ed1-4784-9004-30e5a8cdaf12';

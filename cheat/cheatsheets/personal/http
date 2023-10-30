@@ -1,0 +1,16 @@
+
+
+# Hypertext Transfer Protocol (HTTP)
+https://developer.mozilla.org/en-US/docs/Web/HTTP
+
+
+# https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
+            userinfo       host      port
+          ┌──┴───┐ ┌──────┴──────┐ ┌┴┐
+  https://john.doe@www.example.com:123/forum/questions/?tag=networking&order=newest#top
+  └─┬─┘   └─────────────┬────────────┘└───────┬───────┘ └────────────┬────────────┘ └┬┘
+  scheme          authority                  path                  query           fragment
+
+
+# Uniform Resource Identifier (URI): Generic Syntax
+https://www.rfc-editor.org/rfc/rfc3986

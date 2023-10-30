@@ -2,7 +2,8 @@
   "snippets.ultisnips.pythonPrompt": false,
   "cSpell.userWords": [
     "jwks",
-    "tbdlib"
+    "tbdlib",
+    "unparsable"
   ],
    "suggest.noselect": true 
 }
