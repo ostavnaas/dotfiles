@@ -42,24 +42,31 @@ packer.init({
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'-- Have packer manage itself
   use 'neovim/nvim-lspconfig'
-  use {'neoclide/coc.nvim', run  = {'yarn install --frozen-lockfile'}}
--- use 'hrsh7th/nvim-cmp'
--- use 'hrsh7th/cmp-nvim-lsp'
--- use 'hrsh7th/cmp-nvim-lsp-signature-help'
--- use 'hrsh7th/cmp-nvim-lsp-document-symbol'
-  use 'jose-elias-alvarez/null-ls.nvim'
-  use 'nvim-lua/plenary.nvim'
+  use 'williamboman/mason.nvim'
+  use 'williamboman/mason-lspconfig.nvim'
+-- use {'neoclide/coc.nvim', run  = {'yarn install --frozen-lockfile'}}
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use 'nvimtools/none-ls.nvim'
+  use 'hrsh7th/cmp-nvim-lsp-document-symbol'
+-- use 'jose-elias-alvarez/null-ls.nvim'
+-- use 'nvim-lua/plenary.nvim'
 --  use {'junegunn/fzf', run  = 'fzf#install' }
 --  use 'junegunn/fzf.vim'
   use 'jacoborus/tender.vim'
   use 'feline-nvim/feline.nvim'
   use {
-	    'nvim-telescope/telescope.nvim', tag = '0.1.1',
+	    'nvim-telescope/telescope.nvim', tag = '0.1.4',
 	    requires = { {'nvim-lua/plenary.nvim'} }
 	    }
   use "lukas-reineke/indent-blankline.nvim"
   use 'lewis6991/gitsigns.nvim'
   use 'rmagatti/auto-session'
+  use { 
+	     'nvim-treesitter/nvim-treesitter',
+		          run = ':TSUpdate'
+			      }
 
 
 
