@@ -42,14 +42,14 @@ packer.init({
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'-- Have packer manage itself
   use 'neovim/nvim-lspconfig'
-  use 'williamboman/mason.nvim'
-  use 'williamboman/mason-lspconfig.nvim'
--- use {'neoclide/coc.nvim', run  = {'yarn install --frozen-lockfile'}}
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+--  use 'williamboman/mason.nvim'
+--  use 'williamboman/mason-lspconfig.nvim'
+  use {'neoclide/coc.nvim', run  = {'yarn install --frozen-lockfile'}}
+--   use 'hrsh7th/nvim-cmp'
+--   use 'hrsh7th/cmp-nvim-lsp'
+--   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use 'nvimtools/none-ls.nvim'
-  use 'hrsh7th/cmp-nvim-lsp-document-symbol'
+--   use 'hrsh7th/cmp-nvim-lsp-document-symbol'
 -- use 'jose-elias-alvarez/null-ls.nvim'
 -- use 'nvim-lua/plenary.nvim'
 --  use {'junegunn/fzf', run  = 'fzf#install' }

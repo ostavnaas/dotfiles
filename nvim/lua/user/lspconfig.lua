@@ -1,16 +1,26 @@
 -- Setup language servers.
 -- pylsp.plugins.rope_autoimport.enabled
 local lspconfig = require("lspconfig")
-lspconfig.pyright.setup({
-	on_attach = on_attach,
+--lspconfig.pyright.setup({
+--	on_attach = on_attach,
+--	settings = {
+--		pyright = { autoImportCompletion = true },
+--		python = {
+--			analysis = {
+--				autoSearchPaths = true,
+--				diagnosticMode = "openFilesOnly",
+--				useLibraryCodeForTypes = true,
+--				typeCheckingMode = "off",
+--			},
+--		},
+--	},
+--})
+
+lspconfig.pylsp.setup({
 	settings = {
-		pyright = { autoImportCompletion = true },
-		python = {
-			analysis = {
-				autoSearchPaths = true,
-				diagnosticMode = "openFilesOnly",
-				useLibraryCodeForTypes = true,
-				typeCheckingMode = "off",
+		pylsp = {
+			plugins = {
+				rope_autoimport = { enabled = false, memory = true },
 			},
 		},
 	},

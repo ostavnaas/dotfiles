@@ -7,10 +7,10 @@ vim.g.python3_host_prog = "~/python3/nvim/.venv/bin/python3"
 --- keymaps must be at top
 require("user.keymaps")
 require("user.plugins")
--- require "user.coc"
+require "user.coc"
 require("user.lspconfig")
-require("user.mason")
-require("user.cmp")
+-- require("user.mason")
+-- equire("user.cmp")
 require("user.nullis")
 require("user.feline")
 require("user.indent")
