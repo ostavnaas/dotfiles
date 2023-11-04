@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 
-#python-lsp-server = {version = "*", extras = ["rope"]}
+python-lsp-server = {version = "*", extras = ["rope"]}
 #python-lsp-black = "*"
 python-lsp-ruff = "*"
 pynvim = "*"
