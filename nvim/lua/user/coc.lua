@@ -1,5 +1,6 @@
 -- Some servers have issues with backup files, see #649
 -- :CocInstall coc-pyright coc-jedi coc-spell-checker coc-snippets
+-- go get -u github.com/client9/misspell/cmd/misspell for coc-spell-checker
 vim.opt.backup = false
 vim.opt.writebackup = false
 

@@ -3,7 +3,7 @@ vim.cmd.set("number")
 vim.cmd.colorscheme("tender")
 vim.cmd.set("mouse=")
 
-vim.g.python3_host_prog = "~/python3/nvim/.venv/bin/python3"
+vim.g.python3_host_prog = "~/.config/nvim/.venv/bin/python3"
 --- keymaps must be at top
 require("user.keymaps")
 require("user.plugins")
