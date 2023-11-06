@@ -41,7 +41,7 @@ packer.init({
 -- Install your plugins here
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'-- Have packer manage itself
-  use 'neovim/nvim-lspconfig'
+--  use 'neovim/nvim-lspconfig'
 --  use 'williamboman/mason.nvim'
 --  use 'williamboman/mason-lspconfig.nvim'
   use {'neoclide/coc.nvim', run  = {'yarn install --frozen-lockfile'}}
