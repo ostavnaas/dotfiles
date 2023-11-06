@@ -8,7 +8,7 @@ vim.g.python3_host_prog = "~/.config/nvim/.venv/bin/python3"
 require("user.keymaps")
 require("user.plugins")
 require "user.coc"
-require("user.lspconfig")
+-- require("user.lspconfig")
 -- require("user.mason")
 -- equire("user.cmp")
 require("user.nullis")
