@@ -1,11 +1,26 @@
 from __future__ import annotations
+from pathlib import Path
+import subprocess
+from pydantic import BaseModel, Field
+import logging
 
-import sys
 from dataclasses import dataclass
-from pprint import pprint
-from typing import Any
 
 import httpx
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+class Release(BaseModel):
+    tag_name: str = Field(..., serialization_alias="tag_name")
+    assets: list[asset] = Field(..., serialization_alias="assets")
+
+
+class asset(BaseModel):
+    name: str
+    browser_download_url: str
 
 
 @dataclass
@@ -15,52 +30,93 @@ class Repo:
     arch: str = "amd64"
     alt_arch = "x86_64"
     os: str = "linux"
+    release: Release | None = None
+
+    def get_latest_release(self) -> None:
+        reps = httpx.get(self.release_url)
+        self.release = Release.model_validate_json(reps.content)
 
     @property
     def url(self) -> str:
         return f"https://github.com/{self.project}/{self.repo}"
 
-    def file_name(self, tag_name: str) -> str:
-        tag = tag_name.replace("v", "")
-        if self.project == "helmfile" and self.repo == "helmfile":
-            return f"{self.repo}_{tag}_{self.os}_{self.arch}.tar.gz"
-        if self.project == "docker" and self.repo == "compose":
-            return f"{self.project}-{self.repo}-{self.os}-{self.alt_arch}"
-        if self.project == "mozilla" and self.repo == "sops":
-            return f"{self.repo}-{tag_name}.{self.os}.{self.arch}"
+    @property
+    def file_name(self) -> str:
+        assert self.release
+        tag: str = self.release.tag_name.replace("v", "")
+        match self.project, self.repo:
+            case "helmfile", "helmfile":
+                return f"{self.repo}_{tag}_{self.os}_{self.arch}.tar.gz"
+            case "docker", "compose":
+                return f"{self.project}-{self.repo}-{self.os}-{self.alt_arch}"
+            case "getsops", "sops":
+                return f"{self.repo}-{self.release.tag_name}.{self.os}.{self.arch}"
+            case "helm", "helm":
+                return (
+                    f"{self.repo}-{self.release.tag_name}-{self.os}-{self.arch}.tar.gz"
+                )
+            case _:
+                raise NotImplementedError()
 
-        raise NotImplemented()
+    @property
+    def get_release_download_url(self) -> str | None:
+        if (url := self.download_url_outside_github()) is not None:
+            return url + self.file_name
+
+        assert self.release
+        for r in self.release.assets:
+            if r.name == self.file_name:
+                return r.browser_download_url
+        else:
+            return None
 
     @property
     def api(self):
         return f"https://api.github.com/repos/{self.project}/{self.repo}"
 
+    @property
+    def release_url(self) -> str:
+        return self.api + "/releases/latest"
 
-@dataclass
-class Release:
-    tag_name: str
-    download_url: str | None = None
+    def download_url_outside_github(self) -> str | None:
+        match self.project, self.repo:
+            case "helm", "helm":
+                return "https://get.helm.sh/"
+            case _:
+                return None
 
-    @classmethod
-    def from_json(cls, json: Any, repo: Repo) -> Release:
-        tag_name = json["tag_name"]
-        [download_url] = [
-            url["browser_download_url"]
-            for url in json["assets"]
-            if url["name"] == repo.file_name(tag_name)
-        ]
-        return cls(tag_name=tag_name, download_url=download_url)
+    def decompress(self, folder: Path):
+        download_path: Path = folder / self.file_name
+        print(str(folder))
+        subprocess.run(["tar", "zxvf", f"{download_path}", "-C", f"{folder}"])
 
 
-def get_latest_version(repo: Repo):
-    r = httpx.get(repo.api + "/releases/latest")
+def download_latest_version(repo: Repo, folder: Path):
+    repo.get_latest_release()
 
-    #    pprint(r.json())
+    if (download_link := repo.get_release_download_url) is not None:
+        file_name = Path(repo.file_name)
+        download_path: Path = folder / file_name
 
-    print(Release.from_json(r.json(), repo))
+        if download_path.exists():
+            repo.decompress(folder)
+            logging.info("Release already downloaded")
+            return
+
+        with download_path.open(mode="wb") as file, httpx.stream(
+            "GET", download_link, follow_redirects=True
+        ) as reps:
+            for data in reps.iter_bytes():
+                file.write(data)
 
 
 # project, repo = sys.argv[1].split("/")
-projects = [("helfile", "helmfile"), "mozilla/sops", "docker/compose"]
+# projects = [("helmfile", "helmfile"), ("getsops", "sops"), ("docker", "compose")]
+projects: list[tuple[str, str]] = [
+    ("helmfile", "helmfile"),
+]
+projects: list[tuple[str, str]] = [
+    ("pyenv", "pyenv"),
+]
 for p in projects:
-    get_latest_version(Repo(project, repo))
+    download_latest_version(Repo(*p), Path("~/.local/.bin"))

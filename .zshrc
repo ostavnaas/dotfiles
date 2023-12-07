@@ -25,7 +25,7 @@ fi
 
 MY_PYTHON_VERISON="3.11.6"
 MY_PYTHON_PATH="/home/oves/.pyenv/versions/"$MY_PYTHON_VERISON"/bin"
-export PATH=$MY_PYTHON_PATH:$PATH:$HOME/.local/bin/:$HOME/go/bin
+export PATH=$MY_PYTHON_PATH:$PATH:$HOME/.local/bin/:$HOME/go/bin:/opt/node/bin
 # Go
 export GOROOT=/usr/local/go
 #export GOPATH=~/golang
@@ -38,6 +38,9 @@ export HISTFILESIZE=1000000
 
 export CHEAT_CONFIG_PATH="~/github/ostavnaas/dotfiles/cheat/conf.yml"
 export LIBVIRT_DEFAULT_URI="qemu:///system"
+
+# https://documen.tician.de/pudb/starting.html
+export PYTHONBREAKPOINT="pudb.set_trace"
 
 
 
@@ -184,8 +187,10 @@ if (which vault >/dev/null 2>&1);then
 fi
 
 #if (which aws > /dev/null 2>&1 ); then
-#  source /usr/local/bin/aws_zsh_completer.sh
+#  source /usr/bin/aws_completer
+#  complete -C '/usr/bin/aws_completer' aws
 #fi
+complete -C '/usr/bin/aws_completer' aws
 #complete -C '/home/oves/.local/bin/aws_completer' aws
 
 if (which kubectl > /dev/null 2>&1 ); then

@@ -10,3 +10,15 @@ sudo tar zxvf Python-3.9.15.tgz -C /opt
 make
 sudo make altinstall
 sudo ldconfig /opt/Python3.8.{version}
+
+
+# Python docker tags (Multiarch)
+https://github.com/docker-library/repo-info/tree/master/repos/python/remote
+
+# set()
+{'foo','bar','extra'}.issuperset({'foo', 'bar'}) => True
+{'foo','bar','extra'} >= {'foo', 'bar'}  => True
+
+{'foo','bar'}.issubset({'foo', 'bar','extra'}) => True
+{'foo','bar'} <= {'foo', 'bar','extra'} => True
+{'foo','bar'} < {'foo', 'bar'} => False (Proper subset)

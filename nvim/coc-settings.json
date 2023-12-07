@@ -1,7 +1,10 @@
 {
   "snippets.ultisnips.pythonPrompt": false,
   "cSpell.userWords": [
+    "asdict",
+    "asyncio",
     "jwks",
+    "psycopg",
     "tbdlib",
     "unparsable"
   ],

@@ -1,0 +1,8 @@
+
+apt-get install devscripts
+
+# Update changelog with new version
+dch -v 3.11.7
+
+# Release package to a distribution
+dch --release --distribution unstable

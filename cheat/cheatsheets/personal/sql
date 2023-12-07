@@ -53,3 +53,9 @@ ORDER BY - Sort the final data
 
 {"user_uuid": "e3893f69-9ed1-4784-9004-30e5a8cdaf12", "user_name": "test"}
 SELECT json from table WHERE json ->> 'user_uuid' = 'e3893f69-9ed1-4784-9004-30e5a8cdaf12';
+
+
+
+# Cast type array {}
+CREATE TYPE car_model AS ENUM ('audi', 'bmw', 'toyota')
+SELECT * FROM cars WHERE model = ANY('{audi, bmw,}'::car_model[]);

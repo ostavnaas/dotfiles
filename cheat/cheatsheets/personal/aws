@@ -3,3 +3,16 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
 AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
 AWS_DEFAULT_REGION
+
+
+
+# https://github.com/iann0036/iamlive
+
+# STS
+
+# Returns  details  about the IAM user or role whose credentials are used to call the operation.
+aws sts get-caller-identity
+
+
+# Returns the account identifier for the specified access key ID.
+aws sts get-access-key-info --access-key-id <value>

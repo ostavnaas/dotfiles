@@ -1,0 +1,2 @@
+# Change DNS
+resolvectl dns wlp0s20f3 192.168.88.1

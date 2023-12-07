@@ -11,3 +11,6 @@ stats items
 
 # Dump
 stats cachedump <slab class> <number of items to dump>
+
+# get
+get <key>
