@@ -5,9 +5,9 @@ name = "pypi"
 
 [packages]
 pynvim = "*"
-neovim = "*"
+ruff-lsp = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.12"
+python_version = "3.11"

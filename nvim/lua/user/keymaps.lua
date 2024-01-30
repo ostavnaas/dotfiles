@@ -17,3 +17,9 @@ vim.keymap.set("n", "<leader>m", builtin.git_files, {})
 vim.keymap.set("n", "<leader>g", builtin.git_status, {})
 vim.keymap.set("n", "<leader>s", builtin.marks, {})
 vim.keymap.set("n", "<leader>j", builtin.jumplist, {})
+-- copilot
+vim.keymap.set("i", "<C-J>", 'copilot#Accept("\\<CR>")', {
+	expr = true,
+	replace_keycodes = false,
+})
+vim.g.copilot_no_tab_map = true

@@ -1,0 +1,9 @@
+
+Interval 
+open interval 
+{0, 1} is the interval of all real numbers greater than 0 and less than 1
+a < x < b
+
+closed interval 
+[0, 1] means greater than or equal to 0 and less than or equal to 1
+a =< x <= b

@@ -1,1 +1,4 @@
 https://nodejs.org/dist/latest-v21.x/
+
+sudo tar zxvf node-v21.6.2-linux-x64.tar.gz -C /opt
+sudo ln -fs /opt/node-v21.6.2-linux-x64 /opt/node

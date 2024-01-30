@@ -40,16 +40,17 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
-	use("github/copilot.vim")
 	use("wbthomason/packer.nvim") -- Have packer manage itself
-	--  use 'neovim/nvim-lspconfig'
+	use("github/copilot.vim")
+	use("neovim/nvim-lspconfig")
+	use("hrsh7th/nvim-cmp")
+	use("hrsh7th/cmp-nvim-lsp")
+	use("hrsh7th/cmp-nvim-lsp-signature-help")
 	--  use 'williamboman/mason.nvim'
 	--  use 'williamboman/mason-lspconfig.nvim'
-	use({ "neoclide/coc.nvim", run = { "yarn install --frozen-lockfile" } })
-	--   use 'hrsh7th/nvim-cmp'
-	--   use 'hrsh7th/cmp-nvim-lsp'
-	--   use 'hrsh7th/cmp-nvim-lsp-signature-help'
+	--use {'neoclide/coc.nvim', run  = {'yarn install --frozen-lockfile'}}
 	use("nvimtools/none-ls.nvim")
+	use("astral-sh/ruff-lsp")
 	--   use 'hrsh7th/cmp-nvim-lsp-document-symbol'
 	-- use 'jose-elias-alvarez/null-ls.nvim'
 	-- use 'nvim-lua/plenary.nvim'
@@ -59,18 +60,29 @@ return packer.startup(function(use)
 	use("feline-nvim/feline.nvim")
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.4",
+		tag = "0.1.5",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 	use("lukas-reineke/indent-blankline.nvim")
-	--  use 'lewis6991/gitsigns.nvim'
-	use("tpope/vim-fugitive")
+	use("lewis6991/gitsigns.nvim")
 	use("rmagatti/auto-session")
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
 	})
 
+	use({
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup({})
+		end,
+	})
+
+	-- golang
+	-- go install golang.org/x/tools/gopls@latest
+	use("ray-x/go.nvim")
+	use("ray-x/guihua.lua")
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

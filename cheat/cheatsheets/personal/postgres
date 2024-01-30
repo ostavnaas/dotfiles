@@ -21,6 +21,7 @@ SELECT * FROM table\x\g\x
 SELECT encode(bytea, 'escape')::text FROM table;
 SELECT encode(bytea, 'hex') FROM table;
 SELECT encode(bytea, 'base64') FROM table;
+SELECT encode(bytea, 'hex')::uuid FROM table;
 
 SELECT COALESCE(NULL, 2, 1)  -> 2
 COALESCE function that returns the first non-null argument

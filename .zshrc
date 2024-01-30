@@ -24,6 +24,7 @@ fi
 
 
 
+
 export PATH=$PATH:$HOME/.local/bin/:$HOME/go/bin:/opt/node/bin
 # Go
 export GOROOT=/usr/local/go
