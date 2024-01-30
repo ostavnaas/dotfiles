@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 # git clone https://gitlab.com/libosinfo/osinfo-db && cd osinfo-db && make
 # cp missing.xml /usr/share/osinfo/os/<vendor>/
 set -eux

@@ -1,4 +1,5 @@
-
+# Create public key from private key
+ssh-keygen -f ~/.ssh/id_rsa -y > ~/.ssh/id_rsa.pub
 
 # Convert public-key to PEM
 ssh-keygen  -f ~/.ssh/id_rsa -e -m PEM

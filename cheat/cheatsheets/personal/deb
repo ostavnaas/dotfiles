@@ -6,3 +6,11 @@ dch -v 3.11.7
 
 # Release package to a distribution
 dch --release --distribution unstable
+
+
+# Changelog
+https://fossies.org/linux/dpkg/debian/changelog
+
+
+# Debian Policy Manual
+https://www.debian.org/doc/debian-policy/

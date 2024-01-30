@@ -1,0 +1,7 @@
+
+
+# mount
+sshfs home:/remote-path local-path
+
+# Unmount
+$ fusermount3 -u local-path

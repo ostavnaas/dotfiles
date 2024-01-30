@@ -18,3 +18,21 @@ https://www.rfc-editor.org/rfc/rfc3986
 # MIME types
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
 https://datatracker.ietf.org/doc/html/rfc2046
+
+# SP = <US-ASCII SP, space (32)>
+# CR = <US-ASCII CR, carriage return (13)>
+# LF = <US-ASCII LF, linefeed (10)>
+
+# POST example
+POST /test HTTP/1.1  # Request-line - https://datatracker.ietf.org/doc/html/rfc1945#section-5.1 
+                     # Request-Line = Method SP Request-URI SP HTTP-Version CRLF
+Host: foo.example    # Request Header Fields - https://datatracker.ietf.org/doc/html/rfc1945#section-5.2
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 27
+
+field1=value1&field2=value2 # body
+
+# GET example
+POST /test?tag=networking HTTP/1.1  # Request-line - https://datatracker.ietf.org/doc/html/rfc1945#section-5.1 
+                                    # Request-Line = Method SP Request-URI SP HTTP-Version CRLF
+Host: foo.example                   # Request Header Fields - https://datatracker.ietf.org/doc/html/rfc1945#section-5.2

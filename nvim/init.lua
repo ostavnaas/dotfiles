@@ -14,6 +14,6 @@ require "user.coc"
 require("user.nullis")
 require("user.feline")
 require("user.indent")
-require("user.gitsigns")
+--require("user.gitsigns")
 require("user.auto-session")
 require("user.telescope")

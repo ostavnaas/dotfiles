@@ -3,3 +3,11 @@
 # Filter container on image
 # https://docs.docker.com/engine/reference/commandline/ps/#filtering
 docker container ls -a -q --filter ancestor=ubuntu:latest
+
+
+# Stop all runnning containeres
+docker stop $(docker ps -a -q)
+
+
+# Remove all images
+docker rmi -f $(docker images -aq)

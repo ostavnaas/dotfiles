@@ -40,35 +40,36 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
-  use 'wbthomason/packer.nvim'-- Have packer manage itself
---  use 'neovim/nvim-lspconfig'
---  use 'williamboman/mason.nvim'
---  use 'williamboman/mason-lspconfig.nvim'
-  use {'neoclide/coc.nvim', run  = {'yarn install --frozen-lockfile'}}
---   use 'hrsh7th/nvim-cmp'
---   use 'hrsh7th/cmp-nvim-lsp'
---   use 'hrsh7th/cmp-nvim-lsp-signature-help'
-  use 'nvimtools/none-ls.nvim'
---   use 'hrsh7th/cmp-nvim-lsp-document-symbol'
--- use 'jose-elias-alvarez/null-ls.nvim'
--- use 'nvim-lua/plenary.nvim'
---  use {'junegunn/fzf', run  = 'fzf#install' }
---  use 'junegunn/fzf.vim'
-  use 'jacoborus/tender.vim'
-  use 'feline-nvim/feline.nvim'
-  use {
-	    'nvim-telescope/telescope.nvim', tag = '0.1.4',
-	    requires = { {'nvim-lua/plenary.nvim'} }
-	    }
-  use "lukas-reineke/indent-blankline.nvim"
-  use 'lewis6991/gitsigns.nvim'
-  use 'rmagatti/auto-session'
-  use { 
-	     'nvim-treesitter/nvim-treesitter',
-		          run = ':TSUpdate'
-			      }
-
-
+	use("github/copilot.vim")
+	use("wbthomason/packer.nvim") -- Have packer manage itself
+	--  use 'neovim/nvim-lspconfig'
+	--  use 'williamboman/mason.nvim'
+	--  use 'williamboman/mason-lspconfig.nvim'
+	use({ "neoclide/coc.nvim", run = { "yarn install --frozen-lockfile" } })
+	--   use 'hrsh7th/nvim-cmp'
+	--   use 'hrsh7th/cmp-nvim-lsp'
+	--   use 'hrsh7th/cmp-nvim-lsp-signature-help'
+	use("nvimtools/none-ls.nvim")
+	--   use 'hrsh7th/cmp-nvim-lsp-document-symbol'
+	-- use 'jose-elias-alvarez/null-ls.nvim'
+	-- use 'nvim-lua/plenary.nvim'
+	--  use {'junegunn/fzf', run  = 'fzf#install' }
+	--  use 'junegunn/fzf.vim'
+	use("jacoborus/tender.vim")
+	use("feline-nvim/feline.nvim")
+	use({
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.4",
+		requires = { { "nvim-lua/plenary.nvim" } },
+	})
+	use("lukas-reineke/indent-blankline.nvim")
+	--  use 'lewis6991/gitsigns.nvim'
+	use("tpope/vim-fugitive")
+	use("rmagatti/auto-session")
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+	})
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

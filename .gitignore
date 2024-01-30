@@ -1,3 +1,4 @@
 *.swp
 cheat/cheatsheets/community
 ./venv
+.mypy_cache

@@ -1,0 +1,3 @@
+
+# Ruff inline ignore
+`# ruff: noqa: DTZ001`

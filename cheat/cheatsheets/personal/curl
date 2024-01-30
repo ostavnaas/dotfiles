@@ -17,3 +17,6 @@ curl -u <username>:<password> <url>
 
 # To get only the HTTP status code:
 curl -o /dev/null -w '%{http_code}\n' -s -I URL
+
+# Follow redirect
+curl -L https://example.com

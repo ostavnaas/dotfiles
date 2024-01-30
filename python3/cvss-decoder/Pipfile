@@ -4,10 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pynvim = "*"
-neovim = "*"
+pydantic = "*"
 
 [dev-packages]
+ruff = "*"
+mypy = "*"
+pudb = "*"
 
 [requires]
 python_version = "3.12"

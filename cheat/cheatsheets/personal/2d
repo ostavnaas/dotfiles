@@ -1,0 +1,4 @@
+apt-get install  qrencode
+# 2d barcode to cli
+qrencode -t UTF8 'Hello World!'
+

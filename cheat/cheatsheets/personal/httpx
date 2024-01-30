@@ -1,0 +1,31 @@
+# https://www.python-httpx.org/exceptions/
+# httpx exception hierarchy
+
+HTTPError
+ └── RequestError
+     ├── TransportError
+     │    ├── TimeoutException
+     │    │    ├── ConnectTimeout
+     │    │    ├── ReadTimeout
+     │    │    ├── WriteTimeout
+     │    │    └── PoolTimeout
+     │    ├── NetworkError
+     │    │    ├── ConnectError
+     │    │    ├── ReadError
+     │    │    ├── WriteError
+     │    │    └── CloseError
+     │    ├── ProtocolError
+     │    │    ├── LocalProtocolError
+     │    │    └── RemoteProtocolError
+     │    ├── ProxyError
+     │    └── UnsupportedProtocol
+     ├── DecodingError
+     ├── TooManyRedirects
+     └── HTTPStatusError
+InvalidURL
+CookieConflict
+StreamError
+ ├── StreamConsumed
+ ├── ResponseNotRead
+ ├── RequestNotRead
+ └── StreamClosed

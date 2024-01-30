@@ -1,0 +1,15 @@
+
+jq  '.auths."myregistry".auth' -r ~/.docker/config.json | base64 -d
+
+curl -X GET -u <user>:<pass> https://myregistry:5000/v2/_catalog
+curl -X GET -u <user>:<pass> https://myregistry:5000/v2/ubuntu/tags/list
+
+
+cat ~/.docker/config.json 
+{
+  "auths": {
+    "myregistry": {
+      "auth": "ZG9ja2VyOjc3YjVmNTI1Y2IyYmM0OGQzODdhYzlkNTAxM2MyNDZjNjY1NjVjNjMK"
+    }
+  }
+}

@@ -3,6 +3,7 @@
   "cSpell.userWords": [
     "asdict",
     "asyncio",
+    "httpx",
     "jwks",
     "psycopg",
     "tbdlib",

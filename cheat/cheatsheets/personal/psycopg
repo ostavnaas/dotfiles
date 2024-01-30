@@ -38,3 +38,18 @@ Python `time`objects are converted to PostgreSQL time (if they don’t have a tz
 Python `timedelta` objects are converted to PostgreSQL interval.
 
 Python `uuid.UUID` objects are adapted to PostgreSQL UUID type and back:
+
+
+# Exception https://www.psycopg.org/psycopg3/docs/api/errors.html
+Exception
+ ├── Warning
+ └── Error
+      ├── InterfaceError
+      └── DatabaseError
+           ├── DataError
+           ├── OperationalError
+           ├── IntegrityError
+           ├── InternalError
+           ├── ProgrammingError
+           └── NotSupportedError
+

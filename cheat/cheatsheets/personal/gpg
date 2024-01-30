@@ -16,3 +16,17 @@ gpg --list-keys --keyid-format long
 
 # show public key ID that it was encrypted with
 gpg --pinentry-mode cancel --list-packets file.gpg
+
+# https://davesteele.github.io/gpg/2014/09/20/anatomy-of-a-gpg-key/
++-------+----------------+------------------------------+
+| Flag  | gpg character  |         Description          |
++-------+----------------+------------------------------+
+| 0x01  | “C”            | Key Certification            |
+| 0x02  | “S”            | Sign Data                    |
+| 0x04  | “E”            | Encrypt Communications       |
+| 0x08  | “E”            | Encrypt Storage              |
+| 0x10  |                | Split key                    |
+| 0x20  | “A”            | Authentication               |
+| 0x80  |                | Held by more than one person |
++-------+----------------+------------------------------+
+

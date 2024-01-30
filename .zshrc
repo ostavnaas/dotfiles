@@ -23,9 +23,8 @@ if [ -f ~/.zsh_workrc ];then
 fi
 
 
-MY_PYTHON_VERISON="3.11.6"
-MY_PYTHON_PATH="/home/oves/.pyenv/versions/"$MY_PYTHON_VERISON"/bin"
-export PATH=$MY_PYTHON_PATH:$PATH:$HOME/.local/bin/:$HOME/go/bin:/opt/node/bin
+
+export PATH=$PATH:$HOME/.local/bin/:$HOME/go/bin:/opt/node/bin
 # Go
 export GOROOT=/usr/local/go
 #export GOPATH=~/golang
@@ -43,6 +42,10 @@ export LIBVIRT_DEFAULT_URI="qemu:///system"
 export PYTHONBREAKPOINT="pudb.set_trace"
 
 
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # Do not share history between windows
 #setopt no_share_history
