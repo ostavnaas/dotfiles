@@ -23,16 +23,57 @@ https://datatracker.ietf.org/doc/html/rfc2046
 # CR = <US-ASCII CR, carriage return (13)>
 # LF = <US-ASCII LF, linefeed (10)>
 
-# POST example
-POST /test HTTP/1.1  # Request-line - https://datatracker.ietf.org/doc/html/rfc1945#section-5.1 
-                     # Request-Line = Method SP Request-URI SP HTTP-Version CRLF
-Host: foo.example    # Request Header Fields - https://datatracker.ietf.org/doc/html/rfc1945#section-5.2
+# POST example with application/x-www-form-urlencoded
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
+# httpx.post('http://www.example.com/test', data={'field1': 'value1', 'field2': 'value2'})
+POST /test HTTP/1.1                                          # Request-line - https://datatracker.ietf.org/doc/html/rfc1945#section-5.1 
+                                                             # Request-Line = Method SP Request-URI SP HTTP-Version CRLF
+Host: www.example.com                                        # Request Header Fields - https://datatracker.ietf.org/doc/html/rfc1945#section-5.2
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 27
 
-field1=value1&field2=value2 # body
+field1=value1&field2=value2                                  # body
 
-# GET example
-POST /test?tag=networking HTTP/1.1  # Request-line - https://datatracker.ietf.org/doc/html/rfc1945#section-5.1 
-                                    # Request-Line = Method SP Request-URI SP HTTP-Version CRLF
-Host: foo.example                   # Request Header Fields - https://datatracker.ietf.org/doc/html/rfc1945#section-5.2
+# GET example with query string
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET
+# httpx.get('http://www.example.com/forum/questions?tag=networking&order=newest')
+# or httpx.get('http://www.example.com/forum/questions', params={'tag': 'networking', 'order': 'newest'})
+POST /forum/questions?tag=networking&order=newest  HTTP/1.1  # Request-line - https://datatracker.ietf.org/doc/html/rfc1945#section-5.1 
+                                                             # Request-Line = Method SP Request-URI SP HTTP-Version CRLF
+Host: www.example.com               			     # Request Header Fields - https://datatracker.ietf.org/doc/html/rfc1945#section-5.2
+
+# POST example with chunked transfer encoding
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Transfer-Encoding
+# httpx.post('http://www.example.com/file', data=b'one-byte', headers={'Transfer-Encoding': 'chunked'})
+POST /file HTTP/1.1
+Host: www.example.com
+Accept-Encoding: gzip, deflate
+Transfer-Encoding: chunked
+
+8
+one-byte
+0
+
+# POST example with multipart/form-data
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
+# httpx.post('http://www.example.com/files', files={'upload-file': ('Dockerfile', open('Dockerfile', 'rb'))})
+POST /files HTTP/1.1
+Host: www.example.com
+Accept-Encoding: gzip, deflate
+Content-Length: 350
+Content-Type: multipart/form-data; boundary=1d883db04aa3625465430d4163a78dd3
+
+--1d883db04aa3625465430d4163a78dd3
+Content-Disposition: form-data; name="upload-file"; filename="Dockerfile"
+Content-Type: application/octet-stream
+
+FROM python
+
+ENV PIPENV_VENV_IN_PROJECT=1
+WORKDIR /src
+COPY Pipfile Pipfile.lock /src/
+RUN pip install pipenv && pipenv sync
+ENV PATH="/src/.venv/bin:$PATH"
+
+--1d883db04aa3625465430d4163a78dd3--
+```
