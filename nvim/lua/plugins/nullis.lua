@@ -29,29 +29,36 @@ local async_formatting = function(bufnr)
 	)
 end
 
-local null_ls = require("null-ls")
+return {
+	{
+		"nvimtools/none-ls.nvim",
+		config = function()
+			local null_ls = require("null-ls")
 
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+			local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
-null_ls.setup({
-	-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
-	sources = {
-		null_ls.builtins.formatting.ruff_format,
-		null_ls.builtins.formatting.ruff,
-		null_ls.builtins.diagnostics.mypy,
-		null_ls.builtins.formatting.stylua,
-	},
-	debug = false,
-	on_attach = function(client, bufnr)
-		if client.supports_method("textDocument/formatting") then
-			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-			vim.api.nvim_create_autocmd("BufWritePost", {
-				group = augroup,
-				buffer = bufnr,
-				callback = function()
-					async_formatting(bufnr)
+			null_ls.setup({
+				-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+				sources = {
+					null_ls.builtins.formatting.ruff_format,
+					null_ls.builtins.formatting.ruff,
+					null_ls.builtins.diagnostics.mypy,
+					null_ls.builtins.formatting.stylua,
+				},
+				debug = false,
+				on_attach = function(client, bufnr)
+					if client.supports_method("textDocument/formatting") then
+						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+						vim.api.nvim_create_autocmd("BufWritePost", {
+							group = augroup,
+							buffer = bufnr,
+							callback = function()
+								async_formatting(bufnr)
+							end,
+						})
+					end
 				end,
 			})
-		end
-	end,
-})
+		end,
+	},
+}
