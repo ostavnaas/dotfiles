@@ -1,0 +1,20 @@
+https://datatracker.ietf.org/doc/html/rfc7231
+
+
+# GET example with query string
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET
+
+
+
+HTTP Header
+
+```
+POST /forum/questions?tag=networking&order=newest  HTTP/1.1  # Request-line - https://datatracker.ietf.org/doc/html/rfc1945#section-5.1 
+                                                             # Request-Line = Method SP Request-URI SP HTTP-Version CRLF
+Host: www.example.com               			     # Request Header Fields - https://datatracker.ietf.org/doc/html/rfc1945#section-5.2
+```
+
+# Request in python
+httpx.get('http://www.example.com/forum/questions?tag=networking&order=newest')
+httpx.get('http://www.example.com/forum/questions', params={'tag': 'networking', 'order': 'newest'})
+

@@ -1,0 +1,10 @@
+# TLS 1.2
+# https://datatracker.ietf.org/doc/html/rfc5246
+# ssl ciphers
+ECDHE-ECDSA-AES128-GCM-SHA256
++--------------+----------------+------------------------------------+-------------+
+| Key Exchange | Authentication | Cipher (Algorithm, Strength, Mode) | Hash or MAC |
++--------------+----------------+------------------------------------+-------------+
+| ECDHE        | ECDSA          | AES128-GCM (AES, 128, GCM)         | SHA256      |
++--------------+----------------+------------------------------------+-------------+
+

@@ -1,3 +1,6 @@
+---
+syntax: Python
+---
 from botocore.config import Config
 import boto3
 

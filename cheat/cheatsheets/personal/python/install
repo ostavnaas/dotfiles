@@ -1,0 +1,10 @@
+
+# Download and move to /opt/Python-{version}
+#curl $(curl https://www.python.org/downloads/source/ 2>/dev/null | grep -Po -m1 "https://www.python.org/ftp/python/3.9.\d+/Python-3.9.\d+.tar.xz")  -o /tmp/
+curl https://api.github.com/repos/python/cpython/tags
+sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev pkg-config make lzma -y
+sudo tar zxvf Python-3.9.15.tgz -C /opt
+./configure --enable-optimizations --enable-shared --with-ensurepip=install
+make
+sudo make altinstall
+sudo ldconfig /opt/Python3.8.{version}

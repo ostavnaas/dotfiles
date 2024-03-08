@@ -1,34 +1,38 @@
+---
+syntax: SQL
+---
 
 
 
-# Update Records
+-- Update Records
 UPDATE table_name SET column1 = value1, column2 = value2,... WHERE condition;
 
-# Delete
+-- Delete
 DELETE FROM table_name WHERE condition;
 
-# Select
+-- Select
 SELECT column1, column2, ... FROM table_name;
 SELECT column_name(s) FROM table_name WHERE column_name IN (value1, value2, ...);
 
 
-# Insert
+-- Insert
 INSERT INTO table2 (column1, column2, column3, ...) SELECT column1, column2, column3, ... FROM table1 WHERE condition;
 
 INSERT INTO table_name (column1, column2, column3, ...) VALUES (value1, value2, value3, ...);
 
 
-
-# Others examples
-# select rows older then x Days
+/*
+Others examples
+select rows older then x Days
+*/
 SELECT column_name(s) FROM schema.table_name WHERE column_name < ( now() - INTERVAL 1 DAY);
 
 
-# https://www.postgresql.org/docs/current/sql-altertable.html
+-- https://www.postgresql.org/docs/current/sql-altertable.html
 ALTER TABLE <table> ALTER COLUMN <column> SET NOT NULL;
 
 
-# Conditions
+-- Conditions
 = 	Equal
 > 	Greater than
 < 	Less than
@@ -41,7 +45,7 @@ IN 	To specify multiple possible values for a column
 
 
 
-http://www.sisense.com/blog/sql-query-order-of-operations
+-- http://www.sisense.com/blog/sql-query-order-of-operations
 SQL query planners order:
     FROM - Choose and join tables to get base data
    WHERE - Filter the base data
@@ -52,11 +56,11 @@ ORDER BY - Sort the final data
    LIMIT - Limits the returned data to a row count
 
 
-{"user_uuid": "e3893f69-9ed1-4784-9004-30e5a8cdaf12", "user_name": "test"}
+-- {"user_uuid": "e3893f69-9ed1-4784-9004-30e5a8cdaf12", "user_name": "test"}
 SELECT json from table WHERE json ->> 'user_uuid' = 'e3893f69-9ed1-4784-9004-30e5a8cdaf12';
 
 
 
-# Cast type array {}
+-- Cast type array {}
 CREATE TYPE car_model AS ENUM ('audi', 'bmw', 'toyota')
 SELECT * FROM cars WHERE model = ANY('{audi, bmw,}'::car_model[]);

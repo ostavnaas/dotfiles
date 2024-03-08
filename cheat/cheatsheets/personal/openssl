@@ -1,4 +1,6 @@
-
+---
+syntax: bash
+---
 # Weak-ssl ciphers, For debuging
 ./config enable-weak-ssl-ciphers  -DOPENSSL_TLS_SECURITY_LEVEL=0 enable-des --prefix=/opt/openssl-1.1.1h no-shared
 make

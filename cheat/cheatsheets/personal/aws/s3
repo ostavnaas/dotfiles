@@ -1,0 +1,1 @@
+aws s3api head-object --bucket <bucke> --key <key> --region <region> --endpoint http://localstack:4566

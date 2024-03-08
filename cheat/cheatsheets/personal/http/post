@@ -1,27 +1,5 @@
+# https://datatracker.ietf.org/doc/html/rfc7231
 
-
-# Hypertext Transfer Protocol (HTTP)
-https://developer.mozilla.org/en-US/docs/Web/HTTP
-
-
-# https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
-            userinfo       host      port
-          ┌──┴───┐ ┌──────┴──────┐ ┌┴┐
-  https://john.doe@www.example.com:123/forum/questions/?tag=networking&order=newest#top
-  └─┬─┘   └─────────────┬────────────┘└───────┬───────┘ └────────────┬────────────┘ └┬┘
-  scheme          authority                  path                  query           fragment
-
-
-# Uniform Resource Identifier (URI): Generic Syntax
-https://www.rfc-editor.org/rfc/rfc3986
-
-# MIME types
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
-https://datatracker.ietf.org/doc/html/rfc2046
-
-# SP = <US-ASCII SP, space (32)>
-# CR = <US-ASCII CR, carriage return (13)>
-# LF = <US-ASCII LF, linefeed (10)>
 
 # POST example with application/x-www-form-urlencoded
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
@@ -34,13 +12,6 @@ Content-Length: 27
 
 field1=value1&field2=value2                                  # body
 
-# GET example with query string
-# https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET
-# httpx.get('http://www.example.com/forum/questions?tag=networking&order=newest')
-# or httpx.get('http://www.example.com/forum/questions', params={'tag': 'networking', 'order': 'newest'})
-POST /forum/questions?tag=networking&order=newest  HTTP/1.1  # Request-line - https://datatracker.ietf.org/doc/html/rfc1945#section-5.1 
-                                                             # Request-Line = Method SP Request-URI SP HTTP-Version CRLF
-Host: www.example.com               			     # Request Header Fields - https://datatracker.ietf.org/doc/html/rfc1945#section-5.2
 
 # POST example with chunked transfer encoding
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Transfer-Encoding

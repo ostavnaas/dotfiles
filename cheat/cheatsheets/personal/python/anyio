@@ -1,0 +1,9 @@
+---
+syntax: python
+---
+
+from anyio import create_task_group
+
+async with create_task_group() as tg
+    [tg.start_soon(func, arg, arg2) for i in range(10)]
+

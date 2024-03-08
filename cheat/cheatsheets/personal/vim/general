@@ -28,3 +28,18 @@ CTRL+w -> o
 
 # Close all buffers
 :%bd|e#
+
+
+
+# Motions
+           gg
+           ^b
+           ^u
+           k
+           ⬆️ 
+0 ^B b h ⬅️   ➡️  l e w E W$
+           ⬇️ 
+	   j
+           ^d
+	   ^f
+	   G

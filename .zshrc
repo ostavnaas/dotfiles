@@ -9,6 +9,7 @@ plugins=(
   z
   docker
   docker-compose
+  fzf
 )
 #zsh-vi-mode
 

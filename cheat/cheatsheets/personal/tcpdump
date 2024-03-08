@@ -1,70 +1,34 @@
 ##TCP FLAGS##
 
-Unskilled Attackers Pester Real Security Folks
-==============================================
-                     TCPDUMP FLAGS
-Unskilled =  URG  =  (Not Displayed in Flag Field, Displayed elsewhere) 
-Attackers =  ACK  =  (Not Displayed in Flag Field, Displayed elsewhere)
-Pester    =  PSH  =  [P] (Push Data)
-Real      =  RST  =  [R] (Reset Connection)
-Security  =  SYN  =  [S] (Start Connection)
-Folks     =  FIN  =  [F] (Finish Connection)
-          SYN-ACK =  [S.] (SynAcK Packet)
-                     [.] (No Flag Set)
+TCP Packets
+src > dst: Flags [tcpflags], seq data-seqno, ack ackno, win window, urg urgent, options [opts], length len
 
-##USAGE##
-Basic communication // see the basics without many options
-# tcpdump -nS
+[tcpflags]
+S (SYN)
+F (FIN)
+P (PUSH)
+R (RST)
+U (URG)
+W (ECN CWR)
+E (ECN-Echo) 
+. (ACK)
+none (no flags set)
 
-Basic communication (very verbose) // see a good amount of traffic, with verbosity and no name help
-# tcpdump -nnvvS
+tcpdump -i eth0 port 443
 
-A deeper look at the traffic // adds -X for payload but doesn’t grab any more of the packet
-# tcpdump -nnvvXS
 
-Heavy packet viewing // the final “s” increases the snaplength, grabbing the whole packet
-# tcpdump -nnvvXSs 1514
+# Write the raw packets to file
+tcpdump -i eth0 -n -v -w /tmp/tcpdump.pcap
 
-host // look for traffic based on IP address (also works with hostname if you’re not using -n) 
-# tcpdump host 1.2.3.4
+# To or/and from
+tcpdump host 1.2.3.4
+tcpdump src 2.3.4.5 
+tcpdump dst 3.4.5.6
+tcpdump net 1.2.3.0/24
 
-src, dst // find traffic from only a source or destination (eliminates one side of a host conversation) 
-# tcpdump src 2.3.4.5 
-# tcpdump dst 3.4.5.6
+# Protocols tcp, udp, icmp
+tcpdump icmp
 
-net // capture an entire network using CIDR notation 
-# tcpdump net 1.2.3.0/24
-
-proto // works for tcp, udp, and icmp. Note that you don’t have to type proto 
-# tcpdump icmp
-
-port // see only traffic to or from a certain port 
-# tcpdump port 3389
-
-src, dst port // filter based on the source or destination port 
-# tcpdump src port 1025 # tcpdump dst port 389
-
-src/dst, port, protocol // combine all three 
-# tcpdump src port 1025 and tcp 
-# tcpdump udp and src port 53
-
-You also have the option to filter by a range of ports instead of declaring them individually, and to only see packets that are above or below a certain size.
-
-Port Ranges // see traffic to any port in a range 
-tcpdump portrange 21-23
-
-Packet Size Filter // only see packets below or above a certain size (in bytes) 
-tcpdump less 32 
-tcpdump greater 128
-[ You can use the symbols for less than, greater than, and less than or equal / greater than or equal signs as well. ]
-
-// filtering for size using symbols 
-tcpdump > 32 
-tcpdump <= 128
-
-[ Note: Only the PSH, RST, SYN, and FIN flags are displayed in tcpdump‘s flag field output. URGs and ACKs are displayed, but they are shown elsewhere in the output rather than in the flags field ]
-
-Keep in mind the reasons these filters work. The filters above find these various packets because tcp[13] looks at offset 13 in the TCP header, the number represents the location within the byte, and the !=0 means that the flag in question is set to 1, i.e. it’s on.
 
 Show all URG packets:
 # tcpdump 'tcp[13] & 32 != 0'

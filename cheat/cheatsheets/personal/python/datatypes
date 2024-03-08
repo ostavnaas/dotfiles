@@ -1,0 +1,54 @@
+---
+syntax: python
+---
+# Docs
+https://docs.python.org/3/library/index.html
+
+
+
+
+# Python docker tags (Multiarch)
+https://github.com/docker-library/repo-info/tree/master/repos/python/remote
+
+# SET
+# Mutable Objects
+# https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset
+set() 
+s  = {"foo"}
+
+{"foo","bar","extra"}.issuperset({"foo", "bar"}) => True
+{"foo","bar","extra"} >= {"foo", "bar"}  => True
+
+{"foo","bar"}.issubset({"foo", "bar","extra"}) => True
+{"foo","bar"} <= {"foo", "bar","extra"} => True
+{"foo","bar"} < {"foo", "bar"} => False (Proper subset)
+
+# LIST
+# Mutable Objects
+# https://docs.python.org/3/library/stdtypes.html#list
+list()
+l = [1,2,3]
+
+# DICT
+# Mutable Objects
+# https://docs.python.org/3/library/stdtypes.html#dict
+dict()
+d = {"one": 1, "two": 2, "three": 3}
+
+# int  
+# Immutable Objects
+int()
+i = 42
+
+# string 
+# Immutable Objects
+str()
+s = "string"
+
+# tuple 
+# Immutable Objects
+# https://docs.python.org/3/library/stdtypes.html#tuple
+tuple()
+t = (1,)
+t = (1,2,3)
+

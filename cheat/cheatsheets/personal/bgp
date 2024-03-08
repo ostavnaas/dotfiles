@@ -1,0 +1,22 @@
+https://ipinfo.io/
+https://bgpview.io/
+https://search.arin.net/rdap
+
+whois -h riswhois.ripe.net 8.8.8.8
+route:        8.8.8.0/24
+origin:       AS15169
+descr:        GOOGLE, US
+lastupd-frst: 2024-02-01 08:47Z  5.57.80.113@rrc01
+lastupd-last: 2024-03-04 07:50Z  37.49.236.172@rrc21
+seen-at:      rrc00,rrc01,rrc03,rrc04,rrc05,rrc06,rrc07,rrc10,rrc11,rrc12,rrc13,rrc14,rrc15,rrc16,rrc18,rrc19,rrc20,rrc21,rrc22,rrc23,rrc24,rrc25,rrc26
+num-rispeers: 433
+source:       RISWHOIS
+
+
+whois -h whois.cymru.com 8.8.8.8
+
+AS      | IP               | AS Name
+15169   | 8.8.8.8          | GOOGLE, US
+
+
+whois -h riswhois.ripe.net -- '-i origin AS15169'
