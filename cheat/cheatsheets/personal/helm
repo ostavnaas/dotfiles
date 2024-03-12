@@ -21,3 +21,8 @@ helm history <name>
 # Rollback a release
 helm rollback <name>
 helm rollback <name> <revision>
+
+# Charts
+# https://github.com/kubernetes/ingress-nginx
+# https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+# https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
