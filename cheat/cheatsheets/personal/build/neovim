@@ -1,5 +1,5 @@
 git fetch --tags
-git checkout tags/v0.9.4
+git checkout tags/v0.9.5
 make clean
 make CMAKE_BUILD_TYPE=RelWithDebInfo
 cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb

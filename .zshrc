@@ -119,6 +119,10 @@ ur-all() {
   done
 }
 
+
+gitignore () {
+	curl https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore | tee .gitignore
+}
 bastion() {
   ssh -D 1080 -q -N $1 &
 }

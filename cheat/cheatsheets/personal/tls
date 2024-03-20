@@ -8,3 +8,6 @@ ECDHE-ECDSA-AES128-GCM-SHA256
 | ECDHE        | ECDSA          | AES128-GCM (AES, 128, GCM)         | SHA256      |
 +--------------+----------------+------------------------------------+-------------+
 
+
+# Endpoint for testing bad ssl
+https://badssl.com/
