@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local reops = { buffer = ev.buf, jump_type = "vsplit" }
 		vim.keymap.set("n", "gr", builtin.lsp_references, opts)
 		vim.keymap.set("n", "<leader>f", function()
-			vim.lsp.buf.format({ async = true })
+			vim.lsp.buf.format({ async = false })
 		end, opts)
 	end,
 })
@@ -104,44 +104,53 @@ return {
 
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = { "hrsh7th/cmp-nvim-lsp", "nvim-telescope/telescope.nvim", "astral-sh/ruff-lsp" },
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"nvim-telescope/telescope.nvim",
+			"astral-sh/ruff-lsp",
+		},
 		config = function()
+			local lsp_zero = require("lsp-zero")
+			lsp_zero.extend_lspconfig()
 			-- Use telescope for lsp refrerences
 			local transform_mod = require("telescope.builtin")
 			local handlers = {
 				["textDocument/references"] = transform_mod,
 			}
-			-- Setup language servers.
-			local lspconfig = require("lspconfig")
-			-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-			local languages = { "pyright", "gopls", "ruff_lsp" }
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			for _, lsp in ipairs(languages) do
-				lspconfig[lsp].setup({
-					--on_attach = my_custom_on_attach,
-					capabilities = capabilities,
-				})
+
+			--vim.lsp.set_log_level("debug")
+
+			--- lsp_cero ---
+			--local lsp_zero = require("lsp-zero")
+			----lsp_zero.extend_lspconfig()
+
+			--lsp_zero.on_attach(function(client, bufnr)
+			--	lsp_zero.default_keymaps({ buffer = bufnr })
+			--end)
+
+			---- don't add this function in the `on_attach` callback.
+			---- `format_on_save` should run only once, before the language servers are active.
+			--lsp_zero.format_on_save({
+			--	format_opts = {
+			--		async = false,
+			--		timeout_ms = 10000,
+			--	},
+			--	servers = {
+			--		["ruff_lsp"] = { "python" },
+			--	},
+			--})
+			--- lsp_cero end ---
+
+			-- Ruff command to organize imports on save
+			---@param name string
+			---@return lsp.Client
+			local function lsp_client(name)
+				return assert(
+					vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf(), name = name })
+					[1],
+					("No %s client found for the current buffer"):format(name)
+				)
 			end
-
-			lspconfig.pyright.setup({
-				on_attach = on_attach,
-				settings = {
-					python = {
-						analysis = {
-							autoImportCompletions = true,
-							autoSearchPaths = true,
-							diagnosticMode = "openFilesOnly",
-							useLibraryCodeForTypes = true,
-							typeCheckingMode = "strict",
-							disableOrganizeImports = false,
-						},
-					},
-				},
-			})
-
-			lspconfig.gopls.setup({
-				on_attach = on_attach,
-			})
 
 			--- astral-sh/ruff-lsp
 			local on_attach = function(client, bufnr)
@@ -149,21 +158,81 @@ return {
 				if client.name == "ruff_lsp" then
 					client.server_capabilities.hoverProvider = false
 				end
+
+				--	if client.supports_method("textDocument/formatting") then
+				--		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+				--		vim.api.nvim_create_autocmd("BufWritePost", {
+				--			group = augroup,
+				--			buffer = bufnr,
+				--			callback = function()
+				--				async_formatting(bufnr)
+				--			end,
+				--		})
+				--	end
 			end
 
-			lspconfig.ruff_lsp.setup({
-				on_attach = function(client, bufnr)
-					if client.supports_method("textDocument/formatting") then
-						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-						vim.api.nvim_create_autocmd("BufWritePost", {
-							group = augroup,
-							buffer = bufnr,
-							callback = function()
-								async_formatting(bufnr)
-							end,
+			-- Setup language servers.
+			local lspconfig = require("lspconfig")
+			-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+			local languages = {
+				pyright = {
+					settings = {
+						pyright = {
+							disableLanguageServices = false,
+							disableOrganizeImports = true,
+						},
+						python = {
+							analysis = {
+								autoImportCompletions = true,
+								autoSearchPaths = true,
+								diagnosticMode = "openFilesOnly",
+								useLibraryCodeForTypes = true,
+								typeCheckingMode = "strict",
+							},
+						},
+					},
+				},
+				gopls = {},
+				ruff_lsp = {
+					settings = { organizeImports = true },
+				},
+				lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim" } } } } },
+			}
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			for lsp, config in pairs(languages) do
+				lspconfig[lsp].setup({
+					on_attach = on_attach,
+					capabilities = capabilities,
+					settings = config.settings,
+					handlers = handlers,
+					commands = config.commands or {},
+				})
+			end
+
+			-- hackz to organize imports on save, until ruff_lsp supports it
+			vim.api.nvim_create_autocmd("BufWritePost", {
+				pattern = "*.py",
+				callback = function()
+					-- Organize imports and format the file
+					for _, command in ipairs({
+						--"ruff.applyFormat",
+						"ruff.applyOrganizeImports",
+					}) do
+						lsp_client("ruff_lsp").request("workspace/executeCommand", {
+							command = command,
+							arguments = {
+								{ uri = vim.uri_from_bufnr(0) },
+							},
 						})
 					end
-				end
+				end,
+				--	vim.cmd("RuffOrganizeImports")
+			})
+			vim.api.nvim_create_autocmd("BufWritePost", {
+				pattern = "*.lua",
+				callback = function()
+					vim.lsp.buf.format()
+				end,
 			})
 		end,
 	},
@@ -174,13 +243,42 @@ return {
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-		opts = {
-			ensure_installed = {
-				"pyright",
-				"gopls",
-				"ruff_lsp",
-			},
+		dependencies = {
+			"VonHeikemen/lsp-zero.nvim",
 		},
+		config = function()
+			require("mason-lspconfig").setup({
+
+				ensure_installed = {
+					"gopls",
+					"ruff_lsp",
+					"lua_ls",
+				},
+			})
+		end,
+	},
+	{
+		"VonHeikemen/lsp-zero.nvim",
+		config = function()
+			local lsp_zero = require("lsp-zero")
+			--lsp_zero.extend_lspconfig()
+
+			lsp_zero.on_attach(function(client, bufnr)
+				lsp_zero.default_keymaps({ buffer = bufnr })
+			end)
+
+			-- don't add this function in the `on_attach` callback.
+			-- `format_on_save` should run only once, before the language servers are active.
+			lsp_zero.format_on_save({
+				format_opts = {
+					async = false,
+					timeout_ms = 10000,
+				},
+				servers = {
+					["ruff_lsp"] = { "python" },
+				},
+			})
+		end,
 	},
 }
 

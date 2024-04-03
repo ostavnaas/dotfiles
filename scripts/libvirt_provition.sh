@@ -5,7 +5,7 @@ set -eux
 KVM_PATH="/home/$(logname)/libvirt/images"
 VM_NAME="${1}"
 RAM=${2:-1024}
-RELEASE_CODENAME="focal"
+RELEASE_CODENAME="bookworm"
 
 JAMMY="https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
 FOCAL="https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
@@ -13,6 +13,7 @@ BIONIC="https://cloud-images.ubuntu.com/releases/bionic/release/ubuntu-18.04-ser
 STRETCH="https://cloud.debian.org/images/cloud/stretch/daily/20200210-166/debian-9-nocloud-amd64-daily-20200210-166.qcow2"
 BUSTER="https://cloud.debian.org/images/cloud/buster/daily/20210816-736/debian-10-generic-amd64-daily-20210816-736.qcow2"
 BULLSEYE="https://cloud.debian.org/images/cloud/bullseye/daily/20210816-736/debian-11-generic-amd64-daily-20210816-736.qcow2"
+BOOKWORM="https://cloud.debian.org/images/cloud/bookworm/20240211-1654/debian-12-generic-amd64-20240211-1654.qcow2"
 
 if [ -z ${1} ]; then
   echo "First argument must be name of VM"
@@ -50,6 +51,9 @@ elif [ $RELEASE_CODENAME == "buster" ];then
 elif [ $RELEASE_CODENAME == "bullseye" ];then
   UBUNTU_URL=$BULLSEYE
   RELEASE="debian11"
+elif [ $RELEASE_CODENAME == "bookworm" ];then
+  UBUNTU_URL=$BOOKWORM
+  RELEASE="debian12"
 fi
 
 

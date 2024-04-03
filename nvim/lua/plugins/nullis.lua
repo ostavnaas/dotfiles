@@ -42,9 +42,6 @@ return {}
 --			null_ls.setup({
 --				-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
 --				sources = {
---					null_ls.builtins.formatting.ruff_format,
---					null_ls.builtins.formatting.ruff,
---					null_ls.builtins.diagnostics.mypy,
 --					null_ls.builtins.diagnostics.misspell,
 --					null_ls.builtins.formatting.stylua,
 --				},
