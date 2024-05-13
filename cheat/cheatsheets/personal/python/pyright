@@ -1,4 +1,8 @@
 
-# Ignore
+class foo():
+    def __init__(self): # pyright: ignore [reportMissingSuperCall]
+	pass
 
-# pyright: ignore [reportMissingSuperCall]
+# type: ignore [reportUnknownMemberType, reportUnknownVariableType]
+def test():
+    pass

@@ -37,6 +37,13 @@ PGPASSWORD=secret
 PGDATABASE=mydb
 PGHOST=db.fqdn
 
+# Turn off pager
+cat << EOF > ~.psqlrc 
+\pset pager off
+EOF
+
+
+
 # Connection string URIs
 # https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
 postgresql://[userspec@][hostspec][/dbname][?paramspec]
@@ -144,3 +151,15 @@ https://www.postgresql.org/docs/current/datatype-datetime.html
 
 
 https://www.postgresql.org/docs/9.1/functions-string.html
+
+
+https://www.postgresql.org/docs/current/locale.html#ICU-LOCALES
++--------------+-------------------------------------------------------------------------+
+| LC_COLLATE   | String sort order                                                       |
+| LC_CTYPE     | Character classification (What is a letter? Its upper-case equivalent?) |
+| LC_MESSAGES  | Language of messages                                                    |
+| LC_MONETARY  | Formatting of currency amounts                                          |
+| LC_NUMERIC   | Formatting of numbers                                                   |
+| LC_TIME      | Formatting of dates and times                                           |
++--------------+-------------------------------------------------------------------------+
+

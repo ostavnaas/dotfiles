@@ -20,3 +20,16 @@ Fixtures are created when first requested by a test, and are destroyed based on 
     package: the fixture is destroyed during teardown of the last test in the package.
     session: the fixture is destroyed at the end of the test session.
 
+
+# https://pytest-xdist.readthedocs.io/en/latest/distribution.html
+--dist load
+Sends pending tests to any worker that is available
+
+--dist=loadscope
+Tests are grouped by __module__ for test functions and by __class__ for test methods
+
+--dist loadfile
+Tests are grouped by their containing file
+
+--dist loadgroup
+Tests are grouped by the xdist_group mark. Groups are distributed to available workers as whole units

@@ -21,3 +21,8 @@ my:
   <<: *base
   <<: *extra
   stage: deploy
+
+description: >-
+  This is a long description
+  that spans multiple lines
+  and is folded into a single line

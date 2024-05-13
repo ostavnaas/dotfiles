@@ -1,2 +1,4 @@
 # https://github.com/pyenv/pyenv
 cd ~/github/pyenv  && git pull --rebase && src/configure && make -C src
+[-d ~/.pyenv ] ||  bin/pyenv init -
+[ -h ~/.local/bin/pyenv ]  || ln -s ~/github/pyenv/bin/pyenv ~/.local/bin/pyenv
