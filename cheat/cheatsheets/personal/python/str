@@ -1,0 +1,7 @@
+def string_handling():
+    long_string = (
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+        "Duis at ipsum tortor. Ut augue ex, laoreet eu purus sed, "
+        "feugiat faucibus augue. Nunc ullamcorper eros vitae lectus tempus, "
+        "ac commodo enim blandit"
+    )
