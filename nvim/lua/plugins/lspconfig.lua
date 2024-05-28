@@ -100,6 +100,29 @@ local async_formatting = function(bufnr)
 	)
 end
 
+local do_stuff         = function(bufnr)
+	bufnr = bufnr or vim.api.nvim_get_current_buf()
+	vim.lsp.buf_request(
+		bufnr,
+		"textDocument/formatting",
+		vim.lsp.util.make_formatting_params({}),
+		function(err, res, ctx)
+			for _, command in ipairs({
+				-- "ruff.applyFormat",
+				"ruff.applyOrganizeImports",
+			}) do
+				local client = vim.lsp.get_client_by_id(ctx.client_id)
+				client.request_sync("workspace/executeCommand", {
+					command = command,
+					arguments = {
+						{ uri = vim.uri_from_bufnr(0), version = 045 },
+					},
+				})
+			end
+		end
+	)
+end
+
 return {
 
 	{
@@ -107,7 +130,7 @@ return {
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"nvim-telescope/telescope.nvim",
-			"astral-sh/ruff-lsp",
+			-- "astral-sh/ruff-lsp",
 		},
 		config = function()
 			local lsp_zero = require("lsp-zero")
@@ -155,20 +178,21 @@ return {
 			--- astral-sh/ruff-lsp
 			local on_attach = function(client, bufnr)
 				-- Disable hover in favor of Pyright
-				if client.name == "ruff_lsp" then
+				if client.name == "ruff" then
 					client.server_capabilities.hoverProvider = false
 				end
 
-				--	if client.supports_method("textDocument/formatting") then
-				--		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-				--		vim.api.nvim_create_autocmd("BufWritePost", {
-				--			group = augroup,
-				--			buffer = bufnr,
-				--			callback = function()
-				--				async_formatting(bufnr)
-				--			end,
-				--		})
-				--	end
+				if client.supports_method("textDocument/formatting") then
+					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						group = augroup,
+						buffer = bufnr,
+						callback = function()
+							async_formatting(bufnr)
+							do_stuff(bufnr)
+						end,
+					})
+				end
 			end
 
 			-- Setup language servers.
@@ -193,12 +217,14 @@ return {
 					},
 				},
 				gopls = {},
-				ruff_lsp = {
+				ruff = {
 					settings = { organizeImports = true },
 				},
 				lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim" } } } } },
 			}
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+
 			for lsp, config in pairs(languages) do
 				lspconfig[lsp].setup({
 					on_attach = on_attach,
@@ -210,24 +236,6 @@ return {
 			end
 
 			-- hackz to organize imports on save, until ruff_lsp supports it
-			vim.api.nvim_create_autocmd("BufWritePost", {
-				pattern = "*.py",
-				callback = function()
-					-- Organize imports and format the file
-					for _, command in ipairs({
-						--"ruff.applyFormat",
-						"ruff.applyOrganizeImports",
-					}) do
-						lsp_client("ruff_lsp").request("workspace/executeCommand", {
-							command = command,
-							arguments = {
-								{ uri = vim.uri_from_bufnr(0) },
-							},
-						})
-					end
-				end,
-				--	vim.cmd("RuffOrganizeImports")
-			})
 			vim.api.nvim_create_autocmd("BufWritePost", {
 				pattern = "*.lua",
 				callback = function()
@@ -251,7 +259,7 @@ return {
 
 				ensure_installed = {
 					"gopls",
-					"ruff_lsp",
+					-- "ruff_lsp",
 					"lua_ls",
 				},
 			})
@@ -274,9 +282,9 @@ return {
 					async = false,
 					timeout_ms = 10000,
 				},
-				servers = {
-					["ruff_lsp"] = { "python" },
-				},
+				-- servers = {
+				-- 	["ruff_lsp"] = { "python" },
+				-- },
 			})
 		end,
 	},

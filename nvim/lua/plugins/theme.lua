@@ -11,4 +11,6 @@ return {
 				})
 		end,
 	},
+
+	"ntpeters/vim-better-whitespace",
 }
