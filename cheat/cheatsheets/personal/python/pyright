@@ -1,3 +1,4 @@
+# pyright: reportPrivateUsage=false
 
 class foo():
     def __init__(self): # pyright: ignore [reportMissingSuperCall]

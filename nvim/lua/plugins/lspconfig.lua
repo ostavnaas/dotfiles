@@ -38,37 +38,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end, opts)
 	end,
 })
-local function goto_definition(split_cmd)
-	local util = vim.lsp.util
-	local log = require("vim.lsp.log")
-	local api = vim.api
-
-	-- note, this handler style is for neovim 0.5.1/0.6, if on 0.5, call with function(_, method, result)
-	local handler = function(_, result, ctx)
-		if result == nil or vim.tbl_isempty(result) then
-			local _ = log.info() and log.info(ctx.method, "No location found")
-			return nil
-		end
-
-		if split_cmd then
-			vim.cmd(split_cmd)
-		end
-
-		if vim.tbl_islist(result) then
-			util.jump_to_location(result[1])
-
-			if #result > 1 then
-				util.set_qflist(util.locations_to_items(result))
-
-				api.nvim_command("wincmd p")
-			end
-		else
-			util.jump_to_location(result)
-		end
-	end
-
-	return handler
-end
 local async_formatting = function(bufnr)
 	bufnr = bufnr or vim.api.nvim_get_current_buf()
 
@@ -100,7 +69,7 @@ local async_formatting = function(bufnr)
 	)
 end
 
-local do_stuff         = function(bufnr)
+local organize_import = function(bufnr)
 	bufnr = bufnr or vim.api.nvim_get_current_buf()
 	vim.lsp.buf_request(
 		bufnr,
@@ -108,8 +77,8 @@ local do_stuff         = function(bufnr)
 		vim.lsp.util.make_formatting_params({}),
 		function(err, res, ctx)
 			for _, command in ipairs({
-				-- "ruff.applyFormat",
 				"ruff.applyOrganizeImports",
+				-- "ruff.fixAll",
 			}) do
 				local client = vim.lsp.get_client_by_id(ctx.client_id)
 				client.request_sync("workspace/executeCommand", {
@@ -121,6 +90,18 @@ local do_stuff         = function(bufnr)
 			end
 		end
 	)
+end
+dump = function(o)
+	if type(o) == 'table' then
+		local s = '{ '
+		for k, v in pairs(o) do
+			if type(k) ~= 'number' then k = '"' .. k .. '"' end
+			s = s .. '[' .. k .. '] = ' .. dump(v) .. ','
+		end
+		return s .. '} '
+	else
+		return tostring(o)
+	end
 end
 
 return {
@@ -189,7 +170,7 @@ return {
 						buffer = bufnr,
 						callback = function()
 							async_formatting(bufnr)
-							do_stuff(bufnr)
+							organize_import(bufnr)
 						end,
 					})
 				end
@@ -218,7 +199,7 @@ return {
 				},
 				gopls = {},
 				ruff = {
-					settings = { organizeImports = true },
+					settings = { organizeImports = true, fixAll = true },
 				},
 				lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim" } } } } },
 			}
@@ -226,6 +207,7 @@ return {
 
 
 			for lsp, config in pairs(languages) do
+				--print(string.format("%s config: %s", lsp, dump(config)))
 				lspconfig[lsp].setup({
 					on_attach = on_attach,
 					capabilities = capabilities,
@@ -290,4 +272,5 @@ return {
 	},
 }
 
+-- end astral-sh/ruff-lsp
 -- end astral-sh/ruff-lsp
