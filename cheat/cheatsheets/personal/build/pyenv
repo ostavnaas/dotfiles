@@ -1,4 +1,12 @@
 # https://github.com/pyenv/pyenv
+#
+# sudo apt update; sudo apt install build-essential libssl-dev zlib1g-dev \
+# libbz2-dev libreadline-dev libsqlite3-dev curl git \
+# libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+
+[ -d ~/github ] || mkdir  ~/github
+[ -d ~/github/pyenv] || git clone  https://github.com/pyenv/pyenv ~/github/pyenv
 cd ~/github/pyenv  && git pull --rebase && src/configure && make -C src
-[-d ~/.pyenv ] ||  bin/pyenv init -
+[ -d ~/.pyenv ] ||  bin/pyenv init -
+[ -d ~/.local/bin ] || mkdir -p ~/.local/bin
 [ -h ~/.local/bin/pyenv ]  || ln -s ~/github/pyenv/bin/pyenv ~/.local/bin/pyenv

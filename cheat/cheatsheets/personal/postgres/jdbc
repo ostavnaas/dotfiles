@@ -1,0 +1,8 @@
+https://jdbc.postgresql.org/documentation/use/
+jdbc:postgresql:database
+jdbc:postgresql:/
+jdbc:postgresql://host/database
+jdbc:postgresql://host/
+jdbc:postgresql://host:port/database
+jdbc:postgresql://host:port/
+

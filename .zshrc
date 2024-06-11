@@ -36,6 +36,7 @@ export GO111MODULE=on
 export HISTSIZE=10000000
 export SAVEHIST=10000000
 export HISTFILESIZE=1000000
+export EDITOR=nvim
 
 export CHEAT_CONFIG_PATH="~/github/ostavnaas/dotfiles/cheat/conf.yml"
 export LIBVIRT_DEFAULT_URI="qemu:///system"

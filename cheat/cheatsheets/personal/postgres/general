@@ -1,0 +1,52 @@
+---
+syntax: PostgreSQL
+---
+
+# Docs
+https://www.postgresql.org/docs/current/index.html
+
+\l - Display database
+\c - Connect to database
+\dn - List schemas
+\dt - List tables inside public schemas
+\dt schema1. - List tables inside particular schemas. For eg: 'schema1
+
+
+SET search_path TO myschema
+
+\d <table> - describe tables
+
+
+# Table view
+SELECT * FROM table\x\g\x
+
+# Encode byte as text
+# https://www.postgresql.org/docs/current/functions-binarystring.html
+SELECT encode(bytea, 'escape')::text FROM table
+SELECT encode(bytea, 'hex') FROM table
+SELECT encode(bytea, 'base64') FROM table
+SELECT encode(bytea, 'hex')::uuid FROM table
+
+SELECT COALESCE(NULL, 2, 1)  -> 2
+COALESCE function that returns the first non-null argument
+
+
+# Environment variables
+# https://www.postgresql.org/docs/current/libpq-envars.html
+PGUSER=user
+PGPASSWORD=secret
+PGDATABASE=mydb
+PGHOST=db.fqdn
+
+# Turn off pager
+cat << EOF > ~.psqlrc
+\pset pager off
+EOF
+
+
+
+# Connection string URIs
+# https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
+postgresql://[userspec@][hostspec][/dbname][?paramspec]
+
+port 5432
