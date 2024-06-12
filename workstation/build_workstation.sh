@@ -77,7 +77,9 @@ sudo systemctl restart systemd-logind.service
 sudo pip3 install httpcode
 sudo chsh $(whoami) --shell=/bin/zsh
 
-dconf write "/org/gnome/desktop/input-sources/xkb-options" "['caps:swapescape']"
+# dconf write "/org/gnome/desktop/input-sources/xkb-options" "['caps:swapescape']"
+dconf write /org/gnome/desktop/input-sources/xkb-options "['nbsp:none',  'ctrl:nocaps']"}
+dconf write   /org/gnome/desktop/input-sources/sources "[('xkb', 'no'), ('xkb', 'us'), ('xkb', 'us+altgr-intl')]"
 
 go install github.com/cheat/cheat/cmd/cheat@latest
 go install sigs.k8s.io/kind@latest

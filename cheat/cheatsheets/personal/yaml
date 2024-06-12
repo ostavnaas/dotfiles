@@ -1,5 +1,5 @@
-
 # https://learnxinyminutes.com/docs/yaml/
+spec: https://yaml.org/spec/1.2.2/#8112-block-chomping-indicator
 key: value
 boolean: true
 null_value: null
@@ -22,7 +22,15 @@ my:
   <<: *extra
   stage: deploy
 
-description: >-
+single_line: >-
   This is a long description
   that spans multiple lines
   and is folded into a single line
+
+with_line_breaks: |-
+  This is a long description
+  that spans multiple lines
+  and is preserved with line breaks
+
+line_break_at_end: >
+  String with linebrek at the end

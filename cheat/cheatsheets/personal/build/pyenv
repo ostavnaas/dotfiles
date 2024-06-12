@@ -5,7 +5,7 @@
 # libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 
 [ -d ~/github ] || mkdir  ~/github
-[ -d ~/github/pyenv] || git clone  https://github.com/pyenv/pyenv ~/github/pyenv
+[ -d ~/github/pyenv ] || git clone  https://github.com/pyenv/pyenv ~/github/pyenv
 cd ~/github/pyenv  && git pull --rebase && src/configure && make -C src
 [ -d ~/.pyenv ] ||  bin/pyenv init -
 [ -d ~/.local/bin ] || mkdir -p ~/.local/bin
