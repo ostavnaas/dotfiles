@@ -1,0 +1,11 @@
+
+
+
+# List content of a deb file
+
+dpkg -c package.deb
+
+
+# Unpack deb file to path
+dpkg-deb -xv package.deb /tmp/package
+

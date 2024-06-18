@@ -40,6 +40,7 @@ export EDITOR=nvim
 
 export CHEAT_CONFIG_PATH="~/github/ostavnaas/dotfiles/cheat/conf.yml"
 export LIBVIRT_DEFAULT_URI="qemu:///system"
+alias gcam='git commit --amend --no-edit'
 
 # https://documen.tician.de/pudb/starting.html
 export PYTHONBREAKPOINT="pudb.set_trace"
