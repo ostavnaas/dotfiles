@@ -123,7 +123,9 @@ if [ -e ~/github/ostavnaas/dotfiles/cheat/cheat.zsh ]; then
   source ~/github/ostavnaas/dotfiles/cheat/cheat.zsh
 fi
 
+if (which stern > /dev/null 2>&1 ); then
 source <(stern --completion=zsh)
+fi
 
 #autoload -Uz compinit
 

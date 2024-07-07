@@ -1,4 +1,4 @@
-# apt-get install gettext
+# apt-get install ninja-build gettext cmake unzip curl build-essential
 git fetch --tags
 git checkout tags/v0.10.3
 make clean
