@@ -215,8 +215,8 @@ fi
 
 
 # https://github.com/cheat/cheat
-if [ -e ~/github/cheat/scripts/cheat.zsh ]; then
-  source ~/github/cheat/scripts/cheat.zsh
+if [ -e ~/github/ostavnaas/dotfiles/cheat/cheat.zsh ]; then
+  source ~/github/ostavnaas/dotfiles/cheat/cheat.zsh
 fi
 
 #autoload -Uz compinit
