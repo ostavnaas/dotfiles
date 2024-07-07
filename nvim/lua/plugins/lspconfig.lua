@@ -77,8 +77,9 @@ local organize_import = function(bufnr)
 		vim.lsp.util.make_formatting_params({}),
 		function(err, res, ctx)
 			for _, command in ipairs({
-				"ruff.applyOrganizeImports",
-				-- "ruff.fixAll",
+				--"ruff.applyOrganizeImports",
+				"ruff.applyFormat",
+				"ruff.applyAutofix",
 			}) do
 				local client = vim.lsp.get_client_by_id(ctx.client_id)
 				client.request_sync("workspace/executeCommand", {
@@ -169,7 +170,7 @@ return {
 						group = augroup,
 						buffer = bufnr,
 						callback = function()
-							async_formatting(bufnr)
+							--async_formatting(bufnr)
 							organize_import(bufnr)
 						end,
 					})
@@ -202,6 +203,7 @@ return {
 					settings = { organizeImports = true, fixAll = true },
 				},
 				lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim" } } } } },
+				typos_lsp = {},
 			}
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
@@ -243,6 +245,7 @@ return {
 					"gopls",
 					-- "ruff_lsp",
 					"lua_ls",
+					"typos_lsp",
 				},
 			})
 		end,

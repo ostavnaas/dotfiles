@@ -10,7 +10,8 @@ return {
 			auto_save_enabled = nil,
 			auto_restore_enabled = nil,
 			auto_session_suppress_dirs = nil,
-			auto_session_use_git_branch = nil,
+			auto_session_use_git_branch = true,
+			auto_restore_lazy_delay_enabled = true,
 			-- the configs below are lua only
 			bypass_session_save_file_types = nil,
 		},

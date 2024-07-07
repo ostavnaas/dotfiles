@@ -3,3 +3,6 @@
 
 # replace camelCase with snake_case
 %s/[a-z]\@<=[A-Z]/_\l\0/g
+
+# replace snake_case with camelCase
+%s/_\([a-z]\)/\U\1/g
