@@ -1,0 +1,27 @@
+---
+Syntax: SQL
+---
+
+UPDATE films
+   SET kind = 'Dramatic'
+ WHERE kind = 'Drama';
+
+   UPDATE weather
+      SET temp_lo = temp_lo+1,
+          temp_hi = temp_lo+15,
+          prcp = DEFAULT
+    WHERE city = 'San Francisco'
+      AND date = '2003-07-03'
+RETURNING temp_lo, temp_hi, prcp;
+
+
+
+[ WITH [ RECURSIVE ] with_query [, ...] ]
+UPDATE [ ONLY ] table_name [ * ] [ [ AS ] alias ]
+    SET { column_name = { expression | DEFAULT } |
+          ( column_name [, ...] ) = [ ROW ] ( { expression | DEFAULT } [, ...] ) |
+          ( column_name [, ...] ) = ( sub-SELECT )
+        } [, ...]
+    [ FROM from_item [, ...] ]
+    [ WHERE condition | WHERE CURRENT OF cursor_name ]
+    [ RETURNING * | output_expression [ [ AS ] output_name ] [, ...] ]

@@ -1,6 +1,6 @@
 # apt-get install gettext
 git fetch --tags
-git checkout tags/v0.10.0
+git checkout tags/v0.10.1
 make clean
 make CMAKE_BUILD_TYPE=RelWithDebInfo
 cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb

@@ -1,0 +1,15 @@
+uv init
+
+# Add new packages
+uv add <package>
+uv add --dev ruff
+
+# Lock
+uv pip compile  pyproject.toml -o requirements.txt
+
+# Create venv
+uv  venv -p python3.12
+
+
+# Install
+uv pip install -r requirements.txt

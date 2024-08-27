@@ -1,0 +1,19 @@
+---
+Syntax: SQL
+---
+# https://www.postgresql.org/docs/current/functions-json.html
+
+
+-- Extracts JSON object field with the given key.
+SELECT '{"a":1,"b":2}'::jsonb ->> 'b';
+ ?column?
+----------
+ 2
+
+
+-- Does the text string exist as a top-level key or array element within the JSON value?
+SELECT '{"a":1, "b":2}'::jsonb ? 'b'
+ ?column?
+----------
+ t
+

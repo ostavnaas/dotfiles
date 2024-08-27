@@ -1,0 +1,42 @@
+python -m cProfile script.py
+
+python -m cProfile -m mymodule
+
+
+
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+|          column           |                                                                 description                                                                  |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| ncalls                    | for the number of calls.                                                                                                                     |
+| tottime                   | for the total time spent in the given function (and excluding time made in calls to sub-functions)                                           |
+| percall                   | is the quotient of tottime divided by ncalls                                                                                                 |
+| cumtime                   | is the cumulative time spent in this and all subfunctions (from invocation till exit). This figure is accurate even for recursive functions. |
+| percall                   | is the quotient of cumtime divided by primitive calls                                                                                        |
+| filename:lineno(function) | provides the respective data of each function                                                                                                |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
++---------------------------------------+
+| import cProfile                       |
+| import re                             |
+| cProfile.run('re.compile("foo|bar")') |
++---------------------------------------+
+
+(Use profile instead of cProfile if the latter is not available on your system.)
+
+The above action would run re.compile() and print profile results like the following:
+
++-------------------------------------------------------------------------------+
+|       214 function calls (207 primitive calls) in 0.002 seconds               |
+|                                                                               |
+| Ordered by: cumulative time                                                   |
+|                                                                               |
+| ncalls  tottime  percall  cumtime  percall filename:lineno(function)          |
+|      1    0.000    0.000    0.002    0.002 {built-in method builtins.exec}    |
+|      1    0.000    0.000    0.001    0.001 <string>:1(<module>)               |
+|      1    0.000    0.000    0.001    0.001 __init__.py:250(compile)           |
+|      1    0.000    0.000    0.001    0.001 __init__.py:289(_compile)          |
+|      1    0.000    0.000    0.000    0.000 _compiler.py:759(compile)          |
+|      1    0.000    0.000    0.000    0.000 _parser.py:937(parse)              |
+|      1    0.000    0.000    0.000    0.000 _compiler.py:598(_code)            |
+|      1    0.000    0.000    0.000    0.000 _parser.py:435(_parse_sub)         |
++-------------------------------------------------------------------------------+

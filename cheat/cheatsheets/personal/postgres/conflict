@@ -1,0 +1,21 @@
+---
+syntax: SQL
+---
+# https://www.postgresql.org/docs/current/sql-insert.html
+
+INSERT INTO person (id, name) VALUES (1, 'Alice');
+
+INSERT INTO person (id, name) VALUES (1, 'Bob') ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
+
+SELECT * from person;
+ id | name
+----+-------
+  1 | Bob
+
+INSERT INTO person AS p (id, name) VALUES (1, 'Alice') ON CONFLICT (id) DO UPDATE SET name = p.name;
+
+SELECT * from person;
+ id | name
+----+------
+  1 | Bob
+
