@@ -64,3 +64,24 @@ SELECT json from table WHERE json ->> 'user_uuid' = 'e3893f69-9ed1-4784-9004-30e
 -- Cast type array {}
 CREATE TYPE car_model AS ENUM ('audi', 'bmw', 'toyota')
 SELECT * FROM cars WHERE model = ANY('{audi, bmw,}'::car_model[]);
+
+
+ASC
+ - Numbers 1
+           2
+	   3
+ - Str A
+       B
+       C
+ - date 01.01.2001
+        02.02.2002
+
+DESC
+ - Numbers 3
+           2
+	   1
+ - Str C
+       B
+       A
+ - date 02.02.2002
+        01.01.2001

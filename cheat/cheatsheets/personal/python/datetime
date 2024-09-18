@@ -1,7 +1,4 @@
 
-
-datetime.now(UTC).strftime('%Y-%m-%dT%H:%M:%SZ')
-
 +------+-----------------------------------------------------------+------------------------------------------------------------+
 | Code | Meaning                                                   | Example                                                    |
 +------+-----------------------------------------------------------+------------------------------------------------------------+
@@ -36,9 +33,31 @@ ISO 8601
 +----------------------+----------------------+--------------------+
 |     Description      |    Time expressed    |   Python format    |
 +----------------------+----------------------+--------------------+
-| Date and time in UTC | 2024-06-11T04:38:20Z | %Y-%m-%dT%H:%M:%SZ |
+| Date and time in UTC | 2006-01-02T15:04:05Z | %Y-%m-%dT%H:%M:%SZ |
 +----------------------+----------------------+--------------------+
 
 
 # Unix Epoch
 datetime.utcfromtimestamp(1284286794)
+
+
+datetime.strptime("2006-01-02 15:04:05", '%Y-%m-%d %H:%M:%S')
+datetime.strptime("2006-01-02T15:04:05.999Z", "%Y-%m-%dT%H:%M:%S.%fZ").astimezone(UTC)
+
+# Unix Epoch
+time.time()
+
+# From Epoch to datetime
+datetime.fromtimestamp(time.time())
+
+# Format datetime string
+2006-01-02T15:04:04
+datetime.utcnow().strftime("%Y-%d-%mT%H:%M:%S")
+
+
+# Return a string representing the date in ISO 8601 format, YYYY-MM-DDTHH:MM:SS.ffffff
+datetime.utcnow().isoformat()
+'2006-01-02T15:04:05.999999'
+
+
+datetime.now(UTC).strftime('%Y-%m-%dT%H:%M:%SZ')

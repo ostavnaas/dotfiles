@@ -1,15 +1,12 @@
 # time zsh
-# zmodload zsh/zprof
+#zmodload zsh/zprof
 export ZSH=~/.oh-my-zsh
 ZSH_THEME="agnoster"
 # fzf
 
 plugins=(
   git
-  z
-  docker
   docker-compose
-  fzf
 )
 #zsh-vi-mode
 
@@ -38,7 +35,9 @@ export SAVEHIST=10000000
 export HISTFILESIZE=1000000
 export EDITOR=nvim
 
+# https://github.com/cheat/cheat/
 export CHEAT_CONFIG_PATH="~/github/ostavnaas/dotfiles/cheat/conf.yml"
+
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 alias gcam='git commit --amend --no-edit'
 
@@ -46,38 +45,24 @@ alias gcam='git commit --amend --no-edit'
 export PYTHONBREAKPOINT="pudb.set_trace"
 
 
-# pyenv
+# https://github.com/pyenv/pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 # Do not share history between windows
-#setopt no_share_history
-#unsetopt share_history
-unsetopt share_history
-setopt no_share_history
+#unsetopt no_share_history
+#setopt share_history
 
 alias less='less -S'
 alias df='df --exclude-type=squashfs'
 
-alias tmuxlogger='tmux pipe-pane -o "cat >>~/tmux_output"'
-alias notmuxlogger='tmux pipe-pane'
 alias dotfiles='cd ~/github/ostavnaas/dotfiles'
-alias super='docker run -it super'
 alias grafana='docker compose --file ~/github/ostavnaas/dotfiles/docker/grafana/docker-compose.yml up'
 
-#alias yq='yq r -C'
-venv()
-	if [ -f .venv/bin/activate ];then
-		source .venv/bin/activate
-	else
-		source $(find ./venv_*/bin -name "activate")
-	fi
 
 # Make git branch use cat
 #export GIT_PAGER=cat
-#alias rebase='git fetch; git rebase -i origin/production'
-alias fetch'=git fetch origin production'
 alias xclip="ssh -X  laptop  'DISPLAY=:0 xsel' 2> /dev/null"
 
 # *Nix safe password
@@ -86,47 +71,11 @@ pwgen() {
 }
 
 
-urb() {
-  HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
-  REMOTE="origin"
-  if git remote -v |grep upstream >/dev/null 2>&1; then
-	  REMOTE="upstream"
-	fi
-  git fetch upstream $HEAD
-  git rebase -i upstream/$HEAD
-}
 
-ur() {
-  HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
-  REMOTE="origin"
-  if git remote -v |grep upstream >/dev/null 2>&1; then
-	  REMOTE="upstream"
-	fi
-  git fetch $REMOTE $HEAD
-  git rebase $REMOTE/$HEAD
-}
-
-rebase() {
-  HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
-  git fetch origin $HEAD
-  git rebase -i origin/$HEAD
-}
-
-ur-all() {
-  HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
-  git fetch upstream $HEAD
-  for b in $(git branch); do
-    git checkout $b
-    git rebase upstream/$HEAD > /dev/null 2>&1 || git rebase --abort
-  done
-}
 
 
 gitignore () {
 	curl https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore | tee .gitignore
-}
-bastion() {
-  ssh -D 1080 -q -N $1 &
 }
 
 rebase-all() {
@@ -175,8 +124,6 @@ fi
 alias k=kubectl
 alias kx=kubectx
 
-# kubectl Autocompletion
-
 
 # For eyaml to work
 GPG_TTY=$(tty)
@@ -193,25 +140,29 @@ if [[ -d $HOME/.zsh-completions ]];  then
   fpath=($fpath $HOME/.zsh-completions)
 fi
 
-if (which vault >/dev/null 2>&1);then
-  complete -o nospace -C $(which vault) vault
-fi
+# Vault
+# if (which vault >/dev/null 2>&1);then
+#   complete -o nospace -C $(which vault) vault
+# fi
 
 #if (which aws > /dev/null 2>&1 ); then
 #  source /usr/bin/aws_completer
 #  complete -C '/usr/bin/aws_completer' aws
 #fi
+
+# AWS CLI
 complete -C '/usr/bin/aws_completer' aws
-#complete -C '/home/oves/.local/bin/aws_completer' aws
 
-if (which kubectl > /dev/null 2>&1 ); then
-  source <(kubectl completion zsh)
-  complete -F __start_kubectl k
-fi
+# Kubectl
+# if (which kubectl > /dev/null 2>&1 ); then
+#   source <(kubectl completion zsh)
+#   complete -F __start_kubectl k
+# fi
 
-if (which az > /dev/null 2>&1); then
-  source ~/.zsh-completions/az.completion
-fi
+# Azure CLI
+# if (which az > /dev/null 2>&1); then
+#   source ~/.zsh-completions/az.completion
+# fi
 
 
 # https://github.com/cheat/cheat
@@ -256,9 +207,10 @@ python_venv() {
 }
 autoload -U add-zsh-hook
 add-zsh-hook chpwd python_venv
-
 python_venv
-# end
+
+
+# Man colors
 man() {
         export LESS_TERMCAP_mb=$'\e[01;31m'
         export LESS_TERMCAP_md=$'\e[01;31m' \
@@ -270,3 +222,4 @@ man() {
 
         command man "$@"
 }
+#zprof

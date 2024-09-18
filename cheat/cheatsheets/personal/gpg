@@ -30,3 +30,21 @@ gpg --pinentry-mode cancel --list-packets file.gpg
 | 0x80  |                | Held by more than one person |
 +-------+----------------+------------------------------+
 
+
+# Renew GPG key and subkeys
+# https://whynothugo.nl/journal/2023/07/13/extending-an-expired-gpg-key/
+gpg --quick-set-expire < KEY FINGERPRINT > 1y
+
+gpg --list-secret-keys --verbose --with-subkey-fingerprints
+
+sec>  rsa4096 2022-08-01 [SC] [expires: 2025-09-18]
+      < KEY FINGERPRINT >
+      Card serial no. = xxxx xxxxxxxx
+uid           [ultimate] <USER> <EMAIL>
+ssb>  rsa4096 2022-08-01 [E] [expires: 2025-09-18]
+      < SUBKEY FINGERPRINT >
+        Card serial no. = xxxx xxxxxxxx
+
+gpg --quick-set-expire < KEY FINGERPRINT >  1y  < SUBKEY FINGERPRINT >...
+
+

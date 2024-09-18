@@ -11,3 +11,6 @@ docker stop $(docker ps -a -q)
 
 # Remove all images
 docker rmi -f $(docker images -aq)
+
+# Remove all volumes
+docker volume rm $(docker volume ls -q)

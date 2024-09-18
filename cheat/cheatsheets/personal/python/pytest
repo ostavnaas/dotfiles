@@ -33,3 +33,6 @@ Tests are grouped by their containing file
 
 --dist loadgroup
 Tests are grouped by the xdist_group mark. Groups are distributed to available workers as whole units
+
+
+pytestmark = pytest.mark.asyncio(loop_scope="session")
