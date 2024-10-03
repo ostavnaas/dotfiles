@@ -1,0 +1,17 @@
+from pydantic import BaseModel
+
+
+class BarModel(BaseModel):
+    size: int
+    name: str
+    timestamp: float
+
+
+m = BarModel(size=42, name='Foo', timestamp=1136214245.323242)
+
+m.model_dump_json()
+'{"size":42,"name":"Foo","timestamp":1136214245.323242}'
+
+ m.model_dump(mode='json')
+{'size': 42, 'name': 'Foo', 'timestamp': 1136214245.323242}
+

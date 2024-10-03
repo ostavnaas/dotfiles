@@ -37,27 +37,32 @@ ISO 8601
 +----------------------+----------------------+--------------------+
 
 
-# Unix Epoch
-datetime.utcfromtimestamp(1284286794)
 
 
-datetime.strptime("2006-01-02 15:04:05", '%Y-%m-%d %H:%M:%S')
-datetime.strptime("2006-01-02T15:04:05.999Z", "%Y-%m-%dT%H:%M:%S.%fZ").astimezone(UTC)
+# Parse datetime with timezone
+datetime.strptime("2006-01-02T15:04:05.999Z", "%Y-%m-%dT%H:%M:%S.%f%z")
 
-# Unix Epoch
-time.time()
 
 # From Epoch to datetime
-datetime.fromtimestamp(time.time())
+datetime.fromtimestamp(time.time(), UTC)
 
 # Format datetime string
-2006-01-02T15:04:04
-datetime.utcnow().strftime("%Y-%d-%mT%H:%M:%S")
+2006-01-02T15:04:04+0000
+datetime.now(UTC).strftime("%Y-%d-%mT%H:%M:%S%z")
 
 
-# Return a string representing the date in ISO 8601 format, YYYY-MM-DDTHH:MM:SS.ffffff
-datetime.utcnow().isoformat()
-'2006-01-02T15:04:05.999999'
+# Return a string representing the date in ISO 8601 format, YYYY-MM-DDTHH:MM:SS.ffffff+00:00
+datetime.now(UTC).isoformat()
+'2006-01-02T15:04:05.999999+00:00'
 
 
 datetime.now(UTC).strftime('%Y-%m-%dT%H:%M:%SZ')
+
+
+
+# Unix Epoch
+time.time()
+1726750984.4715933
+
+time.time_ns()
+1726750984471593372

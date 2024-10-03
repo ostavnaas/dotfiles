@@ -7,4 +7,4 @@ pyenv install --list
 pyenv install 3.11.7
 
 # Upgrade 
-git -C ~/github/pyenv fetch  && git -C ~/github/pyenv checkout $(git -C ~/github/pyenv describe --tags --abbrev=0)
+git -C ~/github/pyenv fetch  && git -C ~/github/pyenv checkout $(git -C ~/github/pyenv describe --tags --abbrev=0 origin)
