@@ -37,6 +37,7 @@ PGUSER=user
 PGPASSWORD=secret
 PGDATABASE=mydb
 PGHOST=db.fqdn
+PGPORT=5432
 
 # Turn off pager
 cat << EOF > ~.psqlrc

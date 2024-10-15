@@ -5,13 +5,16 @@ class BarModel(BaseModel):
     size: int
     name: str
     timestamp: float
+    d: datetime
 
 
-m = BarModel(size=42, name='Foo', timestamp=1136214245.323242)
+IN [1]: m = BarModel(size=42, name='Foo', timestamp=datetime.now(UTC).timestamp(), d=datetime.now(UTC))
+Out[1]: BarModel(size=42, name='Foo', timestamp=1136214245.323242, d=datetime.datetime(2024, 10, 14, 6, 17, 54, 979054, tzinfo=datetime.timezone.utc))
 
-m.model_dump_json()
-'{"size":42,"name":"Foo","timestamp":1136214245.323242}'
+In [2]: m.model_dump_json()
+Out[2]: '{"size":42,"name":"Foo","timestamp":1136214245.323242,"d":"2024-10-14T06:17:54.979054Z"}'
 
- m.model_dump(mode='json')
-{'size': 42, 'name': 'Foo', 'timestamp': 1136214245.323242}
+In [3]: m.model_dump(mode='json')
+Out[3]: {'size': 42, 'name': 'Foo', 'timestamp': 1136214245.323242, 'd': '2024-10-14T06:17:54.979054Z'}
+
 

@@ -52,3 +52,17 @@ RUN pip install pipenv && pipenv sync
 ENV PATH="/src/.venv/bin:$PATH"
 
 --1d883db04aa3625465430d4163a78dd3--
+
+
+# POST example with application/json
+# httpx.post("https://www.example.com/path", params={"query":"value"}, json={"payload": "value"}, headers={"Header": "value"})
+$ curl -XPOST -H "Header: value" -H "Content-Type: application/json" -d '{"payload": "value"}'  https://www.example.com/path?query=value
+> POST /path?query=params HTTP/1.1
+> Host: www.example.com
+> Accept: */*
+> User-Agent: curl/7.81.0
+> Header: value
+> Content-Length: 21
+> Content-Type: application/json
+
+{"payload": "value"}

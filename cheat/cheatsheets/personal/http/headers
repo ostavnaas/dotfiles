@@ -1,0 +1,11 @@
+curl --header "foo: Bar"  https://httpbin.org/headers
+{
+  "headers": {
+    "Accept": "*/*",
+    "Foo": "Bar",
+    "Host": "httpbin.org",
+    "User-Agent": "curl/7.81.0",
+    "X-Amzn-Trace-Id": "Root=1-670522c3-3b20ecb63a1e784b5985abc9"
+  }
+}
+
