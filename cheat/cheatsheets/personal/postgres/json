@@ -3,6 +3,8 @@ Syntax: SQL
 ---
 # https://www.postgresql.org/docs/current/functions-json.html
 
+-> returns json (or jsonb)
+->> returns text
 
 -- Extracts JSON object field with the given key.
 SELECT '{"a":1,"b":2}'::jsonb ->> 'b';
