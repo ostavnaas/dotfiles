@@ -3,3 +3,4 @@ cheat/cheatsheets/community
 ./venv
 .mypy_cache
 cheat/cheatsheets/personal/work
+__pycache__
