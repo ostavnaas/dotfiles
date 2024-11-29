@@ -116,7 +116,7 @@ projects: list[tuple[str, str]] = [
     ("helmfile", "helmfile"),
 ]
 projects: list[tuple[str, str]] = [
-    ("pyenv", "pyenv"),
+    ("pyen", "pyenv"),
 ]
 for p in projects:
     download_latest_version(Repo(*p), Path("~/.local/.bin"))

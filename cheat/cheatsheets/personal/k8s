@@ -5,3 +5,14 @@ kubectl cordon <node>
 
 # Drain node in preparation for maintenance.
 kubectl drain <node>
+
+
+
+# Create a service account
+kubectl create serviceaccount <service-account> --namespace default
+
+# Create a short-lived service account token
+kubectl create token <service-account> --duration=1h --namespace default
+
+# Create a cluster role binding
+kubectl create clusterrolebinding <name> --clusterrole=<cluster-role> --serviceaccount <namespace>:<service-account>

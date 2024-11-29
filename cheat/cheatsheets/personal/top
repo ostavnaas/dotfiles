@@ -1,0 +1,6 @@
+$HOME/.config/procps/toprc
+
+b  : Bold/Reverse toggle
+x  : Column-Highlight toggle
+e  : Enforce-Task-Memory-Scale
+c  : Command-Line/Program-Name toggle

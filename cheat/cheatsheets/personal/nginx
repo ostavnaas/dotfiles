@@ -1,3 +1,25 @@
 
 # moz://a SSL Configuration Generator 
 https://ssl-config.mozilla.org/
+
+
+
+# # http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass
+# curl http://localhost/prefix/foo => GET /foo
+location /prefix/ {
+  proxy_pass http://api:8000/;
+}
+
+# curl http://localhost/prefix/foo => GET /foo
+ map $request_uri $backend {
+  default name;
+  include routing.map;
+}
+upstream name {
+    server 127.0.0.1:8000;
+}
+location /prefix/ {
+  rewrite    /prefix/([^/]+) /$1 break;
+  proxy_pass http://$backend;
+}
+

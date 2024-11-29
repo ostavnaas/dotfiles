@@ -5,8 +5,9 @@ set -eux
 KVM_PATH="/home/$(logname)/libvirt/images"
 VM_NAME="${1}"
 RAM=${2:-1024}
-RELEASE_CODENAME="bookworm"
+RELEASE_CODENAME="noble"
 
+NOBLE="https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-amd64.img"
 JAMMY="https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
 FOCAL="https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
 BIONIC="https://cloud-images.ubuntu.com/releases/bionic/release/ubuntu-18.04-server-cloudimg-amd64.img"
@@ -32,7 +33,10 @@ fi
 
 CLOUDINIT_NETWORKFILE="network_config_static.cfg"
 
-if [ $RELEASE_CODENAME == "jammy" ];then
+if [ $RELEASE_CODENAME == "noble" ];then
+  UBUNTU_URL=$NOBLE
+  RELEASE="ubuntu24.04"
+elif [ $RELEASE_CODENAME == "jammy" ];then
   UBUNTU_URL=$JAMMY
   RELEASE="ubuntu22.04"
 elif [ $RELEASE_CODENAME == "focal" ];then

@@ -9,3 +9,6 @@ dpkg -c package.deb
 # Unpack deb file to path
 dpkg-deb -xv package.deb /tmp/package
 
+
+# Lookup which package a file belongs to
+dpkg -S $(which dig)

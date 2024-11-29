@@ -1,0 +1,14 @@
+Measure speed between to servers
+
+ssh -L7001:localhost:7001 <remote>
+$ iperf3 -s -p 7001
+
+Then locally
+iperf3 -c localhost -p 7001
+
+[  5] local 127.0.0.1 port 7001 connected to 127.0.0.1 port 48060
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-1.00   sec  14.3 MBytes   120 Mbits/sec
+[  5]   1.00-2.00   sec  17.9 MBytes   150 Mbits/sec
+[  5]   2.00-3.00   sec  17.9 MBytes   150 Mbits/sec
+

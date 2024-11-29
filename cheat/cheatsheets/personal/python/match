@@ -1,0 +1,33 @@
+from pydantic import BaseModel
+from enum import Enum
+
+
+class Name(str, Enum):
+    FOO = "foo"
+    BAR = "bar"
+    BAZ = "baz"
+
+
+class MatchModel(BaseModel):
+    name: Name
+    param: str
+
+
+def main():
+    foo = MatchModel(name=Name.FOO, param="this is params")
+
+    match foo:
+        case MatchModel(name=Name.FOO, param=param):
+            print(f"foo: {param}")
+        case MatchModel(name=Name.BAR, param=param):
+            print(f"bar: {param}")
+        case MatchModel(name=Name.BAZ, param=param):
+            print(f"baz: {param}")
+        case _:
+            print("other")
+
+
+if __name__ == "__main__":
+    main()
+    # foo: this is params
+

@@ -35,3 +35,8 @@ Specifier 	Meaning
 "%i"		Instance name
 "%I"	  	Unescaped instance name
 
+
+
+
+# In case where Active: failed
+systemctl reset-failed

@@ -7,8 +7,9 @@ ZSH_THEME="agnoster"
 plugins=(
   git
   docker-compose
+  zsh-vi-mode
 )
-#zsh-vi-mode
+bindkey "^R" history-incremental-search-backward
 
 export ZSH=~/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -40,6 +41,7 @@ export CHEAT_CONFIG_PATH="~/github/ostavnaas/dotfiles/cheat/conf.yml"
 
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 alias gcam='git commit --amend --no-edit'
+alias ip3='ipython3'
 
 # https://documen.tician.de/pudb/starting.html
 export PYTHONBREAKPOINT="pudb.set_trace"
@@ -71,27 +73,6 @@ pwgen() {
 }
 
 
-
-
-
-gitignore () {
-	curl https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore | tee .gitignore
-}
-
-rebase-all() {
-  HEAD=$(git symbolic-ref refs/remotes/origin/HEAD --short | cut -d \/ -f2)
-  git fetch origin $HEAD
-  for b in $(git branch); do
-    git checkout $b
-    git rebase origin/$HEAD > /dev/null 2>&1 || git rebase --abort
-  done
-}
-
-gbcalc() {
-  echo $1 | awk '{ sum=$1 ; hum[1024^3]="Gb";hum[1024^2]="Mb";hum[1024]="Kb"; for (x=1024^3; x>=1024; x/=1024){ if (sum>=x) { printf "%.2f %s\n",sum/x,hum[x];break } }}'
-}
-
-
 up() {
   docker compose up
 }
@@ -100,10 +81,6 @@ down() {
   docker compose down
 }
 
-# Calc $ = 1+1 will output 2
-\=() {
-  echo $@ | bc
-}
 
 
 # SSH-agent socket
@@ -113,14 +90,7 @@ fi
 
 
 
-# Attatch tmux session if one exists
-#if [ -z $TMUX ]; then
-#  tmux a -t 0
-#fi
 
-
-
-# K8s
 alias k=kubectl
 alias kx=kubectx
 
@@ -137,32 +107,16 @@ prompt_context(){}
 
 # Autocomplete
 if [[ -d $HOME/.zsh-completions ]];  then
-  fpath=($fpath $HOME/.zsh-completions)
+fpath=($fpath $HOME/.zsh-completions)
 fi
 
-# Vault
-# if (which vault >/dev/null 2>&1);then
-#   complete -o nospace -C $(which vault) vault
-# fi
-
-#if (which aws > /dev/null 2>&1 ); then
-#  source /usr/bin/aws_completer
-#  complete -C '/usr/bin/aws_completer' aws
-#fi
-
-# AWS CLI
-complete -C '/usr/bin/aws_completer' aws
-
 # Kubectl
-# if (which kubectl > /dev/null 2>&1 ); then
-#   source <(kubectl completion zsh)
-#   complete -F __start_kubectl k
-# fi
+if (which kubectl > /dev/null 2>&1 ); then
+  source <(kubectl completion zsh)
+  complete -F __start_kubectl k
+fi
 
-# Azure CLI
-# if (which az > /dev/null 2>&1); then
-#   source ~/.zsh-completions/az.completion
-# fi
+
 
 
 # https://github.com/cheat/cheat
@@ -170,7 +124,10 @@ if [ -e ~/github/ostavnaas/dotfiles/cheat/cheat.zsh ]; then
   source ~/github/ostavnaas/dotfiles/cheat/cheat.zsh
 fi
 
+source <(stern --completion=zsh)
+
 #autoload -Uz compinit
+
 compinit -u
 #autoload -Uz +X compinit && compinit
 #autoload -Uz +X bashcompinit && bashcompinit
@@ -208,6 +165,13 @@ python_venv() {
 autoload -U add-zsh-hook
 add-zsh-hook chpwd python_venv
 python_venv
+
+
+gitls() {
+	git ls-tree --name-only HEAD "$1" | while read filename; do
+	  echo "$(git log -1 --format="%ai" -- $filename) $filename"
+	done
+}
 
 
 # Man colors

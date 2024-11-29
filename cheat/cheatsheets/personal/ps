@@ -1,0 +1,1 @@
+ps -eo pid,rss,cmd | numfmt --header --from-unit=1024 --to=iec --field 2
