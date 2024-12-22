@@ -7,9 +7,7 @@ ZSH_THEME="agnoster"
 plugins=(
   git
   docker-compose
-  zsh-vi-mode
 )
-bindkey "^R" history-incremental-search-backward
 
 export ZSH=~/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -61,6 +59,7 @@ alias df='df --exclude-type=squashfs'
 
 alias dotfiles='cd ~/github/ostavnaas/dotfiles'
 alias grafana='docker compose --file ~/github/ostavnaas/dotfiles/docker/grafana/docker-compose.yml up'
+alias vim='nvim'
 
 
 # Make git branch use cat
