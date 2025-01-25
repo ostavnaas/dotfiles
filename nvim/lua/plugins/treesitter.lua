@@ -9,26 +9,17 @@ return {
 	-- 	opts = { enable = true, mode = "topline", line_numbers = true }
 	-- }
 	-- },
+	--
 	config = function()
-		local treesitter = require("nvim-treesitter.configs")
+		local configs = require("nvim-treesitter.configs")
 
-		-- vim.api.nvim_create_autocmd("FileType", {
-		-- 	pattern = { "markdown" },
-		-- callback = function(ev)
-		-- 	-- treesitter-context is buggy with Markdown files
-		-- 	require("treesitter-context").disable()
-		-- end
-		-- })
-
-		treesitter.setup({
-			-- 	ensure_installed = {},
+		configs.setup({
+			ensure_installed = { "python", "lua", "markdown"},
+			sync_install = false,
+			highlight = { enable = true },
 			indent = { enable = true },
-			-- 	auto_install = true,
-			-- 	sync_install = false,
-			highlight = {
-				enable = true,
-			},
-			-- 	textobjects = { select = { enable = true, lookahead = true } }
 		})
 	end
+
+
 }

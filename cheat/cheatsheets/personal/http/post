@@ -4,6 +4,7 @@
 # POST example with application/x-www-form-urlencoded
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
 # httpx.post('http://www.example.com/test', data={'field1': 'value1', 'field2': 'value2'})
+$ curl -X POST --data-binary @file.txt http://www.example.com/files
 $ curl -X POST -d 'field1=value1&field2=value2' http://www.example.com/test
 > POST /test HTTP/1.1                                          # Request-line - https://datatracker.ietf.org/doc/html/rfc1945#section-5.1 
 > Host: www.example.com                                        # Request Header Fields - https://datatracker.ietf.org/doc/html/rfc1945#section-5.2

@@ -1,6 +1,7 @@
 ---
 syntax: bash
 ---
+# Build
 # Weak-ssl ciphers, For debuging
 ./config enable-weak-ssl-ciphers  -DOPENSSL_TLS_SECURITY_LEVEL=0 enable-des --prefix=/opt/openssl-1.1.1h no-shared
 make
@@ -9,8 +10,20 @@ make install
 
 openssl s_client -no_tls1_3 -servername example.com 10.0.0.1:443
 
+#
+# X509
+#
+
 # Fingerprint
 openssl x509 -noout -fingerprint -sha256
+
+# SubjectAltName
+openssl x509 -ext subjectAltName
+
+
+#
+# RSA
+#
 
 # Compare public and private key
 openssl rsa -in <private-key> -modulus -noout | openssl md5

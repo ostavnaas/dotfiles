@@ -1,4 +1,3 @@
-vim.cmd.set("guicursor=")
 require("config.keymaps")
 require("config.lazy")
 vim.cmd.set("number")

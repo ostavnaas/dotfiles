@@ -2,3 +2,7 @@
 
 # Output more than one key
 yq '.DBInstances[] | "\(.AvailabilityZone): \(.DBInstanceIdentifier)" '
+
+
+# Select key
+yq '.[] | select(.key == "value") | .content '  -r

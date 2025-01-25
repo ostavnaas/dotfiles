@@ -1,0 +1,31 @@
+
+UUIDv7
+# https://datatracker.ietf.org/doc/html/rfc9562#name-uuid-version-7
+
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                           unix_ts_ms                          |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|          unix_ts_ms           |  ver  |       rand_a          |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|var|                        rand_b                             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                            rand_b                             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+# Extract Timestamp
+timestamp = int.from_bytes(UUID("01945066-98f5-7a25-bfdd-ab0043ed89b5").bytes[:6], byteorder="big")
+timestamp = int(UUID("01945066-98f5-7a25-bfdd-ab0043ed89b5").hex[:12], 16)
+timestamp = int.from_bytes(bytes.fromhex(UUID("01945066-98f5-7a25-bfdd-ab0043ed89b5").hex[:12]), byteorder="big")
+
+datetime.fromtimestamp(timestamp / 1000, UTC)
+
+# To Integer
+int.from_bytes(bytes.fromhex("0194506698f57a25bfddab0043ed89b5"), byteorder="big") -> 2099318652227424094238540705255229877
+UUID("01945066-98f5-7a25-bfdd-ab0043ed89b5").int -> 2099318652227424094238540705255229877
+
+# From Integer
+UUID(int=2099318652227424094238540705255229877) -> UUID('01945066-98f5-7a25-bfdd-ab0043ed89b5')
+UUID(int(2099318652227424094238540705255229877).to_bytes(16, byteorder='big').hex()) -> UUID('01945066-98f5-7a25-bfdd-ab0043ed89b5')
+

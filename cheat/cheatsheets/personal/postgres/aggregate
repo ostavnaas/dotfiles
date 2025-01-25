@@ -1,0 +1,25 @@
+
+
+https://www.postgresql.org/docs/17/functions-aggregate.html
+sum ( smallint ) → bigint
+sum ( integer ) → bigint
+sum ( bigint ) → numeric
+sum ( numeric ) → numeric
+
+
+=> SELECT pg_typeof(sum(1::smallint));
+ pg_typeof
+-----------
+ bigint
+
+=> SELECT pg_typeof(sum(1::int));
+ pg_typeof
+-----------
+ bigint
+
+=> SELECT pg_typeof(sum(1::bigint));
+ pg_typeof
+-----------
+ numeric
+
+
