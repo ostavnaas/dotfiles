@@ -1,4 +1,7 @@
 
 
-# Multiple fileds
+# Multiple fields
 jq '.users[] | "\(.first) \(.last)"'
+
+# Regex not match
+jq ' select(.host | test("\\d.example.com") | not )

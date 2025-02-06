@@ -1,3 +1,7 @@
+UUID
+128-bit (16-byte) label used to uniquely identify object
+typically in 8-4-4-4-12 hexadecimal (32)
+
 
 UUIDv7
 # https://datatracker.ietf.org/doc/html/rfc9562#name-uuid-version-7

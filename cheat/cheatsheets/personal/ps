@@ -1,1 +1,6 @@
 ps -eo pid,rss,cmd | numfmt --header --from-unit=1024 --to=iec --field 2
+
+# Process tree.
+ps --forest -ef
+
+RSS       resident set size, the non-swapped physical memory that a task has used (in kilobytes).  (alias rssize, rsz).

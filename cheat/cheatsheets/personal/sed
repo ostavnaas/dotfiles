@@ -1,0 +1,5 @@
+
+# Capture query token
+echo http://example.com/page?user=alice&token=12345&session=abc \
+ | sed 's/.*[?&]token=\([^&]*\).*/\1/'
+# 12345

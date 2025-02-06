@@ -1,0 +1,22 @@
+# Debian/ubuntu state file
+/var/lib/logrotate/status
+
+
+# Example logrotate configuration file
+/var/log/capture-fastapi/access.log
+/var/log/capture-fastapi/access.json
+/var/log/capture-fastapi/error.log
+{
+    daily
+    maxsize 1G
+    maxage 14
+    rotate -1
+    missingok
+    delaycompress
+    compress
+    compresscmd xz
+    notifempty
+    copytruncate
+    dateext
+    dateformat .%Y-%m-%d-%H-%M-%S
+}

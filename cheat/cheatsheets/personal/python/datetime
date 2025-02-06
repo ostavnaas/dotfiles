@@ -42,6 +42,8 @@ ISO 8601
 # Parse datetime with timezone
 datetime.strptime("2006-01-02T15:04:05.999Z", "%Y-%m-%dT%H:%M:%S.%f%z")
 
+# Parse date into UTC
+datetime.strptime("2025-01-07", "%Y-%m-%d").replace(tzinfo=UTC)
 
 # From Epoch to datetime
 datetime.fromtimestamp(time.time(), UTC)
@@ -49,6 +51,7 @@ datetime.fromtimestamp(time.time(), UTC)
 # Format datetime string
 2006-01-02T15:04:04+0000
 datetime.now(UTC).strftime("%Y-%d-%mT%H:%M:%S%z")
+
 
 
 # Return a string representing the date in ISO 8601 format, YYYY-MM-DDTHH:MM:SS.ffffff+00:00
