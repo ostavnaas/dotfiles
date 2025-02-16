@@ -1,4 +1,7 @@
-https://nodejs.org/dist/latest-v23.x/
+URL=https://nodejs.org/dist/latest-v23.x/
 
-sudo tar zxvf node-v21.6.2-linux-x64.tar.gz -C /opt
-sudo ln -fs /opt/node-v21.6.2-linux-x64 /opt/node
+wget  https://nodejs.org/$(curl $URL | grep linux-x64.tar.xz |cut -d\" -f2)
+sudo tar xvf node-v*-linux-x64.tar.xz -C /opt
+rm node-v*-linux-x64.tar.xz
+sudo rm /opt/node
+sudo ln -fs /opt/node-v*linux-x64 /opt/node
