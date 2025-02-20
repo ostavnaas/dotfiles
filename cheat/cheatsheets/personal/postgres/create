@@ -1,0 +1,6 @@
+CREATE TABLE films (
+    id        	serial,
+    title      	text,
+    created_at  timestamp with time zone
+);
+

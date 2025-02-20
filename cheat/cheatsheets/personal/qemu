@@ -1,0 +1,2 @@
+# Increase size by 10G
+qemu-img resize instance.qcow2 +10G

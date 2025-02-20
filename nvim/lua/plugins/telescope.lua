@@ -40,10 +40,12 @@ return {
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 			vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+			vim.keymap.set("n", "<leader>fo", builtin.oldfiles, {})
 			vim.keymap.set("n", "<leader>b", builtin.buffers, {})
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 			vim.keymap.set("n", "<leader>m", builtin.git_files, {})
-			vim.keymap.set("n", "<leader>g", builtin.git_status, {})
+			vim.keymap.set("n", "<leader>gs", builtin.git_status, {})
+			vim.keymap.set("n", "<leader>gc", builtin.git_branches, {})
 			vim.keymap.set("n", "<leader>s", builtin.marks, {})
 			vim.keymap.set("n", "<leader>j", builtin.jumplist, {})
 		end,
@@ -51,6 +53,7 @@ return {
 
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+		build =
+		"cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
 	},
 }

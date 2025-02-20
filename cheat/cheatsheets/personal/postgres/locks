@@ -1,0 +1,15 @@
+
+pg_advisory_xact_lock(key bigint) 		void 	Obtain exclusive transaction level advisory lock
+pg_advisory_xact_lock(key1 int, key2 int) 	void 	Obtain exclusive transaction level advisory lock
+
++-------------------------------------+------------------------------------+
+|           Transaction #1            |           Transaction #1           |
++-------------------------------------+------------------------------------+
+| START TRANSACTION;                  |                                    |
+| SELECT pg_advisory_xact_lock(123);  | START TRANSACTION;                 |
+|                                     | SELECT pg_advisory_xact_lock(123); |
+|                                     | # Need to wait for Transaction #1  |
+| COMMIT TRANSACTION                  |                                    |
+|                                     | COMMIT TRANSACTION                 |
++-------------------------------------+------------------------------------+
+

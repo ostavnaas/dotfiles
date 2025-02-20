@@ -3,7 +3,14 @@
 # https://www.kernel.org/doc/Documentation/sysctl/net.txt
 # https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt
 
-net.core.somaxconn = 4096
+somaxconn - INTEGER
+	Limit of socket listen() backlog
+
+net.core.somaxconn = 65535
 net.ipv4.ip_local_port_range = 1024 65535
 net.ip_local_reserved_ports = 80,443,5432,11211
 net.ipv4.tcp_fin_timeout = 20
+
+
+sysctl kernel.sysrq=1
+echo "1" > /proc/sys/vm/panic_on_oom
