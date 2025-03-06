@@ -36,6 +36,26 @@ return {
 				},
 			})
 			require("telescope").load_extension("fzf")
+			local changed_on_branch = function()
+				local previewers = require('telescope.previewers')
+				local pickers = require('telescope.pickers')
+				local sorters = require('telescope.sorters')
+				local finders = require('telescope.finders')
+
+				pickers.new {
+					results_title = 'Modified on current branch',
+					finder = finders.new_oneshot_job({ '/home/oves/.local/bin/git-files-changed.sh', 'list' }),
+					sorter = sorters.get_fuzzy_file(),
+					previewer = previewers.new_termopen_previewer {
+						get_command = function(entry)
+							return {
+								'/home/oves/.local/bin/git-files-changed.sh',
+								'diff', entry.value }
+						end
+					},
+				}:find()
+			end
+
 
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
@@ -48,6 +68,7 @@ return {
 			vim.keymap.set("n", "<leader>gc", builtin.git_branches, {})
 			vim.keymap.set("n", "<leader>s", builtin.marks, {})
 			vim.keymap.set("n", "<leader>j", builtin.jumplist, {})
+			vim.keymap.set("n", "<leader>x", changed_on_branch, {})
 		end,
 	},
 

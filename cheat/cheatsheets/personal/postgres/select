@@ -1,0 +1,5 @@
+SELECT length('0febb5a8-b2ba-41e3-9db3-41af00dbadf7');
+ length
+--------
+     36
+

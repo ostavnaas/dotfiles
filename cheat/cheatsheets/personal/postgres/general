@@ -51,3 +51,6 @@ EOF
 postgresql://[userspec@][hostspec][/dbname][?paramspec]
 
 port 5432
+
+SELECT uuid_generate_v4() - Generate UUID
+
