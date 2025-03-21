@@ -1,3 +1,9 @@
 
 
 journalctl  --since "2024-07-10 12:00:00" --until "2024-07-10 13:00:00"
+
+# Last 12 hours
+journalctl  --since "12 hours ago"
+
+# Since boot
+journalctl --boot
