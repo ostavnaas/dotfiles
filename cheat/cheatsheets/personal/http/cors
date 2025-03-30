@@ -1,0 +1,17 @@
+
+
+curl -v -H "Access-Control-Request-Method: POST " -H "Origin: https://example.com"   -XOPTIONS https://example.com
+> OPTIONS / HTTP/1.1
+> Host: example.com
+> User-Agent: curl/7.81.0
+> Accept: */*
+> Access-Control-Request-Method: POST
+> Access-Control-Request-Method: POST
+> Origin: https://example.com
+>
+< access-control-allow-methods: DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT
+< access-control-max-age: 600
+< access-control-allow-credentials: true
+< access-control-allow-origin: https://example.com
+
+

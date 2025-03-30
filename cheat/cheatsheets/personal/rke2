@@ -18,3 +18,7 @@ echo "alias k='kubectl'" | tee -a ~/.bashrc
 
 # curl -sL https://raw.githubusercontent.com/Ealenn/Echo-Server/master/docs/examples/echo.kube.yaml | kubectl apply -f -
 # kubectl label node <node> node-role.kubernetes.io/worker=
+
+
+# https://docs.rke2.io/helm
+/var/lib/rancher/rke2/server/manifests/<chart-name>.yaml

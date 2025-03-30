@@ -237,6 +237,11 @@ return {
 					vim.lsp.buf.format()
 				end,
 			})
+			-- Configure diagnostics
+			-- https://neovim.io/doc/user/diagnostic.html#vim.diagnostic.Opts
+			vim.diagnostic.config({
+				virtual_text = true,
+			})
 		end,
 	},
 	{
