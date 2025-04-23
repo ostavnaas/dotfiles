@@ -240,7 +240,10 @@ return {
 			-- Configure diagnostics
 			-- https://neovim.io/doc/user/diagnostic.html#vim.diagnostic.Opts
 			vim.diagnostic.config({
-				virtual_text = true,
+				-- virtual_text = true,
+				virtual_lines = {
+					current_line = true,
+				},
 			})
 		end,
 	},
