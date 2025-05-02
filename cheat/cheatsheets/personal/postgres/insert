@@ -1,0 +1,9 @@
+
+# https://www.postgresql.org/docs/current/sql-insert.html
+
+# Insert when there is a constraint on id
+# Note that the special excluded table is used to reference values originally proposed for insertion
+
+INSERT INTO table (id, updated_at) VALUES (1, now())
+    ON CONFLICT (id)
+    DO UPDATE SET updated_at = EXCLUDED.updated_at
