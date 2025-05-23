@@ -1,0 +1,18 @@
+
+
++---------+---------+-----------------+--------+
+| Symbol  | Prefix  |    Example      |  Size  |
++---------+---------+-----------------+--------+
+| Ki      | kibi    | kibibyte (KiB)  | 2**10  |
+| Mi      | mebi    | mebibyte (MiB)  | 2**20  |
+| Gi      | gibi    | gibibyte (GiB)  | 2**30  |
+| Ti      | tebi    | tebibyte (TiB)  | 2**40  |
+| Pi      | pebi    | pebibyte (PiB)  | 2**50  |
+| Ei      | exbi    | exbibyte (EiB)  | 2**60  |
+| Zi      | zebi    | zebibyte (ZiB)  | 2**70  |
+| Yi      | yobi    | yobibyte (YiB)  | 2**80  |
+| Ri      | robi    | robibyte (RiB)  | 2**90  |
+| Qi      | quebi   | quebibyte (QiB) | 2**100 |
++---------+---------+-----------------+--------+
+
+

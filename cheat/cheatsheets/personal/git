@@ -15,3 +15,7 @@ git branch --merged master
 
 # Clean up branches
 git fetch --prune origin
+
+
+# list files and sort by size
+git ls-tree -r -t -l --full-name HEAD | sort -n -k 4
