@@ -19,7 +19,6 @@ kubectl get pods --no-headers -o custom-columns=":metadata.name"
 # ClusterRole with access to secrets
 kubectl get clusterrole -ojson  | jq -r  '.items[] |  select(.rules[]?.resources[]? == "secrets")  | .metadata.name' | uniq
 
-
 # Delete all failed pods
 kubectl delete pods --field-selector=status.phase=Failed
 
@@ -29,3 +28,6 @@ kubectl run python3 --rm -it  --image python:3.10-alpine --overrides='{ "spec": 
 
 # Run script from local filesystem in pod
 kubectl exec -i <pod> -- bash -c 'python3 -' < main.py
+
+# Get all pods in Pending state
+kubectl get pods --field-selector=status.phase=Pending

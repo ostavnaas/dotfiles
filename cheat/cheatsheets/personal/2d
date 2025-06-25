@@ -2,3 +2,7 @@ apt-get install  qrencode
 # 2d barcode to cli
 qrencode -t UTF8 'Hello World!'
 
+
+https://www.wi-fi.org/system/files/WPA3%20Specification%20v3.2.pdf#page=25
+# 2d barcode for wifi
+qrencode -t UTF8 "WIFI:T:WPA;S:<sid>;P:<password>;H:;;"

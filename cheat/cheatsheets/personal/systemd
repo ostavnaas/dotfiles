@@ -40,3 +40,10 @@ Specifier 	Meaning
 
 # In case where Active: failed
 systemctl reset-failed
+
+# timers caveats
+# Just enable the timer to start at next boot
+systemctl enable foo.timer
+
+# If you want to start the timer immediately, use:
+systemctl start foo.timer

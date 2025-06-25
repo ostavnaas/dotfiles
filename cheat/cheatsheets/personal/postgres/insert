@@ -7,3 +7,8 @@
 INSERT INTO table (id, updated_at) VALUES (1, now())
     ON CONFLICT (id)
     DO UPDATE SET updated_at = EXCLUDED.updated_at
+
+
+CREATE TABLE table (a BIT(8));
+INSERT INTO table (a) VALUES (B'0010')
+SELECT a::int FROM table; -- 2

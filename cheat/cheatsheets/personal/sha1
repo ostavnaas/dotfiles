@@ -1,2 +1,14 @@
 160-bit (20-byte) hash value known as a message digest
 typically rendered as 40 hexadecimal digits.
+
+hashlib.sha1(b'value').digest() == binascii.unhexlify(hashlib.sha1(b'value').hexdigest()) == bytes.fromhex("f32b67c7e26342af42efabc674d441dca0a281c5")
+
+# Empty hash
+hashlib.sha1(b'').hexdigest() == 'da39a3ee5e6b4b0d3255bfef95601890afd80709'
+
+
+import binascii
+
+checksum = hashlib.sha256(data).digest()
+hex_digest = binascii.hexlify(checksum).decode()
+

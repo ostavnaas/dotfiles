@@ -1,0 +1,6 @@
+https://github.com/github/gitignore
+
+
+# Python
+__pycache__/
+*.py[codz]

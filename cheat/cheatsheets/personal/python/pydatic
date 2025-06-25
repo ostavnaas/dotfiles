@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel field_validator
 
 
 class BarModel(BaseModel):
@@ -6,6 +6,12 @@ class BarModel(BaseModel):
     name: str
     timestamp: float
     d: datetime
+
+    @field_validator("name", mode="before")
+    @classmethod
+    def b64decode_name(cls, value: str) -> str:
+        return base64.b64decode(value)).decode()
+
 
 
 IN [1]: m = BarModel(size=42, name='Foo', timestamp=datetime.now(UTC).timestamp(), d=datetime.now(UTC))

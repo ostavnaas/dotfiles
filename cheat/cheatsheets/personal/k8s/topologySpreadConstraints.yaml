@@ -1,0 +1,27 @@
+# https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  # Configure a topology spread constraint
+  topologySpreadConstraints:
+    - maxSkew: <integer>
+      minDomains: <integer> # optional
+      topologyKey: <string>
+      whenUnsatisfiable: <string>
+      labelSelector: <object>
+      matchLabelKeys: <list> # optional; beta since v1.27
+      nodeAffinityPolicy: [Honor|Ignore] # optional; beta since v1.26
+      nodeTaintsPolicy: [Honor|Ignore] # optional; beta since v1.26
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          app: foo
+      matchLabelKeys:
+        - pod-template-hash
+
