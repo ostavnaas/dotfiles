@@ -1,0 +1,5 @@
+
+
+https://docs.confluent.io/platform/current/installation/configuration/broker-configs.html
+log.retention.hours - The number of hours to keep a log file before deleting it (in hours), tertiary to log.retention.ms property
+num.partitions - The default number of log partitions per topic
