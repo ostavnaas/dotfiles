@@ -1,0 +1,33 @@
+#
+SELECT substring('\x42ff'::bytea from 0 for 2);
+ substring
+-----------
+ \x42
+(1 row)
+
+SELECT encode('\x42ff', 'hex');
+ encode
+--------
+ 42ff
+(1 row)
+
+SELECT decode('42ff', 'hex');
+ decode
+--------
+ \x42ff
+(1 row)
+
+# https://www.postgresql.org/docs/current/functions-binarystring.html
+
+The encode and decode functions support the following textual formats:
+
+base64
+    The base64 format is that of RFC 2045 Section 6.8. As per the RFC, encoded lines are broken at 76 characters. However instead of the MIME CRLF end-of-line marker, only a newline is used for end-of-line. The decode function ignores carriage-return, newline, space, and tab characters. Otherwise, an error is raised when decode is supplied invalid base64 data — including when trailing padding is incorrect.
+
+escape
+    The escape format converts zero bytes and bytes with the high bit set into octal escape sequences (\nnn), and it doubles backslashes. Other byte values are represented literally. The decode function will raise an error if a backslash is not followed by either a second backslash or three octal digits; it accepts other byte values unchanged.
+
+hex
+    The hex format represents each 4 bits of data as one hexadecimal digit, 0 through f, writing the higher-order digit of each byte first. The encode function outputs the a-f hex digits in lower case. Because the smallest unit of data is 8 bits, there are always an even number of characters returned by encode. The decode function accepts the a-f characters in either upper or lower case. An error is raised when decode is given invalid hex data — including when given an odd number of characters.
+
+

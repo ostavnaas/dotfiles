@@ -1,3 +1,4 @@
+man 3 errno
 # https://en.wikipedia.org/wiki/Errno.h
 +------+-----------------------------------------------+
 | Code | Description                                   |
