@@ -1,6 +1,6 @@
 # apt-get install ninja-build gettext cmake unzip curl build-essential
 git fetch --tags
-git checkout tags/v0.11.2
+git checkout tags/v0.11.3
 make distclean
 make CMAKE_BUILD_TYPE=RelWithDebInfo
 cd build && cpack -G DEB && sudo dpkg -i nvim-linux-x86_64.deb

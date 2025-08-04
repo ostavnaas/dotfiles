@@ -62,6 +62,8 @@ datetime.now(UTC).isoformat()
 datetime.now(UTC).strftime('%Y-%m-%dT%H:%M:%SZ')
 
 
+# Parse with timezone and change to UTC
+datetime.strptime("2006-01-02T15:04:05+01:00", "%Y-%d-%mT%H:%M:%S%z").astimezone(UTC)
 
 # Unix Epoch
 time.time()

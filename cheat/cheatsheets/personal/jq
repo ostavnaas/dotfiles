@@ -1,10 +1,16 @@
-
-
 # Multiple fields
 jq '.users[] | "\(.first) \(.last)"'
+
+# Select specific fields as list
+jq '.users[] | [.first, .last]'
 
 # Regex not match
 jq ' select(.host | test("\\d.example.com") | not )
 
 jq '. | select(.request_uri  | test("/path")) | select(.status_code = '499') | .'
+
+
+jq '. | length'
+   [1,2,3]
+=> 3
 

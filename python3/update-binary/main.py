@@ -1,4 +1,6 @@
 from __future__ import annotations
+import tempfile
+
 from pathlib import Path
 import subprocess
 from pydantic import BaseModel, Field
@@ -88,7 +90,9 @@ class Repo:
     def decompress(self, folder: Path):
         download_path: Path = folder / self.file_name
         print(str(folder))
-        subprocess.run(["tar", "zxvf", f"{download_path}", "-C", f"{folder}"])
+        with tempfile.TemporaryDirectory(delete=False) as tmpdir:
+            subprocess.run(["tar", "zxvf", f"{download_path}", "-C", f"{tmpdir}"])
+            # TODO: copy the binary
 
 
 def download_latest_version(repo: Repo, folder: Path):
@@ -103,11 +107,14 @@ def download_latest_version(repo: Repo, folder: Path):
             logging.info("Release already downloaded")
             return
 
-        with download_path.open(mode="wb") as file, httpx.stream(
-            "GET", download_link, follow_redirects=True
-        ) as reps:
+        with (
+            download_path.open(mode="wb") as file,
+            httpx.stream("GET", download_link, follow_redirects=True) as reps,
+        ):
             for data in reps.iter_bytes():
                 file.write(data)
+        if download_path.suffix == ".tar.gz":
+            repo.decompress(folder / Path(repo.repo))
 
 
 # project, repo = sys.argv[1].split("/")
@@ -115,8 +122,8 @@ def download_latest_version(repo: Repo, folder: Path):
 projects: list[tuple[str, str]] = [
     ("helmfile", "helmfile"),
 ]
-projects: list[tuple[str, str]] = [
-    ("pyen", "pyenv"),
-]
+# projects: list[tuple[str, str]] = [
+#     ("pyen", "pyenv"),
+# ]
 for p in projects:
-    download_latest_version(Repo(*p), Path("~/.local/.bin"))
+    download_latest_version(Repo(*p), Path.home() / Path(".local/bin"))

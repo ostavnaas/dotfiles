@@ -1,0 +1,9 @@
+https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#statefulset-v1-apps
+
+
+https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#ordinal-index
+apps.kubernetes.io/pod-index
+
+spec:
+  ordinals:
+    start: 1 # default 0-indexed names
