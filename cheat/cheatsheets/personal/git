@@ -19,3 +19,7 @@ git fetch --prune origin
 
 # list files and sort by size
 git ls-tree -r -t -l --full-name HEAD | sort -n -k 4
+
+# https://stackoverflow.com/questions/25356810/how-to-squash-all-commits-on-branch
+# How to squash all commits on branch
+git reset $(git merge-base master $(git rev-parse --abbrev-ref HEAD))
