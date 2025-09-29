@@ -1,0 +1,7 @@
+---@type vim.lsp.Config
+-- https://github.com/tekumara/typos-lsp
+return {
+    cmd = { "typos-lsp" },
+    filetypes = { "*" },
+    root_markers = { "typos.toml", ".typos.toml", "_typos.toml" },
+}
