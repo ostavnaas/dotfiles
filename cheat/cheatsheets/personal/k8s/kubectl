@@ -18,3 +18,6 @@ kubectl create token <service-account> --duration=1h --namespace default
 
 # Create a cluster role binding
 kubectl create clusterrolebinding <name> --clusterrole=<cluster-role> --serviceaccount <namespace>:<service-account>
+
+
+kubectl delete pods --grace-period=0 --force <pod-name>
