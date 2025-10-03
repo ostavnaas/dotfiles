@@ -1,0 +1,28 @@
+o
+https://www.dell.com/support/manuals/no-no/ecs-appliance-/ecs_pub_data_access_guide_3_3_to_3_6/s3-api-supported-and-unsupported-features?guid=guid-e21545d1-8529-4e72-a49a-ee0834a201a9&lang=en-us
+
+Complete Multipart Upload
+- ECS returns an ETag of 00 for this request, which differs from the Amazon S3 response.
+{
+    "ResponseMetadata": {
+	"RequestId": "0c07c87d:1994ff86452:1b654:8c",
+	"HostId": "7bfe14979764480a18a5da9eb1ee66bbdf896697d37b57b19d8ea0c15a84cc07",
+	"HTTPStatusCode": 200,
+	"HTTPHeaders": {
+	    "date": "Wed, 01 Oct 2025 06:14:10 GMT",
+	    "server": "ViPR/1.0",
+	    "x-amz-request-id": "0c07c87d:1994ff86452:1b654:8c",
+	    "x-amz-id-2": "7bfe14979764480a18a5da9eb1ee66bbdf896697d37b57b19d8ea0c15a84cc07",
+	    "etag": '"62e0dae2cad19bf84cb022c5609381f9-2"',
+	    "content-type": "application/xml",
+	    "content-length": "409",
+	},
+	"RetryAttempts": 0,
+    },
+    "Location": "http://<id>.public.ecstestdrive.com/bucket/1bc0ab51-a02f-4fa7-8a82-efba69950bc2",
+    "Bucket": "bucket",
+    "Key": "1bc0ab51-a02f-4fa7-8a82-efba69950bc2",
+    "ETag": '"62e0dae2cad19bf84cb022c5609381f9-2"', <-- Seems correct
+}
+
+

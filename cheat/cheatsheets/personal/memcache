@@ -14,3 +14,10 @@ stats cachedump <slab class> <number of items to dump>
 
 # get
 get <key>
+
+# Syntax: set KEY FLAGS TIMEOUT SIZE
+# FLAGS usually is just 0.
+# SIZE is the number of characters.
+# the bar value is inputted in the next line.
+set foo 0 300 3
+bar
