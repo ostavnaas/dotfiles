@@ -58,6 +58,7 @@ return {
 
 
 			local builtin = require("telescope.builtin")
+			local cheat = "~/github/ostavnaas/dotfiles/cheat/cheatsheets/personal"
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 			vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 			vim.keymap.set("n", "<leader>fo", builtin.oldfiles, {})
@@ -69,6 +70,19 @@ return {
 			vim.keymap.set("n", "<leader>s", builtin.marks, {})
 			vim.keymap.set("n", "<leader>j", builtin.jumplist, {})
 			vim.keymap.set("n", "<leader>x", changed_on_branch, {})
+			vim.keymap.set("n", "<leader>ct", function()
+					builtin.find_files({
+						cwd = cheat
+					})
+				end,
+				{})
+			vim.keymap.set("n", "<leader>cr", function()
+					builtin.live_grep({
+						cwd = cheat
+
+					})
+				end,
+				{})
 		end,
 	},
 
