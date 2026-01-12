@@ -13,8 +13,9 @@ git difftool --tool=vimdiff --no-prompt origin/master
 # lists branches merged into master
 git branch --merged master
 
-# Clean up branches
-git fetch --prune origin
+# Clean up branches and tags that have been deleted in remote
+git fetch --prune --prune-tags origin
+
 
 
 # list files and sort by size

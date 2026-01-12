@@ -1,0 +1,8 @@
+
+
+# Established with dest
+ss 'dst <ip>:<port>'
+
+# Filter by TCP and state FIN-WAIT-1
+# established, syn-sent, syn-recv, fin-wait-1, fin-wait-2, time-wait, closed, close-wait, last-ack, listening and closing.
+ss state fin-wait-1 --family=inet --tcp

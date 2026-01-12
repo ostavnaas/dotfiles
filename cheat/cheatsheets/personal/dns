@@ -10,8 +10,9 @@ AdGuard DNS     94.140.14.14 - 94.140.15.15
 
 https://www.iana.org/domains/root/db
 +----------------------+---------------------+--------------------------------------------------------------------------------------------------------------------------+
-|        .aaa          |      generic        |                                          American Automobile Association, Inc.                                           |
+| Domain               | Type                | TLD Manager                                                                                                              |
 +----------------------+---------------------+--------------------------------------------------------------------------------------------------------------------------+
+| .aaa                 | generic             | American Automobile Association, Inc.                                                                                    |
 | .aarp                | generic             | AARP                                                                                                                     |
 | .abarth              | generic             | Not assigned                                                                                                             |
 | .abb                 | generic             | ABB Ltd                                                                                                                  |
@@ -1412,12 +1413,12 @@ https://www.iana.org/domains/root/db
 | .कॉम                 | generic             | VeriSign Sarl                                                                                                            |
 | .परीक्षा             |   | test                | Not assigned                                                                                                             |
 | .セール              | generic             | Amazon Registry Services, Inc.                                                                                           |
-| .佛山                  | generic             | Guangzhou YU Wei Information Technology Co., Ltd.                                                                        |
+| .佛山                | generic             | Guangzhou YU Wei Information Technology Co., Ltd.                                                                        |
 | .ಭಾರತ                | country-code        | National Internet eXchange of India                                                                                      |
-| .慈善                  | generic             | Excellent First Limited                                                                                                  |
-| .集团                  | generic             | Eagle Horizon Limited                                                                                                    |
-| .在线                  | generic             | Beijing Tld Registry Technology Limited                                                                                  |
-| .한국                  | country-code        | KISA (Korea Internet & Security Agency)                                                                                  |
+| .慈善                | generic             | Excellent First Limited                                                                                                  |
+| .集团                | generic             | Eagle Horizon Limited                                                                                                    |
+| .在线                | generic             | Beijing Tld Registry Technology Limited                                                                                  |
+| .한국                | country-code        | KISA (Korea Internet & Security Agency)                                                                                  |
 | .ଭାରତ                | country-code        | National Internet eXchange of India                                                                                      |
 | .大众汽车                | generic             | Not assigned                                                                                                             |
 | .点看                  | generic             | VeriSign Sarl                                                                                                            |
@@ -1570,13 +1571,13 @@ https://www.iana.org/domains/root/db
 | ‏.مصر‎               | country-code        | National Telecommunication Regulatory Authority - NTRA                                                                   |
 | ‏.قطر‎               | country-code        | Communications Regulatory Authority                                                                                      |
 | .广东                  | generic             | Guangzhou YU Wei Information Technology Co., Ltd.                                                                        |
-| .இலங்கை              | country-code        | LK Domain Registry                                                                                                       |
-| .இந்தியா             | country-code        | National Internet Exchange of India                                                                                      |
+| .இலங்கை              |  country-code        | LK Domain Registry                                                                                                       |
+| .இந்தியா             |  country-code        | National Internet Exchange of India                                                                                      |
 | .հայ                 | country-code        | "Internet Society" Non-governmental Organization                                                                         |
-| .新加坡                 | country-code        | Singapore Network Information Centre (SGNIC) Pte Ltd                                                                     |
-| ‏.فلسطين‎            | country-code        | Ministry of Telecom & Information Technology (MTIT)                                                                      |
-| .テスト                 | test                | Not assigned                                                                                                             |
-| .政务                  | generic             | China Organizational Name Administration Center                                                                          |
+| .新加坡              | country-code        | Singapore Network Information Centre (SGNIC) Pte Ltd                                                                     |
+| ‏.فلسطين‎  | country-code        | Ministry of Telecom & Information Technology (MTIT)                                                                      |
+| .テスト              | test                | Not assigned                                                                                                             |
+| .政务                | generic             | China Organizational Name Administration Center                                                                          |
 | .xperia              | generic             | Not assigned                                                                                                             |
 | .xxx                 | sponsored           | ICM Registry LLC                                                                                                         |
 | .xyz                 | generic             | XYZ.COM LLC                                                                                                              |

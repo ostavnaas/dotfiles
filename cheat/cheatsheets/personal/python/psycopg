@@ -1,3 +1,270 @@
 https://www.psycopg.org/psycopg3/docs/
-
 https://github.com/psycopg/psycopg
+
+
+psycopg.errors
+
+└── Error
+    ├── DatabaseError
+    │   ├── DataError
+    │   │   ├── ArraySubscriptError
+    │   │   ├── BadCopyFileFormat
+    │   │   ├── CharacterNotInRepertoire
+    │   │   ├── DataException
+    │   │   ├── DatetimeFieldOverflow
+    │   │   ├── DivisionByZero
+    │   │   ├── DuplicateJsonObjectKeyValue
+    │   │   ├── ErrorInAssignment                                                                                                                                                                                                                                                         │   │   ├── EscapeCharacterConflict
+    │   │   ├── FloatingPointException                                                                                                                                                                                                                                                    │   │   ├── IndicatorOverflow
+    │   │   ├── IntervalFieldOverflow                                                                                                                                                                                                                                                     │   │   ├── InvalidArgumentForLogarithm
+    │   │   ├── InvalidArgumentForNthValueFunction                                                                                                                                                                                                                                        │   │   ├── InvalidArgumentForNtileFunction
+    │   │   ├── InvalidArgumentForPowerFunction                                                                                                                                                                                                                                           │   │   ├── InvalidArgumentForSqlJsonDatetimeFunction
+    │   │   ├── InvalidArgumentForWidthBucketFunction                                                                                                                                                                                                                                     │   │   ├── InvalidBinaryRepresentation
+    │   │   ├── InvalidCharacterValueForCast                                                                                                                                                                                                                                              │   │   ├── InvalidDatetimeFormat
+    │   │   ├── InvalidEscapeCharacter                                                                                                                                                                                                                                                    │   │   ├── InvalidEscapeOctet
+    │   │   ├── InvalidEscapeSequence                                                                                                                                                                                                                                                     │   │   ├── InvalidIndicatorParameterValue
+    │   │   ├── InvalidJsonText                                                                                                                                                                                                                                                           │   │   ├── InvalidParameterValue
+    │   │   ├── InvalidPrecedingOrFollowingSize                                                                                                                                                                                                                                           │   │   ├── InvalidRegularExpression
+    │   │   ├── InvalidRowCountInLimitClause
+    │   │   ├── InvalidRowCountInResultOffsetClause
+    │   │   ├── InvalidSqlJsonSubscript
+    │   │   ├── InvalidTablesampleArgument
+    │   │   ├── InvalidTablesampleRepeat
+    │   │   ├── InvalidTextRepresentation
+    │   │   ├── InvalidTimeZoneDisplacementValue
+    │   │   ├── InvalidUseOfEscapeCharacter
+    │   │   ├── InvalidXmlComment
+    │   │   ├── InvalidXmlContent
+    │   │   ├── InvalidXmlDocument
+    │   │   ├── InvalidXmlProcessingInstruction
+    │   │   ├── MoreThanOneSqlJsonItem
+    │   │   ├── MostSpecificTypeMismatch
+    │   │   ├── NoSqlJsonItem
+    │   │   ├── NonNumericSqlJsonItem
+    │   │   ├── NonUniqueKeysInAJsonObject
+    │   │   ├── NonstandardUseOfEscapeCharacter
+    │   │   ├── NotAnXmlDocument
+    │   │   ├── NullValueNoIndicatorParameter
+    │   │   ├── NullValueNotAllowed
+    │   │   ├── NumericValueOutOfRange
+    │   │   ├── SequenceGeneratorLimitExceeded
+    │   │   ├── SingletonSqlJsonItemRequired
+    │   │   ├── SqlJsonArrayNotFound
+    │   │   ├── SqlJsonItemCannotBeCastToTargetType
+    │   │   ├── SqlJsonMemberNotFound
+    │   │   ├── SqlJsonNumberNotFound
+    │   │   ├── SqlJsonObjectNotFound
+    │   │   ├── SqlJsonScalarRequired
+    │   │   ├── StringDataLengthMismatch
+    │   │   ├── StringDataRightTruncation
+    │   │   ├── SubstringError
+    │   │   ├── TooManyJsonArrayElements
+    │   │   ├── TooManyJsonObjectMembers
+    │   │   ├── TrimError
+    │   │   ├── UnterminatedCString
+    │   │   ├── UntranslatableCharacter
+    │   │   └── ZeroLengthCharacterString
+    │   │   ├── DiagnosticsException
+    │   ├── IntegrityError
+    │   │   ├── CheckViolation
+    │   │   ├── ExclusionViolation
+    │   │   ├── ForeignKeyViolation
+    │   │   ├── IntegrityConstraintViolation
+    │   │   ├── NotNullViolation
+    │   │   ├── RestrictViolation
+    │   │   └── UniqueViolation
+    │   ├── InternalError
+    │   │   ├── ActiveSqlTransaction
+    │   │   ├── BranchTransactionAlreadyActive
+    │   │   ├── DataCorrupted
+    │   │   ├── DependentObjectsStillExist
+    │   │   ├── DependentPrivilegeDescriptorsStillExist
+    │   │   ├── HeldCursorRequiresSameIsolationLevel
+    │   │   ├── IdleInTransactionSessionTimeout
+    │   │   ├── InFailedSqlTransaction
+    │   │   ├── InappropriateAccessModeForBranchTransaction
+    │   │   ├── InappropriateIsolationLevelForBranchTransaction
+    │   │   ├── IndexCorrupted
+    │   │   ├── InternalError_
+    │   │   ├── InvalidCursorState
+    │   │   ├── InvalidTransactionState
+    │   │   ├── InvalidTransactionTermination
+    │   │   ├── NoActiveSqlTransaction
+    │   │   ├── NoActiveSqlTransactionForBranchTransaction
+    │   │   ├── ReadOnlySqlTransaction
+    │   │   ├── SchemaAndDataStatementMixingNotSupported
+    │   │   └── TransactionTimeout
+    │   ├── InvalidGrantOperation
+    │   ├── InvalidGrantor
+    │   ├── InvalidLocatorSpecification
+    │   ├── InvalidRoleSpecification
+    │   ├── InvalidTransactionInitiation
+    │   ├── LocatorException
+    │   ├── NoAdditionalDynamicResultSetsReturned
+    │   ├── NoData
+    │   ├── NotSupportedError
+    │   │   └── FeatureNotSupported
+    │   ├── OperationalError
+    │   │   ├── AdminShutdown
+    │   │   ├── CancellationTimeout
+    │   │   ├── CannotConnectNow
+    │   │   ├── CantChangeRuntimeParam
+    │   │   ├── ConfigFileError
+    │   │   ├── ConfigurationLimitExceeded
+    │   │   ├── ConnectionDoesNotExist
+    │   │   ├── ConnectionException
+    │   │   ├── ConnectionFailure
+    │   │   ├── ConnectionTimeout
+    │   │   ├── ContainingSqlNotPermitted
+    │   │   ├── CrashShutdown
+    │   │   ├── DatabaseDropped
+    │   │   ├── DeadlockDetected
+    │   │   ├── DiskFull
+    │   │   ├── DuplicateFile
+    │   │   ├── EventTriggerProtocolViolated
+    │   │   ├── ExternalRoutineException
+    │   │   ├── ExternalRoutineInvocationException
+    │   │   ├── FdwColumnNameNotFound
+    │   │   ├── FdwDynamicParameterValueNeeded
+    │   │   ├── FdwError
+    │   │   ├── FdwFunctionSequenceError
+    │   │   ├── FdwInconsistentDescriptorInformation
+    │   │   ├── FdwInvalidAttributeValue
+    │   │   ├── FdwInvalidColumnName
+    │   │   ├── FdwInvalidColumnNumber
+    │   │   ├── FdwInvalidDataType
+    │   │   ├── FdwInvalidDataTypeDescriptors
+    │   │   ├── FdwInvalidDescriptorFieldIdentifier
+    │   │   ├── FdwInvalidHandle
+    │   │   ├── FdwInvalidOptionIndex
+    │   │   ├── FdwInvalidOptionName
+    │   │   ├── FdwInvalidStringFormat
+    │   │   ├── FdwInvalidStringLengthOrBufferLength
+    │   │   ├── FdwInvalidUseOfNullPointer
+    │   │   ├── FdwNoSchemas
+    │   │   ├── FdwOptionNameNotFound
+    │   │   ├── FdwOutOfMemory
+    │   │   ├── FdwReplyHandle
+    │   │   ├── FdwSchemaNotFound
+    │   │   ├── FdwTableNotFound
+    │   │   ├── FdwTooManyHandles
+    │   │   ├── FdwUnableToCreateExecution
+    │   │   ├── FdwUnableToCreateReply
+    │   │   ├── FdwUnableToEstablishConnection
+    │   │   ├── FileNameTooLong
+    │   │   ├── FunctionExecutedNoReturnStatement
+    │   │   ├── IdleSessionTimeout
+    │   │   ├── InsufficientResources
+    │   │   ├── InvalidAuthorizationSpecification
+    │   │   ├── InvalidPassword
+    │   │   ├── InvalidSavepointSpecification
+    │   │   ├── InvalidSqlstateReturned
+    │   │   ├── IoError
+    │   │   ├── LockFileExists
+    │   │   ├── LockNotAvailable
+    │   │   ├── ModifyingSqlDataNotPermitted
+    │   │   ├── ModifyingSqlDataNotPermittedExt
+    │   │   ├── NullValueNotAllowedExt
+    │   │   ├── ObjectInUse
+    │   │   ├── ObjectNotInPrerequisiteState
+    │   │   ├── OperatorIntervention
+    │   │   ├── OutOfMemory
+    │   │   ├── PipelineAborted
+    │   │   ├── ProgramLimitExceeded
+    │   │   ├── ProhibitedSqlStatementAttempted
+    │   │   ├── ProhibitedSqlStatementAttemptedExt
+    │   │   ├── ProtocolViolation
+    │   │   ├── QueryCanceled
+    │   │   ├── ReadingSqlDataNotPermitted
+    │   │   ├── ReadingSqlDataNotPermittedExt
+    │   │   ├── SavepointException
+    │   │   ├── SerializationFailure
+    │   │   ├── SqlRoutineException
+    │   │   ├── SqlclientUnableToEstablishSqlconnection
+    │   │   ├── SqlserverRejectedEstablishmentOfSqlconnection
+    │   │   ├── SrfProtocolViolated
+    │   │   ├── StatementCompletionUnknown
+    │   │   ├── StatementTooComplex
+    │   │   ├── SystemError
+    │   │   ├── TooManyArguments
+    │   │   ├── TooManyColumns
+    │   │   ├── TooManyConnections
+    │   │   ├── TransactionIntegrityConstraintViolation
+    │   │   ├── TransactionResolutionUnknown
+    │   │   ├── TransactionRollback
+    │   │   ├── TriggerProtocolViolated
+    │   │   ├── TriggeredDataChangeViolation
+    │   │   ├── UndefinedFile
+    │   │   └── UnsafeNewEnumValueUsage
+    │   ├── ProgrammingError
+    │   │   ├── AmbiguousAlias
+    │   │   ├── AmbiguousColumn
+    │   │   ├── AmbiguousFunction
+    │   │   ├── AmbiguousParameter
+    │   │   ├── AssertFailure
+    │   │   ├── CannotCoerce
+    │   │   ├── CardinalityViolation
+    │   │   ├── CaseNotFound
+    │   │   ├── CollationMismatch
+    │   │   ├── DatatypeMismatch
+    │   │   ├── DuplicateAlias
+    │   │   ├── DuplicateColumn
+    │   │   ├── DuplicateCursor
+    │   │   ├── DuplicateDatabase
+    │   │   ├── DuplicateFunction
+    │   │   ├── DuplicateObject
+    │   │   ├── DuplicatePreparedStatement
+    │   │   ├── DuplicateSchema
+    │   │   ├── DuplicateTable
+    │   │   ├── GeneratedAlways
+    │   │   ├── GroupingError
+    │   │   ├── IndeterminateCollation
+    │   │   ├── IndeterminateDatatype
+    │   │   ├── InsufficientPrivilege
+    │   │   ├── InvalidArgumentForXquery
+    │   │   ├── InvalidCatalogName
+    │   │   ├── InvalidColumnDefinition
+    │   │   ├── InvalidColumnReference
+    │   │   ├── InvalidCursorDefinition
+    │   │   ├── InvalidCursorName
+    │   │   ├── InvalidDatabaseDefinition
+    │   │   ├── InvalidForeignKey
+    │   │   ├── InvalidFunctionDefinition
+    │   │   ├── InvalidName
+    │   │   ├── InvalidObjectDefinition
+    │   │   ├── InvalidPreparedStatementDefinition
+    │   │   ├── InvalidRecursion
+    │   │   ├── InvalidSchemaDefinition
+    │   │   ├── InvalidSchemaName
+    │   │   ├── InvalidSqlStatementName
+    │   │   ├── InvalidTableDefinition
+    │   │   ├── NameTooLong
+    │   │   ├── NoDataFound
+    │   │   ├── PlpgsqlError
+    │   │   ├── RaiseException
+    │   │   ├── ReservedName
+    │   │   ├── SyntaxError
+    │   │   ├── SyntaxErrorOrAccessRuleViolation
+    │   │   ├── TooManyRows
+    │   │   ├── UndefinedColumn
+    │   │   ├── UndefinedFunction
+    │   │   ├── UndefinedObject
+    │   │   ├── UndefinedParameter
+    │   │   ├── UndefinedTable
+    │   │   ├── WindowingError
+    │   │   ├── WithCheckOptionViolation
+    │   │   └── WrongObjectType
+    │   ├── SnapshotTooOld
+    │   ├── SqlStatementNotYetComplete
+    │   ├── StackedDiagnosticsAccessedWithoutActiveHandler
+    │   └── TriggeredActionException
+    └── InterfaceError
+
+
+# Pool exceptions
+
+# https://www.psycopg.org/psycopg3/docs/api/pool.html#pool-exceptions
+OperationalError
+    ├── psycopg_pool.PoolTimeout
+    ├── psycopg_pool.PoolClosed
+    └── psycopg_pool.TooManyRequests

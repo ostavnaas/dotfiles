@@ -1,0 +1,2 @@
+# Set higher priority on wifi
+nmcli connection modify <ssid> connection.autoconnect-priority 10

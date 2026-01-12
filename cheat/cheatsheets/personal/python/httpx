@@ -29,3 +29,12 @@ StreamError
  ├── ResponseNotRead
  ├── RequestNotRead
  └── StreamClosed
+
+
+# Self signed
+import httpx
+import ssl
+
+# Use an explicitly configured certificate store.
+ctx = ssl.create_default_context(cafile="path/to/certs.pem")  # Either cafile or capath.
+client = httpx.Client(verify=ctx)

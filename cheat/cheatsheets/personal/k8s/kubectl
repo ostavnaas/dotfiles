@@ -1,6 +1,6 @@
 
 # API docs
-https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/
+https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/
 
 # Mark node as unschedulable
 kubectl cordon <node>

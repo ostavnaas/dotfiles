@@ -1,0 +1,2 @@
+
+go install github.com/int128/kubelogin@v1.34.1

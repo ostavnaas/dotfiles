@@ -1,0 +1,44 @@
+https://wiki.python.org/moin/TimeComplexity
+
+Big O
+- O(1) — Constant Time Complexity
+
+  list[0]
+
+- O(log n) — Logarithmic Time Complexity
+- O(n) — Linear Time Complexity
+
+  for i, element in enumerate(arr):
+    if element == target:
+      return i
+
+- O(n log n) — Linearithmic Time Complexity
+- O(n²) — Quadratic Time Complexity
+- O(2^n) — Exponential Time Complexity
+- O(n!) — Factorial Time Complexity
+
+
+list 
+
++----------------------+-------------------------+------------+
+|      Operation       | Average Case Amortized  | Worst Case |
++----------------------+-------------------------+------------+
+| Copy                 | O(n)                    | O(n)       |
+| Append[1]            | O(1)                    | O(1)       |
+| Pop last             | O(1)                    | O(1)       |
+| Pop intermediate[2]  | O(n)                    | O(n)       |
+| Insert               | O(n)                    | O(n)       |
+| Get Item             | O(1)                    | O(1)       |
+| Set Item             | O(1)                    | O(1)       |
+| Delete Item          | O(n)                    | O(n)       |
+| Iteration            | O(n)                    | O(n)       |
+| Get Slice            | O(k)                    | O(k)       |
+| Del Slice            | O(n)                    | O(n)       |
+| Set Slice            | O(k+n)                  | O(k+n)     |
+| Extend[1]            | O(k)                    | O(k)       |
+| Sort                 | O(n log n)              | O(n log n) |
+| Multiply             | O(nk)                   | O(nk)      |
+| x in s               | O(n) min(s), max(s)     | O(n)       |
+| Get Length           | O(1)                    | O(1)       |
++----------------------+-------------------------+------------+
+

@@ -1,7 +1,7 @@
 return {
 	"neovim/nvim-lspconfig",
 	config = function()
-		vim.lsp.enable({ 'pyright', "ruff", "lua_ls" })
+		vim.lsp.enable({ 'pyright', "ruff", "lua_ls" ,"ty" })
 
 		vim.api.nvim_create_autocmd('LspAttach', {
 			callback = function(args)

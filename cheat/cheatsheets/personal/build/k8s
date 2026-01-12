@@ -1,0 +1,2 @@
+go install github.com/fairwindsops/rbac-lookup@v0.10.3
+

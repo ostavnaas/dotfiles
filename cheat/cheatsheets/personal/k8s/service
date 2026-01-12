@@ -1,3 +1,4 @@
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#service-v1-core
 apiVersion: v1
 kind: Service
 metadata:

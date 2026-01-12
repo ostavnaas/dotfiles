@@ -7,3 +7,9 @@ lt Returns the boolean truth of arg1 < arg2
 le Returns the boolean truth of arg1 <= arg2
 gt Returns the boolean truth of arg1 > arg2
 ge Returns the boolean truth of arg1 >= arg2
+
+
+{{/*   Comment, No space eater */}}
+{{- /* Comment, Left space eater */}}
+{{/*   Comment, Right space eater */-}}
+{{- /* Comment, Left and right space eaters */-}}

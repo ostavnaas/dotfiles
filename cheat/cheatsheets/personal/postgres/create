@@ -4,3 +4,7 @@ CREATE TABLE films (
     created_at  timestamp with time zone
 );
 
+
+
+# Find owner
+SELECT tablename,tableowner FROM pg_tables
