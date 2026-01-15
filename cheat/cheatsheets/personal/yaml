@@ -34,3 +34,15 @@ with_line_breaks: |-
 
 line_break_at_end: >
   String with linebrek at the end
+
+
+
+# Value reference
+base_port: &port 8080
+service:
+  port: *port
+
+# Complex mapping keys
+foo:
+  ? sky
+  : blue
