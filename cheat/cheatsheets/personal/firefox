@@ -1,0 +1,7 @@
+
+
+
+# Firefox Translation - Turn off
+about:config => browser.translations.automaticallyPopup => false
+
+about:config => findbar.highlightAll => true

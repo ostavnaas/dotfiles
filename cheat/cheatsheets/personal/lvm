@@ -1,0 +1,24 @@
+
+https://wiki.archlinux.org/title/LVM
+
+Physical disks
+  Disk1 (/dev/sda):
+    ┌──────────────────────────────────────┬─────────────────────────────────────┐
+    │ Partition1  50 GiB (Physical volume) │ Partition2 80 GiB (Physical volume) │
+    │ /dev/sda1                            │ /dev/sda2                           │
+    └──────────────────────────────────────┴─────────────────────────────────────┘
+  Disk2 (/dev/sdb):
+    ┌──────────────────────────────────────┐
+    │ Partition1 120 GiB (Physical volume) │
+    │ /dev/sdb1                            │
+    └──────────────────────────────────────┘
+
+LVM logical volumes
+
+  Volume Group1 (/dev/MyVolGroup/ = /dev/sda1 + /dev/sda2 + /dev/sdb1):
+    ┌─────────────────────────┬─────────────────────────┬──────────────────────────┐
+    │ Logical volume1 15 GiB  │ Logical volume2 35 GiB  │ Logical volume3 200 GiB  │
+    │ /dev/MyVolGroup/rootvol │ /dev/MyVolGroup/homevol │ /dev/MyVolGroup/mediavol │
+    └─────────────────────────┴─────────────────────────┴──────────────────────────┘
+
+

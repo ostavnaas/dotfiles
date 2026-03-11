@@ -24,3 +24,6 @@ kubectl delete pods --grace-period=0 --force <pod-name>
 
 # Logs from previous instantiation of a container in a pod
 kubectl logs <pod-name> --previous
+
+# Get all running pods in the namespace
+kubectl get pods --field-selector=status.phase=Running

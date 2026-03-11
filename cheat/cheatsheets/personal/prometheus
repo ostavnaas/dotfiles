@@ -9,3 +9,9 @@ curl -XGET -G 'http://localhost:9090/api/v1/labels' --data-urlencode 'match[]={_
 
 # Get metadata for specific metrics (HELP)
 curl -XGET -G 'https://localhost:9090/api/v1/targets/metadata' --data-urlencode 'metric=alertmanager_alerts'
+
+
+# https://prometheus.io/docs/prometheus/latest/querying/functions/#label_replace
+label_replace(http_requests_total{endpoint="ping"}, "foo", "$1", "endpoint", "/(.*)")
+{__name__="http_requests_total", endpoint="/ping", method="GET", status_code="200"} => {__name__="http_requests_total", endpoint="/ping", foo="/ping", method="GET", status_code="200"}
+
