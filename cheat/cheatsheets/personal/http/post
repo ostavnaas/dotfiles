@@ -30,6 +30,7 @@ $ curl -X POST -H 'Transfer-Encoding: chunked' --data-raw '8\r\none-byte\r\n0\r\
 one-byte
 0
 
+# https://datatracker.ietf.org/doc/html/rfc7578
 # POST example with multipart/form-data
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
 # httpx.post('http://www.example.com/files', files={'upload-file': ('Dockerfile', open('Dockerfile', 'rb'))})

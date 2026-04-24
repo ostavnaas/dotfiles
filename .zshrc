@@ -188,3 +188,6 @@ man() {
         command man "$@"
 }
 #zprof
+export PATH="$PATH:$HOME/github/flutter/bin:$HOME/github/Studio/android-studio/bin:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdkcmdline-tools/latest/bin"
+
+export ANDROID_HOME="/home/oves/Android/Sdk"

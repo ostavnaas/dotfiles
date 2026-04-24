@@ -3,7 +3,7 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzf-native.nvim" },
-		tag = "0.1.5",
+		tag = "v0.2.1",
 
 		init = function()
 			local actions = require("telescope.actions")

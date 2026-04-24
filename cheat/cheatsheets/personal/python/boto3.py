@@ -1,5 +1,7 @@
 from botocore.config import Config
 import boto3
+# Changelog
+# https://github.com/boto/botocore/blob/develop/CHANGELOG.rst
 
 # https://botocore.amazonaws.com/v1/documentation/api/latest/reference/config.html
 

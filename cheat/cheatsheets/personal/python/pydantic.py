@@ -1,4 +1,11 @@
-from pydantic import BaseModel, ConfigDict, field_validator, computed_field
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    field_validator,
+    computed_field,
+    Field,
+    AliasPath,
+)
 from datetime import datetime, UTC
 import base64
 
@@ -38,3 +45,13 @@ m.model_dump(mode="json")
 
 m.model_dump()
 # {'size': 180, 'name': 'Foo', 'timestamp': 1761113190.825167, 'd': datetime.datetime(2025, 10, 22, 6, 6, 30, 825173, tzinfo=datetime.timezone.utc), 'size_in_inch': 70.87}
+
+
+# https://docs.pydantic.dev/latest/concepts/alias/
+class TestObject(BaseModel):
+    customer: str
+    nested: str = Field(validation_alias=AliasPath("lines", "data"))
+
+
+TestObject.model_validate({"customer": "foo", "lines": {"data": "bar"}})
+# TestObject(customer='foo', nested='bar')
