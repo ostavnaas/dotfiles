@@ -1,3 +1,6 @@
+# Disable oh-my-zsh autoupdate
+DISABLE_AUTO_UPDATE="true"
+
 # time zsh
 #zmodload zsh/zprof
 export ZSH=~/.oh-my-zsh
@@ -191,3 +194,4 @@ man() {
 export PATH="$PATH:$HOME/github/flutter/bin:$HOME/github/Studio/android-studio/bin:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdkcmdline-tools/latest/bin"
 
 export ANDROID_HOME="/home/oves/Android/Sdk"
+. "$HOME/.cargo/env"

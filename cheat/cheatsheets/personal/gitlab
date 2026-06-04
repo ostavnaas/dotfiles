@@ -1,0 +1,4 @@
+https://docs.gitlab.com/ci/variables/predefined_variables/#predefined-variables
+
+Variable		Availability	Description
+CI_PROJECT_NAMESPACE	Pre-pipeline	The project namespace (username or group name) of the job.

@@ -5,7 +5,7 @@ set -eux
 KVM_PATH="/home/$(logname)/libvirt/images"
 VM_NAME="${1}"
 RAM=${2:-1024}
-RELEASE_CODENAME="noble"
+RELEASE_CODENAME="bookworm"
 
 NOBLE="https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-amd64.img"
 JAMMY="https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
@@ -15,6 +15,7 @@ STRETCH="https://cloud.debian.org/images/cloud/stretch/daily/20200210-166/debian
 BUSTER="https://cloud.debian.org/images/cloud/buster/daily/20210816-736/debian-10-generic-amd64-daily-20210816-736.qcow2"
 BULLSEYE="https://cloud.debian.org/images/cloud/bullseye/daily/20210816-736/debian-11-generic-amd64-daily-20210816-736.qcow2"
 BOOKWORM="https://cloud.debian.org/images/cloud/bookworm/20240211-1654/debian-12-generic-amd64-20240211-1654.qcow2"
+TRIXIE="https://cloud.debian.org/images/cloud/trixie/20260112-2355/debian-13-generic-amd64-20260112-2355.qcow2"
 
 if [ -z ${1} ]; then
   echo "First argument must be name of VM"
@@ -58,6 +59,9 @@ elif [ $RELEASE_CODENAME == "bullseye" ];then
 elif [ $RELEASE_CODENAME == "bookworm" ];then
   UBUNTU_URL=$BOOKWORM
   RELEASE="debian12"
+elif [ $RELEASE_CODENAME == "trixie" ];then
+  UBUNTU_URL=$TRIXIE
+  RELEASE="debian13"
 fi
 
 
@@ -106,7 +110,7 @@ runcmd:
   - sed -i 's|[#]*PasswordAuthentication yes|PasswordAuthentication no|g' /etc/ssh/sshd_config
   - systemctl restart sshd.service
   - apt-get dist-upgrade -y
-  - apt-get install -y tmux nmap curl wget vim
+  - apt-get install -y tmux nmap curl wget git netcat-openbsd
 final_message: "The system is finally up, after UPTIME seconds"
 EOF
 
