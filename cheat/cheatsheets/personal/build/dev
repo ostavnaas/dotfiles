@@ -48,3 +48,17 @@ curl -L https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.9/tre
 sudo apt install npm bubblewrap
 npm install -g @openai/codex
 echo kernel.apparmor_restrict_unprivileged_userns = 0 | sudo tee  /etc/sysctl.d/20-codex-bubblewrap.conf
+
+
+# Locale
+sudo locale-gen en_US.UTF-8 nb_NO.UTF-8
+sudo update-locale \
+    LANG=en_US.UTF-8 \                                           LC_NUMERIC=nb_NO.UTF-8 \
+    LC_TIME=nb_NO.UTF-8 \
+    LC_MONETARY=nb_NO.UTF-8 \
+    LC_PAPER=nb_NO.UTF-8 \
+    LC_NAME=nb_NO.UTF-8 \
+    LC_ADDRESS=nb_NO.UTF-8 \
+    LC_TELEPHONE=nb_NO.UTF-8 \
+    LC_MEASUREMENT=nb_NO.UTF-8 \
+    LC_IDENTIFICATION=nb_NO.UTF-8

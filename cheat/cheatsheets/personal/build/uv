@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+VERSION="0.11.9"
+curl -L "https://releases.astral.sh/github/uv/releases/download/$VERSION/uv-x86_64-unknown-linux-gnu.tar.gz" -o uv-x86_64.tar.gz \
+    && tar zxvf uv-x86_64.tar.gz --strip-components=1 -C ~/.local/bin/ uv-x86_64-unknown-linux-gnu/uvx uv-x86_64-unknown-linux-gnu/uv \
+    && rm uv-x86_64.tar.gz
