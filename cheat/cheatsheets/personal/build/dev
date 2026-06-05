@@ -45,5 +45,6 @@ curl -L https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.9/tre
 # Codex
 
 
-sudo apt install npm
+sudo apt install npm bubblewrap
 npm install -g @openai/codex
+echo kernel.apparmor_restrict_unprivileged_userns = 0 | sudo tee  /etc/sysctl.d/20-codex-bubblewrap.conf

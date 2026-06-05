@@ -5,3 +5,6 @@ virt-xml --edit --sysinfo host <vm>
 # preformance=True
 <cpu mode="host-passthrough" check="none"/>
 
+
+
+qemu-img resize instance.qcow2 +20G

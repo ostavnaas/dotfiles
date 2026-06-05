@@ -44,12 +44,12 @@ return {
 
 				pickers.new {
 					results_title = 'Modified on current branch',
-					finder = finders.new_oneshot_job({ '/home/oves/.local/bin/git-files-changed.sh', 'list' }),
+					finder = finders.new_oneshot_job({ vim.fn.expand("~/github/ostavnaas/dotfiles/nvim/scripts/git-files-changed.sh"), 'list' }),
 					sorter = sorters.get_fuzzy_file(),
 					previewer = previewers.new_termopen_previewer {
 						get_command = function(entry)
 							return {
-								'/home/oves/.local/bin/git-files-changed.sh',
+								vim.fn.expand("~/github/ostavnaas/dotfiles/nvim/scripts/git-files-changed.sh"),
 								'diff', entry.value }
 						end
 					},
