@@ -25,7 +25,7 @@ fi
 
 
 
-export PATH=$PATH:$HOME/.local/bin/:$HOME/go/bin:/opt/node/bin
+export PATH=$PATH:$HOME/.local/bin/:$HOME/go/bin:/opt/node/bin:$HOME/go/bin
 # Go
 export GOROOT=/usr/local/go
 #export GOPATH=~/golang
@@ -191,10 +191,6 @@ man() {
         command man "$@"
 }
 #zprof
-export PATH="$PATH:$HOME/github/flutter/bin:$HOME/github/Studio/android-studio/bin:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdkcmdline-tools/latest/bin"
-
-export ANDROID_HOME="/home/oves/Android/Sdk"
-. "$HOME/.cargo/env"
 
 dev() {
     local vm=dev
@@ -206,4 +202,8 @@ dev() {
     fi
   }
 
+
+# Arrow over ssh session
+bindkey "^[[1;2C" forward-word
+bindkey "^[[1;2D" backward-word
 
