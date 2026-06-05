@@ -5,8 +5,9 @@ set -eux
 KVM_PATH="/home/$(logname)/libvirt/images"
 VM_NAME="${1}"
 RAM=${2:-1024}
-RELEASE_CODENAME="bookworm"
+RELEASE_CODENAME="resolute"
 
+RESOLUTE="https://cloud-images.ubuntu.com/releases/resolute/release/ubuntu-26.04-server-cloudimg-amd64.img"
 NOBLE="https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-amd64.img"
 JAMMY="https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
 FOCAL="https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
@@ -15,7 +16,7 @@ STRETCH="https://cloud.debian.org/images/cloud/stretch/daily/20200210-166/debian
 BUSTER="https://cloud.debian.org/images/cloud/buster/daily/20210816-736/debian-10-generic-amd64-daily-20210816-736.qcow2"
 BULLSEYE="https://cloud.debian.org/images/cloud/bullseye/daily/20210816-736/debian-11-generic-amd64-daily-20210816-736.qcow2"
 BOOKWORM="https://cloud.debian.org/images/cloud/bookworm/20240211-1654/debian-12-generic-amd64-20240211-1654.qcow2"
-TRIXIE="https://cloud.debian.org/images/cloud/trixie/20260112-2355/debian-13-generic-amd64-20260112-2355.qcow2"
+TRIXIE="https://cloud.debian.org/images/cloud/trixie/20260601-2496/debian-13-generic-amd64-20260601-2496.qcow2"
 
 if [ -z ${1} ]; then
   echo "First argument must be name of VM"
@@ -34,7 +35,10 @@ fi
 
 CLOUDINIT_NETWORKFILE="network_config_static.cfg"
 
-if [ $RELEASE_CODENAME == "noble" ];then
+if [ $RELEASE_CODENAME == "resolute" ];then
+  UBUNTU_URL=$RESOLUTE
+  RELEASE="ubuntu24.04"
+elif [ $RELEASE_CODENAME == "noble" ];then
   UBUNTU_URL=$NOBLE
   RELEASE="ubuntu24.04"
 elif [ $RELEASE_CODENAME == "jammy" ];then

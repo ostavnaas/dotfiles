@@ -1,5 +1,11 @@
 
 
+git clone https://github.com/ostavnaas/dotfiles/  ~/github/ostavnaas/dotfiles
+ln -s github/ostavnaas/dotfiles/.zshrc $HOME/
+ln -s github/ostavnaas/dotfiles/.tmux.conf $HOME/
+
+go install github.com/cheat/cheat/cmd/cheat@latest
+
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 
 
@@ -24,4 +30,20 @@ sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # Make
-sudo apt-get install -y cmake
+sudo apt-get install -y cmake build-essential
+
+# Neovim
+ln -s $HOME/github/dotfiles/nvim/ $HOME/.config/nvim
+sudo apt-get install ripgrep jq cargo unzip
+cargo install tree-sitter-cli
+curl -L https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.9/tree-sitter-cli-linux-x64.zip -o tree-sitter-cli-linux-x64.zip \ 
+  && unzip tree-sitter-cli-linux-x64.zip  tree-sitter -d  $HOME/.local/bin/
+  chmod +x $HOME/.local/bin/tree-sitter
+  rm tree-sitter-cli-linux-x64.zip
+
+
+# Codex
+
+
+sudo apt install npm
+npm install -g @openai/codex
