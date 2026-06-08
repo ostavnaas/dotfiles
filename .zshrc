@@ -18,8 +18,8 @@ source $ZSH/oh-my-zsh.sh
 # pipenv
 export PIPENV_VENV_IN_PROJECT=1
 
-if [ -f ~/.zsh_workrc ];then
-  source ~/.zsh_workrc
+if [ -f ~/.zsh_local ];then
+  source ~/.zsh_local
 fi
 
 
