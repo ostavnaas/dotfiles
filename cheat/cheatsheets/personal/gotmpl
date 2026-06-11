@@ -1,4 +1,11 @@
 {{- if eq .value "string" }}
+{{- else if eq .value "other" }}
+{{- end }}
+
+
+{{- if or $this $that }}
+{{- else if and $this $that }}
+{{- end }}
 
 binary comparison operators
 eq Returns the boolean truth of arg1 == arg2
