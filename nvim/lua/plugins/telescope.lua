@@ -49,7 +49,8 @@ return {
 					previewer = previewers.new_termopen_previewer {
 						get_command = function(entry)
 							return {
-								vim.fn.expand("~/github/ostavnaas/dotfiles/nvim/scripts/git-files-changed.sh"),
+								vim.fn.expand(
+									"~/github/ostavnaas/dotfiles/nvim/scripts/git-files-changed.sh"),
 								'diff', entry.value }
 						end
 					},
