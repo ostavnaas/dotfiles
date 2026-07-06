@@ -1,3 +1,4 @@
+# vim: set filetype=yaml:
 
 # Format json
 :%!jq --tab .

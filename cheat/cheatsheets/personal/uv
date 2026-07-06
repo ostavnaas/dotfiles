@@ -1,1 +1,9 @@
-https://docs.astral.sh/uv/reference/environment/
+# vim: set filetype=toml:
+# https://docs.astral.sh/uv/reference/environment/
+
+
+
+[project]
+dependencies = [
+  "httpx ; sys_platform == 'linux' and platform_machine == 'x86_64'",
+]

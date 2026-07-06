@@ -123,6 +123,7 @@ fi
 
 # https://github.com/cheat/cheat
 if [ -e ~/github/ostavnaas/dotfiles/cheat/cheat.zsh ]; then
+  # source <(cheat --completion zsh)
   source ~/github/ostavnaas/dotfiles/cheat/cheat.zsh
 fi
 
