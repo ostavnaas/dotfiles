@@ -1,1 +1,2 @@
-https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Hack.zip
+mkdir -p ~/.local/share/fonts
+curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.tar.xz && tar xvf Hack.tar.xz -C ~/.local/share/fonts/ttf  --wildcards "*.ttf" && rm Hack.tar.xz
