@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+VERSION="0.73.0"
+curl "https://github.com/junegunn/fzf/releases/download/v$VERSION/fzf-$VERSION-linux_amd64.tar.gz" -o fzf-$VERSION-linux_amd64.tar.gz \
+    && tar zxvf fzf-$VERSION-linux_amd64.tar.gz -C ~/.local/bin/ fzf \
+    && rm fzf-$VERSION-linux_amd64.tar.gz
