@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+VERSION="35.1"
+curl -L https://github.com/protocolbuffers/protobuf/releases/download/v"$VERSION"/protoc-"$VERSION"-linux-x86_64.zip  -o "protoc-$VERSION-linux-x86_64.zip" \
+    && unzip -j "protoc-$VERSION-linux-x86_64.zip" bin/protoc -d ~/.local/bin/ \
+    && rm protoc-$VERSION-linux-x86_64.zip
