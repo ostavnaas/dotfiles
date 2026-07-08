@@ -1,0 +1,4 @@
+
+
+# Read an arbitrary protocol message
+protoc --decode_raw < message
