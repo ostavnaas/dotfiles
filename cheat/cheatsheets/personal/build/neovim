@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-VERSION="${1:-v0.12.2}"
+VERSION="${1:-v0.12.5}"
 REPO_DIR="$HOME/github/neovim"
 
 packages=(

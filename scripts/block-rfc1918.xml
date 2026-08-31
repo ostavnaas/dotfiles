@@ -1,0 +1,27 @@
+<!-- virsh nwfilter-define block-rfc1918.xml
+virsh edit <vm>
+ <interface type='bridge'>
+ <filterref filter='block-rfc1918'/>
+ </interface>
+-->
+<filter name='block-rfc1918' chain='ipv4' priority='-700'>
+  <rule action='accept' direction='out' priority='497'>
+    <ip dstipaddr='192.168.122.0' dstipmask='24'/>
+  </rule>
+  <rule action='accept' direction='out' priority='498'>
+    <ip dstipaddr='10.1.16.27' dstipmask='32'/>
+  </rule>
+  <rule action='accept' direction='out' priority='499'>
+    <ip dstipaddr='10.1.11.22' dstipmask='32'/>
+  </rule>
+  <rule action='drop' direction='out' priority='500'>
+    <ip dstipaddr='10.0.0.0' dstipmask='8'/>
+  </rule>
+  <rule action='drop' direction='out' priority='501'>
+    <ip dstipaddr='192.168.0.0' dstipmask='16'/>
+  </rule>
+  <rule action='drop' direction='out' priority='502'>
+    <ip dstipaddr='172.16.0.0' dstipmask='12'/>
+  </rule>
+</filter>
+
