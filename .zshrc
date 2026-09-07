@@ -197,7 +197,7 @@ dev() {
     local vm=dev
 
     if virsh domstate "$vm" 2>/dev/null | command grep -qx 'running'; then
-      virsh-ssh "$vm"
+      virsh-ssh "$vm" -L 1455:localhost:1455
     else
       virsh start "$vm"
     fi
