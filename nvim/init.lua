@@ -1,6 +1,15 @@
 require("config.keymaps")
 require("config.lazy")
-vim.cmd.set("number")
-vim.cmd.set("mouse=")
-vim.g.python3_host_prog = "~/.config/nvim/.venv/bin/python3"
-vim.cmd.set("spell spelllang=en_us")
+
+vim.opt.number = true
+vim.opt.mouse = ""
+
+-- Spell only where prose is. Set globally it flags every identifier in code.
+vim.opt.spelllang = "en_us"
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("SpellProse", { clear = true }),
+	pattern = { "markdown", "gitcommit", "text" },
+	callback = function()
+		vim.opt_local.spell = true
+	end,
+})

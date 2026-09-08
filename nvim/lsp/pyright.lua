@@ -1,7 +1,7 @@
 return {
-	cmd = { "pyright-langserver", "--stdio" , "--offset-encoding=utf-8"},
+	cmd = { "pyright-langserver", "--stdio" },
 	root_markers = { "pyproject.toml" },
-	filetypes = { 'py' },
+	filetypes = { 'python' },
 	settings = {
 		pyright = {
 			disableLanguageServices = false,

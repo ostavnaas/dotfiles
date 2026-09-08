@@ -1,7 +1,7 @@
 return {
-	cmd = { "ty" },
+	cmd = { "ty", "server" },
 	root_markers = { "pyproject.toml" },
-	filetypes = { 'py' },
+	filetypes = { 'python' },
 	settings = {
 		ty = {
 			disableLanguageServices = true,

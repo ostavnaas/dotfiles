@@ -1,3 +1,6 @@
+-- auto-session 2.x renamed every option: the old `auto_session_*` names are
+-- detected and mostly back-translated, but it sets has_old_config and nags
+-- about them. These are the current names.
 return {
 	{
 
@@ -8,17 +11,14 @@ return {
 		},
 		config = function()
 			require('auto-session').setup({
+				enabled = true,
 				log_level = "error",
-				auto_session_enable_last_session = false,
-				auto_session_root_dir = vim.fn.stdpath("data") .. "/sessions/",
-				auto_session_enabled = true,
-				auto_save_enabled = nil,
-				auto_restore_enabled = nil,
-				auto_session_suppress_dirs = nil,
-				auto_session_use_git_branch = true,
-				auto_restore_lazy_delay_enabled = true,
-				-- the configs below are lua only
-				bypass_session_save_file_types = nil,
+				root_dir = vim.fn.stdpath("data") .. "/sessions/",
+				auto_save = true,
+				auto_restore = true,
+				auto_restore_last_session = false,
+				git_use_branch_name = true,
+				lazy_support = true,
 			})
 
 			vim.o.sessionoptions =

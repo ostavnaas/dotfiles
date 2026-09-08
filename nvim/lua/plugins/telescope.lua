@@ -5,7 +5,7 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzf-native.nvim" },
 		tag = "v0.2.1",
 
-		init = function()
+		config = function()
 			local actions = require("telescope.actions")
 			require("telescope").setup({
 				defaults = {
@@ -15,6 +15,14 @@ return {
 					--},
 					--border = true,
 					--sorting_strategy = "ascending",
+					-- Telescope reads defaults.mappings; a top-level `mappings` key is
+					-- ignored without a word of complaint.
+					mappings = {
+						i = {
+							["<C-j>"] = actions.move_selection_next,
+							["<C-k>"] = actions.move_selection_previous,
+						},
+					},
 				},
 				pickers = {
 					buffers = {
@@ -26,12 +34,6 @@ return {
 					},
 					git_files = {
 						use_git_root = false,
-					},
-				},
-				mappings = {
-					i = {
-						["<C-j>"] = actions.move_selection_next,
-						["<C-k>"] = actions.move_selection_previous,
 					},
 				},
 			})
