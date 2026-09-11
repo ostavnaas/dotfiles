@@ -14,7 +14,7 @@ return {
 					untracked = { text = "┆" },
 				},
 				signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-				numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
+				numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
 				linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
 				word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
 				watch_gitdir = {
@@ -97,6 +97,8 @@ return {
 						gs.diffthis("~")
 					end)
 					map("n", "<leader>td", gs.toggle_deleted)
+					map('n', '<leader>tw', gs.toggle_word_diff,          { desc = 'Toggle word diff' })
+					map('n', '<leader>tl', gs.toggle_linehl, { desc = 'Toggle line highlight' })
 
 					-- Text object
 					map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")

@@ -4,9 +4,19 @@
 # Insert when there is a constraint on id
 # Note that the special excluded table is used to reference values originally proposed for insertion
 
+id | updated_at
+----+---------------------
+1 | 2026-09-01 08:00:00
+
+
 INSERT INTO table (id, updated_at) VALUES (1, now())
     ON CONFLICT (id)
     DO UPDATE SET updated_at = EXCLUDED.updated_at
+
+id | updated_at
+----+---------------------
+1 | 2026-09-09 10:00:00   <- updated in place
+
 
 
 CREATE TABLE table (a BIT(8));

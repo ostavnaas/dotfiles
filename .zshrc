@@ -203,6 +203,45 @@ dev() {
     fi
   }
 
+# Worktree
+wt() {
+    local dir
+    if (( $# )); then
+        dir=$(git worktree list | awk '{print $1}' | grep -i -- "$1" | head -1)
+    else
+        dir=$(git worktree list | fzf --height 40% --reverse | awk '{print $1}')
+    fi
+    [[ -n $dir ]] && cd "$dir"
+}
+
+wtD() {
+   local name=${1:?usage: wtD <worktree>}
+   local dir=$name
+   [[ -d $dir ]] || dir=${WT_BASE:?wtD: WT_BASE is not set}/$name
+   # don't be standing in it when it goes
+   [[ $PWD/ == $dir/* ]] && cd $(git worktree list --porcelain | sed -n '1s/^worktree //p')
+   git worktree remove "$dir"
+}
+wtco() {
+  local name=${1:?usage: wtco <branch>}
+  local base=${WT_BASE:?wtco: WT_BASE is not set}
+  local dir=$base/$name
+
+  local from
+  from=$(git rev-parse --abbrev-ref HEAD) || return 1
+  [[ $from == HEAD ]] && from=$(git rev-parse --short HEAD)   # detached
+
+  mkdir -p ${dir:h} || return 1
+
+  if git show-ref --verify --quiet "refs/heads/$name"; then
+    git worktree add "$dir" "$name" || return 1              # branch exists
+  else
+    git worktree add -b "$name" "$dir" "$from" || return 1   # new branch off current
+  fi
+  cd "$dir"
+}
+
+
 
 # Arrow over ssh session
 bindkey "^[[1;2C" forward-word

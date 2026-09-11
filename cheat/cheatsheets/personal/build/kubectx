@@ -1,0 +1,2 @@
+go install github.com/ahmetb/kubectx/cmd/kubectx@v0.11.0
+go install github.com/ahmetb/kubectx/cmd/kubens@v0.11.0
