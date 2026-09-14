@@ -5,8 +5,11 @@ virsh edit <vm>
  </interface>
 -->
 <filter name='block-rfc1918' chain='ipv4' priority='-700'>
-  <rule action='accept' direction='out' priority='497'>
-    <ip dstipaddr='192.168.122.0' dstipmask='24'/>
+  <rule action='accept' direction='out' priority='400'>
+    <ip dstipaddr='192.168.122.1' dstipmask='32' protocol='tcp'/>
+  </rule>
+  <rule action='accept' direction='out' priority='401'>
+    <ip dstipaddr='192.168.122.1' dstipmask='32' protocol='udp'/>
   </rule>
   <rule action='accept' direction='out' priority='498'>
     <ip dstipaddr='10.1.16.27' dstipmask='32'/>
