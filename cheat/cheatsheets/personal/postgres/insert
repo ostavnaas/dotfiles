@@ -18,7 +18,14 @@ id | updated_at
 1 | 2026-09-09 10:00:00   <- updated in place
 
 
+DO NOTHING — on conflict the statement affects zero rows, RETURNING emits nothing, and fetchone() returns None.
+DO UPDATE — the conflicting row is updated.
+
+
 
 CREATE TABLE table (a BIT(8));
 INSERT INTO table (a) VALUES (B'0010')
 SELECT a::int FROM table; -- 2
+
+
+
