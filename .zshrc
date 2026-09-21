@@ -238,8 +238,17 @@ wtco() {
   else
     git worktree add -b "$name" "$dir" "$from" || return 1   # new branch off current
   fi
+
+  # share the source checkout's virtualenv with the worktree
+  local main
+  main=$(git worktree list --porcelain | sed -n '1s/^worktree //p')
+  if [[ -d $main/.venv && ! -e $dir/.venv ]]; then
+    ln -s "$main/.venv" "$dir/.venv"
+  fi
+
   cd "$dir"
 }
+
 
 
 
