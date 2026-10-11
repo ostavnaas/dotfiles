@@ -1,0 +1,11 @@
+git clone https://github.com/openwall/john ~/github/john/src
+sudo apt-get install yasm libgmp-dev libpcap-dev libnss3-dev libkrb5-dev pkg-config libbz2-dev zlib1g-dev
+
+
+sudo apt-get install nvidia-opencl-dev
+cd john/src
+
+./configure && make -s clean && make -sj4
+
+
+# ./john --list=opencl-devices
