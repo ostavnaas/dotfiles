@@ -45,6 +45,9 @@ ssb>  rsa4096 2022-08-01 [E] [expires: 2025-09-18]
       < SUBKEY FINGERPRINT >
         Card serial no. = xxxx xxxxxxxx
 
-gpg --quick-set-expire < KEY FINGERPRINT >  1y  < SUBKEY FINGERPRINT >...
+
+# Renew GPG subkeys
+gpg --list-secret-keys --with-subkey-fingerprints
+gpg --quick-set-expire <FINGERPRINT>  1y  <SUBKEY FINGERPRINT>...
 
 

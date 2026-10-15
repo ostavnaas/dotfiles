@@ -34,7 +34,7 @@ if [ ! -d "$REPO_DIR/.git" ]; then
   git clone https://github.com/neovim/neovim.git "$REPO_DIR"
 fi
 
-git -C "$REPO_DIR" fetch --tags --prune
+git -C "$REPO_DIR" fetch --tags --force --prune
 git -C "$REPO_DIR" checkout --detach "tags/$VERSION"
 
 make -C "$REPO_DIR" distclean

@@ -29,3 +29,9 @@ git reset $(git merge-base master $(git rev-parse --abbrev-ref HEAD))
 # Show the short hash of the latest commit on origin/master
 git rev-parse --short=8 origin/master
  -> e9630ccf
+
+# Delete all local branches that have been merged into origin/master, except for master itself
+ git branch --merged origin/master | grep -vE '^\*|^\+|^\s*master$' | xargs git branch -D
+
+ # compares your branch with the point where it split off from master
+ git diff  master...HEAD

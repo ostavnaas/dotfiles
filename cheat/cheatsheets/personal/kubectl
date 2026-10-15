@@ -31,3 +31,6 @@ kubectl exec -i <pod> -- bash -c 'python3 -' < main.py
 
 # Get all pods in Pending state
 kubectl get pods --field-selector=status.phase=Pending
+
+# Get pods with CPU requests and limits
+kubectl get pods -o custom-columns='NAMESPACE:.metadata.namespace,NAME:.metadata.name,CPU_REQ:.spec.containers[*].resources.requests.cpu,CPU_LIM:.spec.containers[*].resources.limits.cpu' -A
