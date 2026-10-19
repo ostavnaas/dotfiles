@@ -35,11 +35,7 @@ sudo apt-get install -y cmake build-essential
 # Neovim
 ln -s $HOME/github/dotfiles/nvim/ $HOME/.config/nvim
 sudo apt-get install ripgrep jq unzip fzf
-curl -L https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.9/tree-sitter-cli-linux-x64.zip -o tree-sitter-cli-linux-x64.zip \
-  && unzip tree-sitter-cli-linux-x64.zip  tree-sitter -d  $HOME/.local/bin/
-  chmod +x $HOME/.local/bin/tree-sitter
-  rm tree-sitter-cli-linux-x64.zip
-
+cheat build/tree-sitter | bash
 
 # Codex
 

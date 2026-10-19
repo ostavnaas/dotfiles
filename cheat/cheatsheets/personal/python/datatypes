@@ -4,13 +4,22 @@ syntax: python
 # Docs
 https://docs.python.org/3/library/index.html
 
-+-----------------+-------------------+
-| Mutable Objects | Immutable Objects |
-+-----------------+-------------------+
-| Lists           | Numbers           |
-| Dictionaries    | Strings           |
-| Sets            | Tuples            |
-+-----------------+-------------------+
+┌───────────────────┬───────────────────┐
+│ Mutable Objects   │ Immutable Objects │
+├───────────────────┼───────────────────┤
+│ list              │ int               │
+│ dict              │ float             │
+│ set               │ complex           │
+│ bytearray         │ bool              │
+│ memoryview*       │ str               │
+│                   │ bytes             │
+│                   │ tuple**           │
+│                   │ frozenset         │
+│                   │ range             │
+│                   │ slice             │
+│                   │ NoneType (None)   │
+└───────────────────┴───────────────────┘
+
 
 # Python docker tags (Multiarch)
 https://github.com/docker-library/repo-info/tree/master/repos/python/remote
@@ -18,7 +27,7 @@ https://github.com/docker-library/repo-info/tree/master/repos/python/remote
 # SET
 # Mutable Objects
 # https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset
-set() 
+set()
 s  = {"foo"}
 
 {"foo","bar","extra"}.issuperset({"foo", "bar"}) => True
@@ -40,17 +49,17 @@ l = [1,2,3]
 dict()
 d = {"one": 1, "two": 2, "three": 3}
 
-# int  
+# int
 # Immutable Objects
 int()
 i = 42
 
-# string 
+# string
 # Immutable Objects
 str()
 s = "string"
 
-# tuple 
+# tuple
 # Immutable Objects
 # https://docs.python.org/3/library/stdtypes.html#tuple
 tuple()

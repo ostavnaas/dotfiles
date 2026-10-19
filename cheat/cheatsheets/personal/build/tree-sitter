@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+version=$(curl -fsSLI -o /dev/null -w '%{url_effective}' \
+  https://github.com/tree-sitter/tree-sitter/releases/latest)
+version=${version##*/}   # e.g. v0.26.9
+echo "Installing tree-sitter $version"
+
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+
+curl -fL "https://github.com/tree-sitter/tree-sitter/releases/download/$version/tree-sitter-cli-linux-x64.zip" \
+  -o "$tmp/tree-sitter.zip"
+mkdir -p "$HOME/.local/bin"
+unzip -o "$tmp/tree-sitter.zip" tree-sitter -d "$HOME/.local/bin/"
+chmod +x "$HOME/.local/bin/tree-sitter"
