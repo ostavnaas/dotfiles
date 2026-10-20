@@ -1,0 +1,132 @@
+# JWT - JSON Web Token  - https://datatracker.ietf.org/doc/html/rfc7519
+# JWS - JSON Web Signature - https://datatracker.ietf.org/doc/html/rfc7515
+# JWK - JSON Web Key       - https://datatracker.ietf.org/doc/html/rfc7517
+# JWA - algorithms         - https://datatracker.ietf.org/doc/html/rfc7518
+# Bearer usage             - https://datatracker.ietf.org/doc/html/rfc6750
+# Registered claims (iss, sub, aud, exp, ...): cheat jwt
+#
+# Note: a JWT is signed, not encrypted - anyone can read the payload
+# Note: base64url = base64 with - and _ instead of + and /, no = padding
+
+
+# ============================================================================
+#  1. Token layout:  header.payload.signature
+# ============================================================================
+# Full token (one line, parts joined with "."):
+eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImlyR21vdk1OZ3J5dkl6dG42X25qdndLRUhSX1pvR1VadkpmczVmU1k5Q3cifQ.eyJpc3MiOiJodHRwczovL2F1dGguZXhhbXBsZS5jb20iLCJzdWIiOiJ1c2VyLTEyMyIsImF1ZCI6ImFwaS5leGFtcGxlLmNvbSIsImlhdCI6MTc2MDk0NzIwMCwiZXhwIjoxNzYwOTUwODAwLCJzY29wZSI6InJlYWQgd3JpdGUifQ.txBwNRlccY0WqrMzeDc5YEmNJZsUggdV9gLYcb9TSuXVT225Otm-nf112aNY_tUf0yuJDPH30YDx_ZqMv0UIGw
+
+# Split:
+eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImlyR21vdk1OZ3J5dkl6dG42X25qdndLRUhSX1pvR1VadkpmczVmU1k5Q3cifQ                                    # header    base64url(JSON)
+eyJpc3MiOiJodHRwczovL2F1dGguZXhhbXBsZS5jb20iLCJzdWIiOiJ1c2VyLTEyMyIsImF1ZCI6ImFwaS5leGFtcGxlLmNvbSIsImlhdCI6MTc2MDk0NzIwMCwiZXhwIjoxNzYwOTUwODAwLCJzY29wZSI6InJlYWQgd3JpdGUifQ # payload   base64url(JSON)
+txBwNRlccY0WqrMzeDc5YEmNJZsUggdV9gLYcb9TSuXVT225Otm-nf112aNY_tUf0yuJDPH30YDx_ZqMv0UIGw                                                         # signature base64url(bytes)
+
+# --- header (JOSE header) ---------------------------------------------------
+{
+  "alg": "ES256",                                              # signing algorithm (ECDSA P-256 + SHA-256)
+  "typ": "JWT",                                                # media type of the token
+  "kid": "irGmovMNgryvIztn6_njvwKEHR_ZoGUZvJfs5fSY9Cw"         # key id: which JWK in the JWKS signed it
+}
+
+# --- payload (claims) -------------------------------------------------------
+{
+  "iss": "https://auth.example.com",                           # issuer: who created the token
+  "sub": "user-123",                                           # subject: who the token is about
+  "aud": "api.example.com",                                    # audience: who must accept it
+  "iat": 1760947200,                                           # issued at   (2025-10-20 08:00:00 UTC)
+  "exp": 1760950800,                                           # expires at  (2025-10-20 09:00:00 UTC)
+  "scope": "read write"                                        # custom/private claim
+}
+
+# --- signature --------------------------------------------------------------
+# ES256 = sign( base64url(header) + "." + base64url(payload) )
+#         64 raw bytes: r (32) || s (32)   - NOT DER like openssl outputs
+
+
+# ============================================================================
+#  2. Decode (no verification)
+# ============================================================================
+# header + payload with jq
+$ jq -R 'split(".") | .[0:2] | map(gsub("-";"+") | gsub("_";"/") | @base64d | fromjson)' <<< "$TOKEN"
+
+# payload only, plain shell (ignore the padding warning)
+$ cut -d. -f2 <<< "$TOKEN" | tr '_-' '/+' | base64 -d 2>/dev/null | jq .
+
+# exp as a date
+$ date -d @1760950800 -u
+
+
+# ============================================================================
+#  3. Use the token: Authorization: Bearer
+# ============================================================================
+# python: httpx.get('https://api.example.com/items', headers={'Authorization': f'Bearer {token}'})
+$ curl -H "Authorization: Bearer $TOKEN" https://api.example.com/items
+
+> GET /items HTTP/1.1                                          # request-line
+> Host: api.example.com                                        # header
+> User-Agent: curl/8.18.0                                      # header
+> Accept: */*                                                  # header
+> Authorization: Bearer eyJhbGciOiJFUzI1NiIs...                # header: scheme "Bearer" + token
+>                                                              # empty line ends the headers
+
+# --- rejected token response ------------------------------------------------
+< HTTP/1.1 401 Unauthorized                                    # status-line
+< WWW-Authenticate: Bearer error="invalid_token", error_description="The access token expired"
+
+
+# ============================================================================
+#  4. JWK / JWKS: the public keys used to verify
+# ============================================================================
+# Discovery (OpenID Connect) -> jwks_uri -> JWKS
+$ curl -s https://auth.example.com/.well-known/openid-configuration | jq -r .jwks_uri
+$ curl -s https://auth.example.com/.well-known/jwks.json
+
+{
+  "keys": [                                                    # JWKS: set of keys (rotation = several keys)
+    {
+      "kty": "EC",                                             # key type: EC, RSA, oct (symmetric), OKP (Ed25519)
+      "crv": "P-256",                                          # EC curve
+      "x": "fBzCHEGY3aB48KhzkbcDdccqX6iqdUWZgO68-i6DqS8",      # EC public point x, base64url
+      "y": "EJkof5Br0TXNoXUAUmcOfN5RYwb9Lhg22-J1nQUrtLI",      # EC public point y, base64url
+      "kid": "irGmovMNgryvIztn6_njvwKEHR_ZoGUZvJfs5fSY9Cw",    # key id, matches "kid" in the JWT header
+      "use": "sig",                                            # public key use: sig (signature) or enc
+      "alg": "ES256"                                           # algorithm this key is meant for
+    }
+  ]
+}
+
+# --- RSA key fields (RS256 / PS256) -----------------------------------------
+#   "kty": "RSA", "n": "<modulus, base64url>", "e": "AQAB"   (e = 65537)
+
+# --- pick the key for a token -----------------------------------------------
+$ KID=$(jq -rR 'split(".")[0] | gsub("-";"+") | gsub("_";"/") | @base64d | fromjson | .kid' <<< "$TOKEN")
+$ jq --arg kid "$KID" '.keys[] | select(.kid == $kid)' jwks.json
+
+# --- JWK thumbprint (RFC 7638), often used as kid ---------------------------
+# sha256 over the required members only, sorted, no whitespace
+$ jq -cj '.keys[0] | {crv,kty,x,y}' jwks.json | openssl dgst -sha256 -binary | base64 -w0 | tr '+/' '-_' | tr -d '='
+irGmovMNgryvIztn6_njvwKEHR_ZoGUZvJfs5fSY9Cw
+
+
+# ============================================================================
+#  5. Verify
+# ============================================================================
+# Always: check signature with the key from the JWKS, pin allowed algs
+# (never trust "alg": "none"), then check exp / nbf / iss / aud.
+
+# python (pip install pyjwt[crypto])
+#   import jwt
+#   jwks = jwt.PyJWKClient('https://auth.example.com/.well-known/jwks.json')
+#   key = jwks.get_signing_key_from_jwt(token)
+#   claims = jwt.decode(token, key.key, algorithms=['ES256'], audience='api.example.com', issuer='https://auth.example.com')
+
+
+# ============================================================================
+#  6. HS256 (shared secret) by hand
+# ============================================================================
+$ b64url() { base64 -w0 | tr '+/' '-_' | tr -d '='; }
+$ H=$(printf '%s' '{"alg":"HS256","typ":"JWT"}' | b64url)
+$ P=$(printf '%s' '{"sub":"user-123","exp":1760950800}' | b64url)
+$ S=$(printf '%s' "$H.$P" | openssl dgst -sha256 -hmac 'secret' -binary | b64url)
+$ echo "$H.$P.$S"
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyLTEyMyIsImV4cCI6MTc2MDk1MDgwMH0.9ewCmEqRRlymH0ICgZSZtwirbdz-9vpsEKaDHVqnytE
+# verify = recompute S and compare with the 3rd part

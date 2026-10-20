@@ -1,70 +1,115 @@
-# https://datatracker.ietf.org/doc/html/rfc7231
-
-
-# POST example with application/x-www-form-urlencoded
+# POST - https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.3
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
-# httpx.post('http://www.example.com/test', data={'field1': 'value1', 'field2': 'value2'})
-$ curl -X POST --data-binary @file.txt http://www.example.com/files
-$ curl -X POST -d 'field1=value1&field2=value2' http://www.example.com/test
-> POST /test HTTP/1.1                                          # Request-line - https://datatracker.ietf.org/doc/html/rfc1945#section-5.1 
-> Host: www.example.com                                        # Request Header Fields - https://datatracker.ietf.org/doc/html/rfc1945#section-5.2
-> User-Agent: curl/7.81.0
-> Content-Type: application/x-www-form-urlencoded
-> Content-Length: 27
-> Accept: */*
-
-field1=value1&field2=value2                                  # body
+#
+# Note: -d / -F / --json already imply POST, no need for -X POST
+# Note: quote URLs containing ? or & (zsh globbing / shell backgrounding)
+#
+# Request layout - https://datatracker.ietf.org/doc/html/rfc9112#section-2.1
+#   request-line   METHOD SP request-target SP HTTP-version CRLF
+#   header fields  Name: value CRLF  (one per line)
+#   empty line     CRLF  (ends the headers)
+#   body           Content-Length bytes, or chunked
 
 
-# POST example with chunked transfer encoding
-# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Transfer-Encoding
-# httpx.post('http://www.example.com/file', data=b'one-byte', headers={'Transfer-Encoding': 'chunked'})
-$ curl -X POST -H 'Transfer-Encoding: chunked' --data-raw '8\r\none-byte\r\n0\r\n' http://www.example.com/file
+# ============================================================================
+#  1. application/x-www-form-urlencoded
+# ============================================================================
+# python: httpx.post('http://www.example.com/test', data={'field1': 'value1', 'field2': 'value2'})
+$ curl -d 'field1=value1&field2=value2' http://www.example.com/test
 
-> POST /file HTTP/1.1
-> Host: www.example.com
-> Accept-Encoding: gzip, deflate
-> Transfer-Encoding: chunked
+> POST /test HTTP/1.1                                          # request-line: method, path, version
+> Host: www.example.com                                        # header: target host (required in HTTP/1.1)
+> User-Agent: curl/8.18.0                                      # header: client name/version
+> Accept: */*                                                  # header: response types we accept
+> Content-Length: 27                                           # header: body size in bytes
+> Content-Type: application/x-www-form-urlencoded              # header: body format
+>                                                              # empty line (CRLF) ends the headers
+field1=value1&field2=value2                                    # body: key=value pairs joined with &
 
-8
-one-byte
-0
+# --- variant: send a file as the body ---------------------------------------
+# --data-binary keeps the file unchanged (-d @file strips newlines)
+# Content-Type is still application/x-www-form-urlencoded unless set with -H
+$ curl --data-binary @file.txt -H 'Content-Type: text/plain' http://www.example.com/files
 
-# https://datatracker.ietf.org/doc/html/rfc7578
-# POST example with multipart/form-data
-# https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
-# httpx.post('http://www.example.com/files', files={'upload-file': ('Dockerfile', open('Dockerfile', 'rb'))})
-curl -X POST -F 'upload-file=@Dockerfile' http://www.example.com/files
-> POST /files HTTP/1.1
-> Host: www.example.com
-> Accept-Encoding: gzip, deflate
-> Content-Length: 350
-> Content-Type: multipart/form-data; boundary=1d883db04aa3625465430d4163a78dd3
 
---1d883db04aa3625465430d4163a78dd3
-Content-Disposition: form-data; name="upload-file"; filename="Dockerfile"
-Content-Type: application/octet-stream
+# ============================================================================
+#  2. Transfer-Encoding: chunked
+#     https://datatracker.ietf.org/doc/html/rfc9112#section-7.1
+# ============================================================================
+# Used when the body size is not known up front: no Content-Length, the body
+# is sent as <size in hex> CRLF <data> CRLF ... and ends with a 0-size chunk.
+#
+# python: httpx sends chunked when the body is an iterator
+#         httpx.post('http://www.example.com/file', content=iter([b'one-byte']))
+$ curl -H 'Transfer-Encoding: chunked' --data-raw 'one-byte' http://www.example.com/file
 
-FROM python
+> POST /file HTTP/1.1                                          # request-line
+> Host: www.example.com                                        # header
+> User-Agent: curl/8.18.0                                      # header
+> Accept: */*                                                  # header
+> Transfer-Encoding: chunked                                   # header: body is chunked (replaces Content-Length)
+> Content-Type: application/x-www-form-urlencoded              # header: added by curl because of -d/--data-raw
+>                                                              # empty line ends the headers
+8                                                              # chunk size in hex (8 bytes)
+one-byte                                                       # chunk data
+0                                                              # last chunk (size 0)
+                                                               # empty line ends the body
+
+# --- raw body on the wire ---------------------------------------------------
+# ASCII:  8\r\none-byte\r\n0\r\n\r\n
+#
+# hex:    38 0d 0a 6f 6e 65 2d 62 79 74 65 0d 0a 30 0d 0a 0d 0a
+#         8  CR LF o  n  e  -  b  y  t  e  CR LF 0  CR LF CR LF
+#         |  |___| |______________________| |___| |  |___| |___|
+#         |  end   chunk data               end   |  end   end of body
+#         size     of size line             data  last chunk
+
+
+# ============================================================================
+#  3. multipart/form-data (file upload)
+#     https://datatracker.ietf.org/doc/html/rfc7578
+# ============================================================================
+# python: httpx.post('http://www.example.com/files', files={'upload-file': ('Dockerfile', open('Dockerfile', 'rb'))})
+$ curl -F 'upload-file=@Dockerfile' http://www.example.com/files
+
+> POST /files HTTP/1.1                                         # request-line
+> Host: www.example.com                                        # header
+> User-Agent: curl/8.18.0                                      # header
+> Accept: */*                                                  # header
+> Content-Length: 378                                          # header: whole body incl. boundaries
+> Content-Type: multipart/form-data; boundary=------------------------yjciPZIK1q94rTTZdztB7E
+>                                                              # ^ header: boundary separates the parts
+--------------------------yjciPZIK1q94rTTZdztB7E               # part start: "--" + boundary
+Content-Disposition: form-data; name="upload-file"; filename="Dockerfile"  # part header: field name + filename
+Content-Type: application/octet-stream                         # part header: file type
+                                                               # empty line ends the part headers
+FROM python                                                    # part body: file content ...
 
 ENV PIPENV_VENV_IN_PROJECT=1
 WORKDIR /src
 COPY Pipfile Pipfile.lock /src/
 RUN pip install pipenv && pipenv sync
-ENV PATH="/src/.venv/bin:$PATH"
+ENV PATH="/src/.venv/bin:$PATH"                                # ... end of file content
 
---1d883db04aa3625465430d4163a78dd3--
+--------------------------yjciPZIK1q94rTTZdztB7E--             # end: "--" + boundary + "--"
 
 
-# POST example with application/json
-# httpx.post("https://www.example.com/path", params={"query":"value"}, json={"payload": "value"}, headers={"Header": "value"})
-$ curl -XPOST -H "Header: value" -H "Content-Type: application/json" -d '{"payload": "value"}'  https://www.example.com/path?query=value
-> POST /path?query=params HTTP/1.1
-> Host: www.example.com
-> Accept: */*
-> User-Agent: curl/7.81.0
-> Header: value
-> Content-Length: 21
-> Content-Type: application/json
+# ============================================================================
+#  4. application/json
+# ============================================================================
+# python: httpx.post('https://www.example.com/path', params={'query': 'value'}, json={'payload': 'value'}, headers={'Header': 'value'})
+$ curl -H 'Header: value' -H 'Content-Type: application/json' -d '{"payload": "value"}' 'https://www.example.com/path?query=value'
 
-{"payload": "value"}
+> POST /path?query=value HTTP/1.1                              # request-line: path + query string
+> Host: www.example.com                                        # header
+> User-Agent: curl/8.18.0                                      # header
+> Accept: */*                                                  # header
+> Header: value                                                # header: custom, from -H
+> Content-Type: application/json                               # header: body format, from -H
+> Content-Length: 20                                           # header: body size in bytes
+>                                                              # empty line ends the headers
+{"payload": "value"}                                           # body: JSON
+
+# --- variant: curl >= 7.82 --------------------------------------------------
+# --json sets Content-Type and Accept to application/json
+$ curl -H 'Header: value' --json '{"payload": "value"}' 'https://www.example.com/path?query=value'
