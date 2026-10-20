@@ -27,13 +27,33 @@ _cheat_complete_paths()
 }
 
 _cheat() {
+  local curcontext="$curcontext" state line
+  typeset -A opt_args
 
-  _arguments -C \
-      ': :->personal' \
+  # -A '-*': stop offering flags once the cheatsheet has been given
+  _arguments -C -s -A '-*' \
+      '(-a --all)'{-a,--all}'[search among all cheatpaths]' \
+      '(-b --brief)'{-b,--brief}'[list cheatsheets without file paths]' \
+      '(-c --colorize)'{-c,--colorize}'[colorize output]' \
+      '(- :)--completion[generate shell completion script]:shell:(bash zsh fish powershell)' \
+      '(- :)--conf[display the config file path]' \
+      '(- :)'{-d,--directories}'[list cheatsheet directories]' \
+      '(- :)'{-e,--edit}'[edit cheatsheet]:cheatsheet:->full' \
+      '(- :)'{-h,--help}'[help for cheat]' \
+      '(- :)--init[write a default config file to stdout]' \
+      '(-l --list)'{-l,--list}'[list cheatsheets]' \
+      '(-p --path)'{-p,--path}'[return only sheets found on cheatpath]:cheatpath:->pathlist' \
+      '(-r --regex)'{-r,--regex}'[treat search phrase as a regex]' \
+      '(- :)--rm[remove (delete) cheatsheet]:cheatsheet:->full' \
+      '(-s --search)'{-s,--search}'[search cheatsheets for phrase]:phrase: ' \
+      '(-t --tag)'{-t,--tag}'[return only sheets matching tag]:tag:->taglist' \
+      '(- :)'{-T,--tags}'[list all tags in use]' \
+      '(- :)'{-u,--update}'[update git-backed cheatpaths]' \
+      '(- :)'{-v,--version}'[print the version number]' \
+      ':cheatsheet:->personal' \
+    && return 0
 
   case $state in
-    (none)
-      ;;
     (full)
       _cheat_complete_full_cheatsheets
       ;;
@@ -45,8 +65,6 @@ _cheat() {
       ;;
     (pathlist)
       _cheat_complete_paths
-      ;;
-    (*)
       ;;
   esac
 }
