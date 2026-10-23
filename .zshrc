@@ -25,9 +25,11 @@ fi
 
 
 
-export PATH=$PATH:$HOME/.local/bin/:$HOME/go/bin:/opt/node/bin:$HOME/go/bin
+export PATH=$PATH:$HOME/.local/bin:$HOME/go/bin
+# npm global installs go to ~/.local/bin and ~/.local/lib/node_modules
+export NPM_CONFIG_PREFIX=$HOME/.local
 # Go
-export GOROOT=/usr/local/go
+export GOROOT=$HOME/.local/opt/go
 #export GOPATH=~/golang
 export GO111MODULE=on
 

@@ -1,7 +1,35 @@
-URL=https://nodejs.org/dist/latest-v23.x/
+#!/usr/bin/env bash
+set -euo pipefail
 
-wget  https://nodejs.org/$(curl $URL | grep linux-x64.tar.xz |cut -d\" -f2)
-sudo tar xvf node-v*-linux-x64.tar.xz -C /opt
-rm node-v*-linux-x64.tar.xz
-sudo rm /opt/node
-sudo ln -fs /opt/node-v*linux-x64 /opt/node
+
+packages=(
+    curl
+    xz-utils
+  )
+
+missing_packages=()
+
+for package in "${packages[@]}"; do
+  if ! dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -q "install ok installed"; then
+    missing_packages+=("$package")
+  fi
+done
+
+if ((${#missing_packages[@]} > 0)); then
+  sudo apt-get update
+  sudo apt-get install -y "${missing_packages[@]}"
+fi
+
+# https://nodejs.org/dist/latest/
+URL=https://nodejs.org/dist/latest
+TARBALL=$(curl -fsSL "$URL/SHASUMS256.txt" | grep -o 'node-v[^ ]*-linux-x64\.tar\.xz')
+
+curl -fL "$URL/$TARBALL" -o "$TARBALL"
+mkdir -p ~/.local/opt
+tar xvf "$TARBALL" -C ~/.local/opt
+rm "$TARBALL"
+ln -sfn ~/.local/opt/"${TARBALL%.tar.xz}" ~/.local/opt/node
+mkdir -p ~/.local/bin
+for bin in ~/.local/opt/node/bin/*; do
+  ln -fs "$bin" ~/.local/bin
+done

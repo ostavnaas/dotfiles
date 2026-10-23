@@ -23,6 +23,7 @@ fi
 VERSION=$(curl -fsSL "https://go.dev/VERSION?m=text" | head -n1)
 
 curl -fL "https://go.dev/dl/$VERSION.linux-amd64.tar.gz" -o "$VERSION.linux-amd64.tar.gz"
-sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "$VERSION.linux-amd64.tar.gz" && rm "$VERSION.linux-amd64.tar.gz"
-ln -fs /usr/local/go/bin/go ~/.local/bin
-ln -fs /usr/local/go/bin/gofmt ~/.local/bin
+mkdir -p ~/.local/opt ~/.local/bin
+rm -rf ~/.local/opt/go && tar -C ~/.local/opt -xzf "$VERSION.linux-amd64.tar.gz" && rm "$VERSION.linux-amd64.tar.gz"
+ln -fs ~/.local/opt/go/bin/go ~/.local/bin
+ln -fs ~/.local/opt/go/bin/gofmt ~/.local/bin
