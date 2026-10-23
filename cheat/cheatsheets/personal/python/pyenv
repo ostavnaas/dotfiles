@@ -1,10 +1,12 @@
 # https://github.com/pyenv/pyenv
-#
 # List all available versions
 pyenv install --list
 
 # Install
 pyenv install 3.11.7
 
-# Upgrade 
-git -C ~/github/pyenv fetch  && git -C ~/github/pyenv checkout $(git -C ~/github/pyenv describe --tags --abbrev=0 origin)
+# installed Python versions
+pyenv versions
+
+ # remove a Python version
+pyenv uninstall 3.11.7
