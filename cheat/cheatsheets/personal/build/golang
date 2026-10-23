@@ -1,8 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
 
+
+packages=(
+    curl
+  )
+
+missing_packages=()
+
+for package in "${packages[@]}"; do
+  if ! dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -q "install ok installed"; then
+    missing_packages+=("$package")
+  fi
+done
+
+if ((${#missing_packages[@]} > 0)); then
+  sudo apt-get update
+  sudo apt-get install -y "${missing_packages[@]}"
+fi
 
 # https://go.dev/dl/
-curl -L https://go.dev/dl/go1.26.4.linux-amd64.tar.gz -o go1.26.4.linux-amd64.tar.gz
-sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.26.4.linux-amd64.tar.gz && rm go1.26.4.linux-amd64.tar.gz
+VERSION=$(curl -fsSL "https://go.dev/VERSION?m=text" | head -n1)
+
+curl -fL "https://go.dev/dl/$VERSION.linux-amd64.tar.gz" -o "$VERSION.linux-amd64.tar.gz"
+sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "$VERSION.linux-amd64.tar.gz" && rm "$VERSION.linux-amd64.tar.gz"
 ln -fs /usr/local/go/bin/go ~/.local/bin
 ln -fs /usr/local/go/bin/gofmt ~/.local/bin
-
