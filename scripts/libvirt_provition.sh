@@ -2,11 +2,11 @@
 # Usage: libvirt_provition.sh <vm-name> [ram-mb] [release-codename]
 set -eux
 KVM_PATH="/home/$(logname)/libvirt/images"
-VM_NAME="${1}"
+VM_NAME="${1:-}"
 RAM=${2:-1024}
 RELEASE_CODENAME="${3:-resolute}"
 MAX_AGE_DAYS=120
-BASE_SIZE=10G
+DISK_SIZE=10G
 
 declare -A IMAGES=(
   [resolute]="https://cloud-images.ubuntu.com/releases/resolute/release/ubuntu-26.04-server-cloudimg-amd64.img"
@@ -19,8 +19,22 @@ declare -A IMAGES=(
   [trixie]="https://cloud.debian.org/images/cloud/trixie/latest/debian-13-generic-amd64.qcow2"
 )
 
-if [ -z ${1} ]; then
-  echo "First argument must be name of VM"
+usage() {
+  cat << EOF
+Usage: $(basename "$0") <vm-name> [ram-mb] [release-codename]
+
+Create a libvirt VM from a cloud image, provisioned with cloud-init.
+
+Arguments:
+  vm-name           Name of the VM (required)
+  ram-mb            Memory in MB (default: 1024)
+  release-codename  Image to use (default: resolute)
+                    One of: $(printf '%s\n' "${!IMAGES[@]}" | sort | tr '\n' ' ')
+EOF
+}
+
+if [ -z "${VM_NAME}" ] || [ "${VM_NAME}" = "-h" ] || [ "${VM_NAME}" = "--help" ]; then
+  usage
   exit 1
 fi
 
@@ -39,7 +53,6 @@ fi
 
 
 which cloud-localds >/dev/null || sudo apt-get install cloud-image-utils -y
-which virt-customize >/dev/null || sudo apt-get install libguestfs-tools -y
 which virt-install >/dev/null || sudo apt-get install virtinst -y
 PAGER=cat dpkg-query -l libvirt-daemon-system >/dev/null 2>&1 || sudo apt-get install
 
@@ -54,15 +67,7 @@ refresh_base() {
   mkdir -p "${BASE_DIR}"
   local new
   new="${BASE_DIR}/$(date +%Y%m%d-%H%M).qcow2"
-  curl -fL "${URL}" -o "${new}.download"
-  qemu-img create -f qcow2 "${new}.part" "${BASE_SIZE}"
-  sudo virt-resize --format qcow2 --output-format qcow2 --expand /dev/sda1 "${new}.download" "${new}.part"
-  rm "${new}.download"
-  sudo virt-customize --format qcow2 -a "${new}.part" \
-    --update \
-    --install qemu-guest-agent,tmux,nmap,curl,wget,git,netcat-openbsd \
-    --run-command 'systemctl enable qemu-guest-agent' \
-    --truncate /etc/machine-id
+  curl -fL "${URL}" -o "${new}.part"
   mv "${new}.part" "${new}"
   ln -sfn "$(basename "${new}")" "${CURRENT}"
 }
@@ -85,7 +90,17 @@ users:
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh-authorized-keys:
       - SSHPUBLICKEY
+package_update: true
+packages:
+  - qemu-guest-agent
+  - tmux
+  - nmap
+  - curl
+  - wget
+  - git
+  - netcat-openbsd
 runcmd:
+  - systemctl enable --now qemu-guest-agent.service
   - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
   - sed -i 's|[#]*PasswordAuthentication yes|PasswordAuthentication no|g' /etc/ssh/sshd_config
   - systemctl restart sshd.service
@@ -102,7 +117,7 @@ EOF
 
 # Use the resolved file, not the symlink, so later refreshes don't affect this VM
 BACKING="$(readlink -f "${CURRENT}")"
-qemu-img create -f qcow2 -F qcow2 -b "${BACKING}" ${KVM_PATH}/${VM_NAME}/instance.qcow2 "${BASE_SIZE}"
+qemu-img create -f qcow2 -F qcow2 -b "${BACKING}" ${KVM_PATH}/${VM_NAME}/instance.qcow2 "${DISK_SIZE}"
 
 
 if [ -f "/home/$(logname)/.ssh/id_ed25519.pub" ]; then
