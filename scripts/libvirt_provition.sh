@@ -19,6 +19,18 @@ declare -A IMAGES=(
   [trixie]="https://cloud.debian.org/images/cloud/trixie/latest/debian-13-generic-amd64.qcow2"
 )
 
+# libosinfo profile per release; virt-install picks machine type and devices from it
+declare -A OSINFO=(
+  [resolute]=ubuntu26.04
+  [noble]=ubuntu24.04
+  [jammy]=ubuntu22.04
+  [focal]=ubuntu20.04
+  [bionic]=ubuntu18.04
+  [bullseye]=debian11
+  [bookworm]=debian12
+  [trixie]=debian13
+)
+
 usage() {
   cat << EOF
 Usage: $(basename "$0") <vm-name> [ram-mb] [release-codename]
@@ -54,7 +66,21 @@ fi
 
 which cloud-localds >/dev/null || sudo apt-get install cloud-image-utils -y
 which virt-install >/dev/null || sudo apt-get install virtinst -y
+which osinfo-query >/dev/null || sudo apt-get install libosinfo-bin -y
+which osinfo-db-import >/dev/null || sudo apt-get install osinfo-db-tools -y
+
+# Older hosts ship an osinfo-db that doesn't know newer releases; pull the latest
+# into ~/.config/osinfo (no root needed) if the profile is missing
+OS_VARIANT="${OSINFO[$RELEASE_CODENAME]}"
+if ! osinfo-query os short-id="${OS_VARIANT}" | grep -qwF "${OS_VARIANT}"; then
+  osinfo-db-import --user --latest
+  if ! osinfo-query os short-id="${OS_VARIANT}" | grep -qwF "${OS_VARIANT}"; then
+    echo "osinfo-db has no profile for ${OS_VARIANT}, even after updating"
+    exit 1
+  fi
+fi
 PAGER=cat dpkg-query -l libvirt-daemon-system >/dev/null 2>&1 || sudo apt-get install
+
 
 if virsh list --all  | tail +3 | awk '{ print $2 }' | grep ^${VM_NAME}$; then
   echo "VM already exists"
@@ -107,13 +133,13 @@ runcmd:
 final_message: "The system is finally up, after UPTIME seconds"
 EOF
 
+
 cat << EOF > ${KVM_PATH}/${VM_NAME}/network_config_static.cfg
 version: 2
 ethernets:
   enp1s0:
     dhcp4: true
 EOF
-
 
 # Use the resolved file, not the symlink, so later refreshes don't affect this VM
 BACKING="$(readlink -f "${CURRENT}")"
@@ -139,9 +165,10 @@ virt-install --debug \
              --import \
              --name ${VM_NAME} \
              --memory ${RAM} \
-             --network bridge=virbr0 \
+             --machine q35 \
+             --network bridge=virbr0,model=virtio \
              --vcpu 2 \
-             --osinfo detect=on,require=off \
+             --osinfo "${OS_VARIANT}" \
              --graphics none \
              --noautoconsole \
              --disk ${KVM_PATH}/${VM_NAME}/instance.qcow2,size=10,bus=virtio,format=qcow2 \
