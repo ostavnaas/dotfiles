@@ -9,6 +9,28 @@
   eMudhra Intermediate CA Compromise
 
 
+import ssl
+
+import certifi
+import httpx
+
+url = "https://dv-g3b-emudhra.we-have-a-problem.com/"
+stores = {
+    "certifi": ssl.create_default_context(cafile=certifi.where()),
+    "system ca-certificates": ssl.create_default_context(),
+}
+for name, ctx in stores.items():
+    try:
+        httpx.get(url, verify=ctx, timeout=10)
+        print(f"{name}: TRUSTED (not patched)")
+    except httpx.ConnectError as e:
+        print(f"{name}: rejected (patched) - {e}")
+or
+
+import httpx
+httpx.get("https://dv-g3b-emudhra.we-have-a-problem.com/")
+
+
 - 2021-12-10
   Log4Shell
   CVE-2021-44228
