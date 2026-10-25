@@ -6,6 +6,7 @@ VM_NAME="${1}"
 RAM=${2:-1024}
 RELEASE_CODENAME="${3:-resolute}"
 MAX_AGE_DAYS=120
+BASE_SIZE=10G
 
 declare -A IMAGES=(
   [resolute]="https://cloud-images.ubuntu.com/releases/resolute/release/ubuntu-26.04-server-cloudimg-amd64.img"
@@ -53,7 +54,10 @@ refresh_base() {
   mkdir -p "${BASE_DIR}"
   local new
   new="${BASE_DIR}/$(date +%Y%m%d-%H%M).qcow2"
-  curl -fL "${URL}" -o "${new}.part"
+  curl -fL "${URL}" -o "${new}.download"
+  qemu-img create -f qcow2 "${new}.part" "${BASE_SIZE}"
+  sudo virt-resize --format qcow2 --output-format qcow2 --expand /dev/sda1 "${new}.download" "${new}.part"
+  rm "${new}.download"
   sudo virt-customize --format qcow2 -a "${new}.part" \
     --update \
     --install qemu-guest-agent,tmux,nmap,curl,wget,git,netcat-openbsd \
@@ -98,7 +102,7 @@ EOF
 
 # Use the resolved file, not the symlink, so later refreshes don't affect this VM
 BACKING="$(readlink -f "${CURRENT}")"
-qemu-img create -f qcow2 -F qcow2 -b "${BACKING}" ${KVM_PATH}/${VM_NAME}/instance.qcow2 10G
+qemu-img create -f qcow2 -F qcow2 -b "${BACKING}" ${KVM_PATH}/${VM_NAME}/instance.qcow2 "${BASE_SIZE}"
 
 
 if [ -f "/home/$(logname)/.ssh/id_ed25519.pub" ]; then
