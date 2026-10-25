@@ -125,8 +125,17 @@ packages:
   - wget
   - git
   - netcat-openbsd
+  - unattended-upgrades
+write_files:
+  # defer: written after packages are installed, so the package's postinst can't overwrite it
+  - path: /etc/apt/apt.conf.d/20auto-upgrades
+    defer: true
+    content: |
+      APT::Periodic::Update-Package-Lists "1";
+      APT::Periodic::Unattended-Upgrade "1";
 runcmd:
   - systemctl enable --now qemu-guest-agent.service
+  - systemctl enable --now unattended-upgrades.service
   - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
   - sed -i 's|[#]*PasswordAuthentication yes|PasswordAuthentication no|g' /etc/ssh/sshd_config
   - systemctl restart sshd.service
