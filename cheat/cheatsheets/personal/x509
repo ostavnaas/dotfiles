@@ -1,3 +1,38 @@
+# Create a CA and sign a certificate with it (openssl 3.x)
+
+# 1. CA: private key + self-signed root certificate (10 years)
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -out ca.key
+openssl req -x509 -new -key ca.key -sha256 -days 3650 \
+  -subj "/CN=My Test CA" \
+  -addext "basicConstraints=critical,CA:TRUE" \
+  -addext "keyUsage=critical,keyCertSign,cRLSign" \
+  -out ca.crt
+
+# 2. Server: private key + certificate signing request (CSR)
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -out server.key
+openssl req -new -key server.key \
+  -subj "/CN=example.com" \
+  -addext "subjectAltName=DNS:example.com,DNS:www.example.com,IP:127.0.0.1" \
+  -out server.csr
+
+# 3. Sign the CSR with the CA (1 year). -copy_extensions keeps the SAN from the CSR
+openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial \
+  -days 365 -sha256 -copy_extensions copy \
+  -extfile <(printf "basicConstraints=CA:FALSE\nkeyUsage=critical,digitalSignature\nextendedKeyUsage=serverAuth") \
+  -out server.crt
+
+# 4. Inspect and verify
+openssl x509 -in server.crt -noout -text
+openssl verify -CAfile ca.crt server.crt
+
+# Full chain (leaf first) for nginx/haproxy etc.
+cat server.crt ca.crt > fullchain.crt
+
+# Test it: run a TLS server and connect with the CA as trust anchor
+openssl s_server -accept 8443 -cert server.crt -key server.key -www
+curl --cacert ca.crt --resolve example.com:8443:127.0.0.1 https://example.com:8443/
+
+
 https://www.rfc-editor.org/info/rfc5280/
 
 
