@@ -5,6 +5,7 @@ return {
 		"lewis6991/gitsigns.nvim",
 		config = function()
 			require("gitsigns").setup({
+				base = "master",
 				signs = {
 					add = { text = "│" },
 					change = { text = "│" },
