@@ -261,6 +261,12 @@ wtco() {
   cd "$dir"
 }
 
+# Look up a CVE in NVD
+cve() {
+  local id=${1:?usage: cve <CVE-ID>}
+  curl -fsS "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=${id:u}" \
+    | jq '.vulnerabilities[0].cve | {id, descriptions: .descriptions[0].value, metrics}'
+}
 
 
 
