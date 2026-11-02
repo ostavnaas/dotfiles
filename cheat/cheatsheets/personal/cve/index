@@ -1,3 +1,21 @@
+{
+  "cveMetadata": {
+    "cveId": "CVE-2026-98432",
+    "assignerShortName": "Linux",
+    "dateReserved": "2026-09-25T10:25:14.348Z",
+    "datePublished": "2026-10-15T12:08:22.205Z",
+    "dateUpdated": "2026-10-31T21:04:43.990Z"
+  },
+  "cvssV3_1": {
+    "version": "3.1",
+    "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "baseScore": 9.8,
+    "baseSeverity": "CRITICAL"
+  }
+}
+
+
+- 2026-10-19,CVE-2026-98432,  9.8 CRITICAL
 - 2026-10-19 Pillow CVE-2026-112900
 - 2026-10-21 PHP2shell CVE-2026-109618 and CVE-2026-109619, both CVSS 9.2
 - 2026-10-22 eMudhra

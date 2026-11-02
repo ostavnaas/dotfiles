@@ -235,8 +235,18 @@ wtco() {
 
   mkdir -p ${dir:h} || return 1
 
+  # first remote (origin preferred) that has a tracking ref for $name
+  local remote r
+  for r in origin ${(f)"$(git remote)"}; do
+    if git show-ref --verify --quiet "refs/remotes/$r/$name"; then
+      remote=$r; break
+    fi
+  done
+
   if git show-ref --verify --quiet "refs/heads/$name"; then
-    git worktree add "$dir" "$name" || return 1              # branch exists
+    git worktree add "$dir" "$name" || return 1              # local branch exists
+  elif [[ -n $remote ]]; then
+    git worktree add --track -b "$name" "$dir" "$remote/$name" || return 1  # upstream only
   else
     git worktree add -b "$name" "$dir" "$from" || return 1   # new branch off current
   fi
