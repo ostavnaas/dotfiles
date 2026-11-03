@@ -12,6 +12,11 @@ plugins=(
   docker-compose
 )
 
+# Autocomplete (before source $ZSH/oh-my-zsh.sh)
+if [[ -d $HOME/.zsh-completions ]];  then
+fpath=($fpath $HOME/.zsh-completions)
+fi
+
 export ZSH=~/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
@@ -28,19 +33,14 @@ fi
 export PATH=$PATH:$HOME/.local/bin:$HOME/go/bin
 # npm global installs go to ~/.local/bin and ~/.local/lib/node_modules
 export NPM_CONFIG_PREFIX=$HOME/.local
-# Go
-export GOROOT=$HOME/.local/opt/go
-#export GOPATH=~/golang
-export GO111MODULE=on
 
 # History
 export HISTSIZE=10000000
 export SAVEHIST=10000000
-export HISTFILESIZE=1000000
 export EDITOR=nvim
 
 # https://github.com/cheat/cheat/
-export CHEAT_CONFIG_PATH="~/github/ostavnaas/dotfiles/cheat/conf.yml"
+export CHEAT_CONFIG_PATH="$HOME/github/ostavnaas/dotfiles/cheat/conf.yml"
 
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 alias gcam='git commit --amend --no-edit'
@@ -67,9 +67,6 @@ alias grafana='docker compose --file ~/github/ostavnaas/dotfiles/docker/grafana/
 alias vim='nvim'
 
 
-# Make git branch use cat
-#export GIT_PAGER=cat
-alias xclip="ssh -X  laptop  'DISPLAY=:0 xsel' 2> /dev/null"
 
 # *Nix safe password
 pwgen() {
@@ -104,23 +101,30 @@ GPG_TTY=$(tty)
 export GPG_TTY
 
 # Remove user@host from prompt
-DEFAULT_USER=""
 prompt_context(){}
 
 
 
-# Autocomplete
-if [[ -d $HOME/.zsh-completions ]];  then
-fpath=($fpath $HOME/.zsh-completions)
-fi
-
-# Kubectl
-if (which kubectl > /dev/null 2>&1 ); then
-  source <(kubectl completion zsh)
-  complete -F __start_kubectl k
-fi
 
 
+ensure_completion() {
+  local cmd=$1; shift
+  local dir=$HOME/.zsh-completions
+  local file=$dir/_$cmd
+
+  (( $+commands[$cmd] )) || return 0
+
+  [[ -s $file && $file -nt ${commands[$cmd]} ]] && return 0
+
+  mkdir -p $dir
+  if ! "$cmd" "$@" > $file.tmp 2>/dev/null; then
+    rm -f $file.tmp; return 1
+  fi
+  mv $file.tmp $file
+}
+
+ensure_completion kubectl completion zsh
+ensure_completion stern --completion=zsh
 
 
 # https://github.com/cheat/cheat
@@ -129,9 +133,6 @@ if [ -e ~/github/ostavnaas/dotfiles/cheat/cheat.zsh ]; then
   source ~/github/ostavnaas/dotfiles/cheat/cheat.zsh
 fi
 
-if (which stern > /dev/null 2>&1 ); then
-source <(stern --completion=zsh)
-fi
 
 #autoload -Uz compinit
 
@@ -183,15 +184,14 @@ gitls() {
 
 # Man colors
 man() {
-        export LESS_TERMCAP_mb=$'\e[01;31m'
-        export LESS_TERMCAP_md=$'\e[01;31m' \
-        export LESS_TERMCAP_me=$'\e[0m' \
-        export LESS_TERMCAP_se=$'\e[0m' \
-        export LESS_TERMCAP_so=$'\e[45;93m' \
-        export LESS_TERMCAP_ue=$'\e[0m' \
-        export LESS_TERMCAP_us=$'\e[4;93m' \
-
-        command man "$@"
+  LESS_TERMCAP_mb=$'\e[01;31m' \
+  LESS_TERMCAP_md=$'\e[01;31m' \
+  LESS_TERMCAP_me=$'\e[0m' \
+  LESS_TERMCAP_se=$'\e[0m' \
+  LESS_TERMCAP_so=$'\e[45;93m' \
+  LESS_TERMCAP_ue=$'\e[0m' \
+  LESS_TERMCAP_us=$'\e[4;93m' \
+  command man "$@"
 }
 #zprof
 
