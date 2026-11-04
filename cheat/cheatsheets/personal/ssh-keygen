@@ -1,3 +1,8 @@
+# FIDO2 support
+# Requirements: OpenSSH 8.2+ and libfido2. On Debian/Ubuntu run sudo apt install libfido2-1.
+# - -O resident stores the key handle on the YubiKey.
+# - -O verify-required asks for the PIN as well as a touch.
+ssh-keygen -t ed25519-sk -O resident -O verify-required -C "commend" -f ~/.ssh/id_ed25519_sk
 # Create public key from private key
 ssh-keygen -f ~/.ssh/id_rsa -y > ~/.ssh/id_rsa.pub
 
