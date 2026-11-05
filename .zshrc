@@ -108,6 +108,28 @@ git_main_branch() {
   echo master
 }
 
+# gco with no args: pick a branch with fzf (most recent first); with args: plain git checkout
+unalias gco 2>/dev/null   # replaces the oh-my-zsh git plugin alias
+gco() {
+  if (( $# )); then
+    git checkout "$@"
+    return
+  fi
+
+  local branch
+  branch=$(
+    git for-each-ref --sort=-committerdate \
+      --format='%(refname:short)' refs/heads refs/remotes |
+    grep -v -e '/HEAD$' -e '^origin$' |
+    fzf --height 40% --reverse \
+        --preview 'git log --oneline --graph --color=always -20 {}'
+  ) || return
+
+  # origin/foo -> check out (and track) local foo
+  git checkout "${branch#origin/}"
+}
+compdef _git gco=git-checkout   # keep branch completion on gco <tab>
+
 # Auto activate/deactivate ./.venv on cd
 # https://dev.to/moniquelive/auto-activate-and-deactivate-python-venv-using-zsh-4dlm
 python_venv() {
