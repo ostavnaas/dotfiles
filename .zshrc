@@ -193,13 +193,18 @@ wtD() {
 }
 
 wtco() {
-  local name=${1:?usage: wtco <branch>}
+  local name=${1:?usage: wtco <branch> [from]}
   local base=${WT_BASE:?wtco: WT_BASE is not set}
   local dir=$base/$name
 
-  local from
-  from=$(git rev-parse --abbrev-ref HEAD) || return 1
-  [[ $from == HEAD ]] && from=$(git rev-parse --short HEAD)   # detached
+  # base for a new branch: $2 if given, else the current branch/commit
+  local from=$2
+  if [[ -z $from ]]; then
+    from=$(git rev-parse --abbrev-ref HEAD) || return 1
+    [[ $from == HEAD ]] && from=$(git rev-parse --short HEAD)   # detached
+  elif ! git rev-parse --verify --quiet "$from^{commit}" >/dev/null; then
+    echo "wtco: unknown ref '$from'" >&2; return 1
+  fi
 
   mkdir -p ${dir:h} || return 1
 
