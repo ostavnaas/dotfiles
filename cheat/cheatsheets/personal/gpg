@@ -51,3 +51,7 @@ gpg --list-secret-keys --with-subkey-fingerprints
 gpg --quick-set-expire <FINGERPRINT>  1y  <SUBKEY FINGERPRINT>...
 
 
+
+# Encrypt with a symmetric
+gpg -c -a > secret.asc
+gpg -dq secret.asc

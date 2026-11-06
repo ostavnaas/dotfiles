@@ -1,0 +1,9 @@
+
+for s in primary secondary clipboard; do
+  echo "== $s"; xclip -o -sel $s 2>/dev/null; echo
+done
+
+- primary holds whatever you last highlighted with the mouse. Middle-click pastes it.
+- secondary is rarely used and is almost always empty.
+- clipboard is the normal Ctrl+C / Ctrl+V clipboard.
+
